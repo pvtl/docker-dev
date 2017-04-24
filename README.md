@@ -1,10 +1,10 @@
 # Amazing Docker Dev Environment!
 
-This will create a docker container that almost replicates the PVTL dev server. The build currently includes all the  dependencies for SiteHQ & Magento 1:
+This will create a docker container that almost replicates the PVTL dev server. The build currently includes all the  dependencies for SiteHQ & Magento (1 & 2):
 
 * Ubuntu 14.04 LTS
 * PHP 5.6
-* MySQL 5.6
+* MySQL 5.7
 
 
 ## Why must I use this?
