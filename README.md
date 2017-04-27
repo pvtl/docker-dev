@@ -1,8 +1,8 @@
 # Amazing Docker Dev Environment!
 
-This will create a docker container that almost replicates the PVTL dev server. The build currently includes all the  dependencies for SiteHQ & Magento (1 & 2):
+This will create a docker container that almost replicates the PVTL dev server. The build currently includes all the dependencies for SiteHQ & Magento (1 & 2):
 
-* Ubuntu 14.04 LTS
+* Debian Jessie
 * PHP 5.6
 * MySQL 5.7
 
@@ -54,3 +54,13 @@ You can connect to the MySQL server running in the container using [MySQL Workbe
 | Port | `3306` |
 | Username | `root` |
 | Password | `dbroot` |
+
+
+## Updates
+
+Keeping your environment up to date is easy. Open a terminal window and browse to this folder and run:
+
+    git pull;
+    docker-compose down;
+    docker-compose build;
+    docker-compose up -d;
