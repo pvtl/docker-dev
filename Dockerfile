@@ -1,15 +1,24 @@
-FROM lysender/ubuntu-php
+FROM ubuntu:trusty
+
 MAINTAINER Matt Dillon <matt.d@pvtl.io>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+# PHP PPA
+RUN echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu trusty main" >> /etc/apt/sources.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-key E5267A6C && \
+    apt-get update
 
 # Install Apache  and misc tools
 RUN apt-get -y install supervisor \ 
     apache2 \
-    libapache2-mod-php5 \
-    php5-mysql \
-    php5-xsl \
-    php5-intl \
-    composer \
+    php5.6 \
+    php5.6-mysql php5.6-mbstring php5.6-mcrypt php5.6-xml php5.6-zip \
+    php5.6-curl php5.6-xsl php5.6-gd php5.6-soap php5.6-intl \
     mysql-client \
+    mailutils \
+    nano \
+    cron \
     openssl && apt-get clean
 
 # Configure services
@@ -23,8 +32,11 @@ RUN mkdir -p /files/web
 RUN chown -R :www-data /files/web
 
 # Custom php.ini
-RUN rm -f /etc/php5/apache2/php.ini
-ADD ./php.ini /etc/php5/apache2/php.ini
+RUN rm -f /etc/php/5.6/cli/php.ini
+ADD ./php.ini /etc/php/5.6/cli/php.ini
+
+RUN rm -f /etc/php/5.6/apache2/php.ini
+ADD ./php.ini /etc/php/5.6/apache2/php.ini
 
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 #ADD apache-default.conf /etc/apache2/sites-available/000-default.conf
