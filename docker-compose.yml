@@ -1,12 +1,17 @@
 version: '3'
 services:
+  redis:
+    container_name: pvtl-redis
+    image: "redis:3-alpine"
+    ports:
+    - "6379:6379"
   web:
     container_name: pvtl-web
     build: ./php-apache
     ports:
      - "80:80"
     volumes:
-     - ~/Projects/:/var/www/html/
+     - ~/Sites/:/var/www/html/
   db:
     container_name: pvtl-db
     image: "mysql:5.7"

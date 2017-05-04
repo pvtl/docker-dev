@@ -16,9 +16,16 @@ RUN apt-get update && apt-get install -y \
         libxml2-dev \
         libxslt-dev \
         libicu-dev \
+        less \
+        nano \
     && docker-php-ext-install -j$(nproc) mcrypt mysql mysqli opcache pdo_mysql zip calendar soap intl xsl \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
+
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
+    && . ~/.nvm/nvm.sh \
+    && nvm install node \
+    && npm i -g grunt-cli
 
 WORKDIR /var/www/html/
 
