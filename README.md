@@ -5,6 +5,7 @@ This will create a docker container that almost replicates the PVTL dev server. 
 * Debian Jessie
 * PHP 5.6
 * MySQL 5.7
+* NodeJS & NPM (latest)
 
 
 ## Why must I use this?
@@ -66,3 +67,5 @@ Keeping your environment up to date is easy. Open a terminal window and browse t
     docker-compose down;
     docker-compose build;
     docker-compose up -d;
+
+This will also install the latest versions of PHP 5.6, NodeJS and NPM.
