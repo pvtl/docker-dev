@@ -6,7 +6,7 @@ LABEL maintainer.name="Pivotal Agency" \
 COPY php.ini /usr/local/etc/php/
 COPY dev.conf /etc/apache2/sites-available/000-default.conf
 
-RUN a2enmod rewrite vhost_alias
+RUN a2enmod rewrite vhost_alias headers
 
 # Add required PHP Extensions
 RUN apt-get update && apt-get install -y \
