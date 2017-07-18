@@ -1,2 +1,4 @@
-db_data/*
-!db_data/.gitkeep
+mysql/data/*
+!.gitkeep
+.DS_Store
+npm-debug.log

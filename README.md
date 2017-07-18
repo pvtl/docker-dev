@@ -1,11 +1,11 @@
 # Amazing Docker Dev Environment! #
 
-This will create a docker container that almost replicates the PVTL dev server. The build currently (v1.0) includes:
+This will create a docker container that almost replicates the PVTL dev server. The build currently includes all the dependencies for SiteHQ & Magento (1 & 2):
 
-* Ubuntu 14.04
-* PHP5.6
-* MySQL server
-* All (hopefully) dependencies for SiteHQ & Magento (1 & 2)
+* Debian Jessie
+* PHP 5.6
+* MySQL 5.7
+* NodeJS & NPM (latest)
 
 ### Why do I must use this? ###
 
@@ -28,14 +28,42 @@ Firstly, you're gonna need Docker and Docker Compose. Instructions on installing
 Once you successfully have Docker running, do the following:
 
 1. Create a folder on your computer and clone this repo
-2. Modify docker-compose.yml at the line: `- ~/web/:/files/web/`. Change `~/web/` to be your folder containing all of your local projects. For example, inside my `~/web/` folder I have a folder called `vast`. After following these steps, I will be able to visit `vast.pvtl.io` and it will run the files contained in the `vast` folder.
-3. Open a command prompt/terminal and run `docker-compose up -d`. This will download dependencies for the container and set it up from scratch. The first time running this will take a few minutes, after that, a few seconds.
-4. Modify your hosts file to point the site url to 127.0.0.1. For example, I have a line in mine that is `127.0.0.1    vast.pvtl.io`. This will point all calls to `vast.pvtl.io` to my Docker container.
-5. Dev away! Use the files on your local machine as you normally would!
+1. Modify docker-compose.yml at the line: `- ~/web/:/files/web/`. Change `~/web/` to be your folder containing all of your local projects. For example, inside my `~/web/` folder I have a folder called `vast`. After following these steps, I will be able to visit `vast.dev` and it will run the files contained in the `vast` folder.
+1. Open a command prompt/terminal and run `docker-compose up -d`. This will download dependencies for the container and set it up from scratch. The first time running this will take a few minutes, after that, a few seconds.
+1. Modify your hosts file to point the site url to 127.0.0.1. For example, I have a line in mine that is `127.0.0.1    vast.dev`. This will point all calls to `vast.dev` to my Docker container.
+1. Dev away! Use the files on your local machine as you normally would! (eg. `http://vast.dev`)
 
 ### Things you may need to change ###
 
 * **DB connect configs**. The container includes the use of a MySQL server but you probably want to use the one on the dev server. Make sure the database connection file (`/includes/dbconnect.php` in SiteHQ and `/app/etc/local.xml` in Magento 1) is pointing to `192.168.0.5` for the office dev server.
 
-* **The name of your project web folder**. The container is set up to route the folder name to `[folder_name].pvtl.io`. If you want to connect to `vast.pvtl.io`, the folder containing all of your Vast project files needs to be named `vast`. It is set up this way so that you can just comment out the line in your hosts file and load the copy of the site stored on the office dev server.
+* **DB connect configs**. The container includes MySQL server (more info below) but you probably want to use the one on the dev server. Make sure the database connection file (`/includes/dbconnect.php` in SiteHQ and `/app/etc/local.xml` in Magento 1) is pointing to `192.168.0.5` for the office dev server.
+
+* **The name of your project web folder**. The container is set up to route the folder name to `[folder_name].dev`. If you want to connect to `vast.dev`, the folder containing all of your Vast project files needs to be named `vast`. It is set up this way so that you can just comment out the line in your hosts file and load the copy of the site stored on the office dev server.
 If you feel as though you would like to change this behaviour, feel free to modify the `dev.conf` to suit yourself.
+
+* **Laravel Apps**. You can use the special `<project>.pub.dev` hostname to access Laravel projects. The web root is assumed to be `<project>/public/` folder.
+
+
+## MySQL
+You can connect to the MySQL server running in the container using [MySQL Workbench](https://www.mysql.com/products/workbench/), [Navicat](https://www.navicat.com/) or [Sequel Pro](https://www.sequelpro.com/).
+
+| Parameter | Value |
+|-------------|---|
+| Connection | Standard TCP/IP |
+| Server / IP | `db` (from a container) OR `localhost` (from your computer) |
+| Port | `3306` |
+| Username | `root` |
+| Password | `dbroot` |
+
+
+## Updates
+
+Keeping your environment up to date is easy. Open a terminal window and browse to this folder and run:
+
+    git pull;
+    docker-compose down;
+    docker-compose build;
+    docker-compose up -d;
+
+This will also install the latest versions of PHP 5.6, NodeJS and NPM.

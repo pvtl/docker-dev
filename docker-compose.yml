@@ -1,18 +1,23 @@
-version: '2'
+version: '3'
 services:
+  redis:
+    container_name: pvtl-redis
+    image: "redis:3-alpine"
+    ports:
+    - "6379"
   web:
-    build: .
+    container_name: pvtl-web
+    build: ./php-apache
     ports:
      - "80:80"
-     - "443:443"
     volumes:
-     - ~/web/:/files/web/
-    image: "wildcard27/dev-server"
+     - ~/Sites/:/var/www/html/
   db:
+    container_name: pvtl-db
     image: "mysql:5.7"
     environment:
      - MYSQL_ROOT_PASSWORD=dbroot
     ports:
      - "3306:3306"
     volumes:
-     - ./db_data:/var/lib/mysql
+     - ./mysql/data:/var/lib/mysql
