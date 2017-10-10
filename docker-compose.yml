@@ -24,3 +24,10 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql/data:/var/lib/mysql
+  blackfire:
+    container_name: pvtl-blackfire
+    image: blackfire/blackfire
+    environment:
+        - BLACKFIRE_SERVER_ID=aed90f21-6751-4c8e-a404-8511dc67ab5d
+        - BLACKFIRE_SERVER_TOKEN=4aa6b2413ee2233d614ea57d694f95a69abc61dcd4983288127dc28046ebef04
+        - BLACKFIRE_LOG_LEVEL=4
