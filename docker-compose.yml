@@ -4,7 +4,7 @@ services:
     container_name: pvtl-redis
     image: "redis:3-alpine"
     ports:
-    - "6379"
+      - "6379"
   memcache:
     container_name: pvtl-memcache
     image: "memcached:1-alpine"
@@ -12,15 +12,15 @@ services:
     container_name: pvtl-web
     build: ./php-apache
     ports:
-     - "80:80"
+      - "80:80"
     volumes:
-     - ~/Sites/:/var/www/html/
+      - ~/Sites/:/var/www/html/
   db:
     container_name: pvtl-db
     image: "mysql:5.7"
     environment:
-     - MYSQL_ROOT_PASSWORD=dbroot
+      - MYSQL_ROOT_PASSWORD=dbroot
     ports:
-     - "3306:3306"
+      - "3306:3306"
     volumes:
-     - ./mysql/data:/var/lib/mysql
+      - ./mysql/data:/var/lib/mysql
