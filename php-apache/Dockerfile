@@ -20,11 +20,12 @@ RUN apt-get update && apt-get install -y \
         less \
         nano \
         --no-install-recommends \
-    && rm -r /var/lib/apt/lists/* \
     && yes '' | pecl install -f memcache-2.2.7 \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) calendar gd intl mcrypt mysql mysqli opcache pdo_mysql soap xsl zip \
-    && docker-php-ext-enable memcache
+    && docker-php-ext-enable memcache \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Add NodeJS and NPM (latest versions)
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
