@@ -6,7 +6,7 @@ services:
     ports:
       - "6379"
   memcache:
-    container_name: pvtl-memcache
+    container_name: pvtl-memcached
     image: "memcached:1-alpine"
   web:
     container_name: pvtl-web
