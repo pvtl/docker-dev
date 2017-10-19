@@ -5,7 +5,7 @@ services:
     image: "redis:3-alpine"
     ports:
       - "6379"
-  memcache:
+  memcached:
     container_name: pvtl-memcached
     image: "memcached:1-alpine"
   web:
