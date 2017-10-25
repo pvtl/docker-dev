@@ -6,6 +6,9 @@ LABEL maintainer.name="Pivotal Agency" \
 COPY php.ini /usr/local/etc/php/
 COPY dev.conf /etc/apache2/sites-available/000-default.conf
 
+# Set umask to make generated files accessible on local machine 
+RUN echo "umask 002" >> /etc/apache2/envars 
+
 RUN a2enmod rewrite vhost_alias headers
 
 # Required PHP Extensions
