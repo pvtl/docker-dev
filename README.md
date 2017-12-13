@@ -7,6 +7,7 @@ This will create a docker container for local development. The build currently i
 * MySQL 5.7
 * Redis 3.x
 * Memcached
+* Composer
 * NodeJS & NPM (latest)
 
 ## Prerequisites
@@ -18,13 +19,25 @@ This will create a docker container for local development. The build currently i
 
 1. [Install Docker Compose](https://docs.docker.com/compose/install/)
 1. Clone this repo
-1. Modify `docker-compose.yml` at the line: `- ~/Sites/:/var/www/html/`. Change `~/Sites/` to be your folder containing all of your local projects.
+1. Modify `docker-compose.yml` at the line: `- ~/Sites/:/var/www/html/`. Change `~/Sites/` to be your folder containing all of your local projects
     - _For example, inside my `~/Sites/` folder I have a folder called `vast`. After following these steps, I will be able to visit `vast.dev` and it will run the files contained in the `vast` folder._
-1. From the root directory of this repo, run `docker-compose up -d`.
-    - _This will download dependencies for the container and set it up from scratch. The first time running this will take a few minutes, after that, a few seconds._
+1. From the root directory of this repo, run `docker-compose up -d`
+    - _This will download dependencies for the container and set it up from scratch. The first time running this will take a few minutes, after that, a few seconds_
 1. For sites to be accessible in the browser at `<directory-name>.dev` - modify your hosts file to point each url to `127.0.0.1`, eg:
     - `127.0.0.1 vast.dev`
-    - _or `127.0.0.1 laravel.pub.dev` when you need the document root to be the `/public` directory (see note below)._
+    - _or `127.0.0.1 laravel.pub.dev` when you need the document root to be the `/public` directory_
+
+## Commands
+
+* Docker must be running
+* Commands must be run within this repo's root
+
+| Command | Description |
+|---|---|
+| `docker-compose up -d` | __Start__ |
+| `docker-compose down`  | __Stop__ |
+| `docker exec -it pvtl-web bash`  | __SSH into web container__ |
+| `docker exec -it pvtl-db bash`  | __SSH into Database container__ |
 
 ## Updating
 
@@ -42,17 +55,6 @@ This will install the latest versions of PHP, Redis, NodeJS and NPM.
 ---
 
 ## Connections
-
-### SSH
-You can SSH into any container by referencing the container name.
-
-```
-# Web container
-docker exec -it pvtl-web bash
-
-# DB container
-docker exec -it pvtl-db bash
-```
 
 ### MySQL
 You can connect to the MySQL server running in the container using [MySQL Workbench](https://www.mysql.com/products/workbench/), [Navicat](https://www.navicat.com/) or [Sequel Pro](https://www.sequelpro.com/).
