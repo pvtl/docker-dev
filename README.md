@@ -27,18 +27,6 @@ This will create a docker container for local development. The build currently i
     - `127.0.0.1 vast.dev`
     - _or `127.0.0.1 laravel.pub.dev` when you need the document root to be the `/public` directory_
 
-## Commands
-
-* Docker must be running
-* Commands must be run within this repo's root
-
-| Command | Description |
-|---|---|
-| `docker-compose up -d` | __Start__ |
-| `docker-compose down`  | __Stop__ |
-| `docker exec -it pvtl-web bash`  | __SSH into web container__ |
-| `docker exec -it pvtl-db bash`  | __SSH into Database container__ |
-
 ## Updating
 
 Keeping your environment up to date is easy. Open a terminal window, browse to this project folder and run:
@@ -50,7 +38,19 @@ docker-compose build;
 docker-compose up -d;
 ```
 
-This will install the latest versions of PHP, Redis, NodeJS and NPM.
+This will also install the latest versions of PHP, Redis, NodeJS and NPM.
+
+## Commands
+
+* Docker must be running
+* Commands must be run within this repo's root
+
+| Command | Description |
+|---|---|
+| `docker-compose up -d` | Start |
+| `docker-compose down`  | Stop |
+| `docker exec -it pvtl-web bash`  | SSH into web container |
+| `docker exec -it pvtl-db bash`  | SSH into Database container |
 
 ---
 
