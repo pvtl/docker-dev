@@ -6,8 +6,8 @@ LABEL maintainer.name="Pivotal Agency" \
 COPY php.ini /usr/local/etc/php/
 COPY dev.conf /etc/apache2/sites-available/000-default.conf
 
-# Set umask to make generated files accessible on local machine 
-RUN echo "umask 002" >> /etc/apache2/envars 
+# Set umask to make generated files accessible on local machine
+RUN echo "umask 002" >> /etc/apache2/envars
 
 RUN a2enmod rewrite vhost_alias headers
 
@@ -57,6 +57,9 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp \
     && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
     && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini
+
+# Install Composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php -r "if (hash_file('SHA384', 'composer-setup.php') === '544e09ee996cdf60ece3804abc52599c22b1f40f4323403c44d44fdfdd586475ca9813a858088ffbc1f233e9b180f061') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && php composer-setup.php && php -r "unlink('composer-setup.php');" && mv composer.phar /usr/local/bin/composer
 
 WORKDIR /var/www/html/
 
