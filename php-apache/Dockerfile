@@ -4,7 +4,7 @@ LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
 
 COPY php.ini /usr/local/etc/php/
-COPY dev.conf /etc/apache2/sites-available/000-default.conf
+COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Set umask to make generated files accessible on local machine
 RUN echo "umask 002" >> /etc/apache2/envars
