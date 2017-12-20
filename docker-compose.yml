@@ -15,6 +15,13 @@ services:
       - "80:80"
     volumes:
       - ~/Sites/:/var/www/html/
+  php5:
+    container_name: pvtl-php5
+    build: ./php5
+    ports:
+      - "8056:80"
+    volumes:
+      - ~/Sites/:/var/www/html/
   db:
     container_name: pvtl-db
     image: "mysql:5.7"
