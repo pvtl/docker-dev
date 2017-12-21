@@ -10,9 +10,18 @@ This will create a docker container for local development. The build currently i
 * Composer
 * NodeJS & NPM (latest)
 
-And also has a separate container with dependencies for SiteHQ, specifically:
+We also have a separate container with dependencies for SiteHQ, specifically:
 
 * PHP 5.6
+
+Sites within this environment are accessible from the following URLs:
+
+* __http://info.localhost__
+    * Maps to `~/Sites/info`
+* __http://laravel.pub.localhost__
+    * Maps to `~/Sites/laravel/pub`
+* __http://sitehq.php5.localhost__
+    * Maps to `~/Sites/sitehq` and uses PHP5
 
 ## Prerequisites
 
@@ -27,10 +36,7 @@ And also has a separate container with dependencies for SiteHQ, specifically:
     - _For example, inside my `~/Sites/` folder I have a folder called `vast`. After following these steps, I will be able to visit `vast.localhost` and it will run the files contained in the `vast` folder._
 1. From the root directory of this repo, run `docker-compose up -d`
     - _This will download dependencies for the container and set it up from scratch. The first time running this will take a few minutes, after that, a few seconds_
-1. For sites to be accessible in the browser at `<directory-name>.localhost` - modify your hosts file to point each url to `127.0.0.1`, eg:
-    - `127.0.0.1 vast.localhost`
-    - _or `127.0.0.1 laravel.pub.localhost` when you need the document root to be the `/public` directory_
-    - _or `127.0.0.1 sitehq.php5.localhost` when you need PHP5.6_
+1. (Optional - not required on Mac-Chrome) For sites to be accessible in the browser at `<directory-name>.localhost` - modify your hosts file to point each url to `127.0.0.1`, eg: `127.0.0.1 vast.localhost`
 
 ## Updating
 
