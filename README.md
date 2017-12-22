@@ -15,14 +15,14 @@ Specifically, it has the following tech available:
 * NodeJS & NPM
 * Blackfire (for PHP performance testing)
 
-We have some clever domain mapping available to allow you to run code from various platforms. By default, sites are accessible from the following URLs (however `APACHE_HOSTNAME` can modified in `/docker-compose.yml` to point to a different hostname):
+We have some clever domain mapping available to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
 
-* __http://info.localhost__
+* __http://info.{APACHE_HOSTNAME}__ (eg. http://info.localhost)
     * Will map to `~/Sites/info`
-* __http://laravel.pub.localhost__
+* __http://laravel.pub.{APACHE_HOSTNAME}__
     * Will map to `~/Sites/laravel/pub`
-* __http://sitehq.php5.localhost__
-    * Will map to `~/Sites/sitehq` and uses PHP5
+* __http://sitehq.php5.{APACHE_HOSTNAME}__
+    * Will map to `~/Sites/sitehq` and use PHP5
 
 ## Prerequisites
 
@@ -33,10 +33,10 @@ We have some clever domain mapping available to allow you to run code from vario
 ## Installing
 
 1. Clone this repo
-1. Configure your environment in `/docker-compose.yml`
-    - __Where do your sites live?__ - Modify `- ~/Sites/:/var/www/html/`, changing `~/Sites/` to the absolute path on your machine, where 'all the websites' live
+1. Create an environment file and configure for your environment `cp .env.example .env`
+    - __Where do your sites live?__ - Change `DOCUMENTROOT` to the absolute path on your machine, where 'all the websites' live
         - _eg. inside my `~/Sites/` folder I have a folder called `info`, which I can access at `https://info.localhost/`_
-    - __What is your hostname?__ - Simply update `APACHE_HOSTNAME`
+    - __What is your hostname?__ - Update `APACHE_HOSTNAME`
         - _eg. you could change it to `devserver.com` making the website in directory `~/Sites/wordpress` automatically accesible at `http://wordpress.devserver.com`_
 1. Run `docker-compose up -d` from the root directory of this repo
     - _This will download dependencies for the container and set it up from scratch. The first time running this will take a few minutes, after that, a few seconds_
@@ -82,7 +82,7 @@ You can connect to the MySQL server running in the container using [MySQL Workbe
 | Host | `db` (from a container) OR `localhost` (from your computer) |
 | Port | `3306` |
 | Username | `root` |
-| Password | `dbroot` |
+| Password | `dbroot` (this can be changed in `.env`) |
 
 ### Redis
 You can connect to the Redis server with:

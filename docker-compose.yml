@@ -14,32 +14,31 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ~/Sites/:/var/www/html/
-    environment:
-      - APACHE_HOSTNAME=localhost
-      - APACHE_PHP5CONTAINER=php5
+      - ${DOCUMENTROOT}:/var/www/html/
+    env_file:
+      - .env
   php5:
     container_name: php5
     build: ./php5
     ports:
       - "8056:80"
     volumes:
-      - ~/Sites/:/var/www/html/
-    environment:
-      - APACHE_HOSTNAME=localhost
+      - ${DOCUMENTROOT}:/var/www/html/
+    env_file:
+      - .env
   db:
     container_name: db
     image: "mysql:5.7"
-    environment:
-      - MYSQL_ROOT_PASSWORD=dbroot
+    env_file:
+      - .env
     ports:
       - "3306:3306"
     volumes:
       - ./mysql/data:/var/lib/mysql
+    env_file:
+      - .env
   blackfire:
     container_name: blackfire
     image: blackfire/blackfire
-    environment:
-        - BLACKFIRE_SERVER_ID=xxx
-        - BLACKFIRE_SERVER_TOKEN=xxx
-        - BLACKFIRE_LOG_LEVEL=4
+    env_file:
+      - .env
