@@ -1,29 +1,34 @@
 version: '3'
 services:
   redis:
-    container_name: pvtl-redis
+    container_name: redis
     image: "redis:3-alpine"
     ports:
       - "6379"
   memcached:
-    container_name: pvtl-memcached
+    container_name: memcached
     image: "memcached:1-alpine"
   web:
-    container_name: pvtl-web
+    container_name: web
     build: ./php-apache
     ports:
       - "80:80"
     volumes:
       - ~/Sites/:/var/www/html/
+    environment:
+      - APACHE_HOSTNAME=localhost
+      - APACHE_PHP5CONTAINER=php5
   php5:
-    container_name: pvtl-php5
+    container_name: php5
     build: ./php5
     ports:
       - "8056:80"
     volumes:
       - ~/Sites/:/var/www/html/
+    environment:
+      - APACHE_HOSTNAME=localhost
   db:
-    container_name: pvtl-db
+    container_name: db
     image: "mysql:5.7"
     environment:
       - MYSQL_ROOT_PASSWORD=dbroot
@@ -32,9 +37,9 @@ services:
     volumes:
       - ./mysql/data:/var/lib/mysql
   blackfire:
-    container_name: pvtl-blackfire
+    container_name: blackfire
     image: blackfire/blackfire
     environment:
-        - BLACKFIRE_SERVER_ID=aed90f21-6751-4c8e-a404-8511dc67ab5d
-        - BLACKFIRE_SERVER_TOKEN=4aa6b2413ee2233d614ea57d694f95a69abc61dcd4983288127dc28046ebef04
+        - BLACKFIRE_SERVER_ID=xxx
+        - BLACKFIRE_SERVER_TOKEN=xxx
         - BLACKFIRE_LOG_LEVEL=4

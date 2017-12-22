@@ -1,46 +1,51 @@
 # Pivotal Docker Environment
 
-This will create a docker container for local development. The build currently includes all the dependencies for Laravel, Wordpress & Magento (1 & 2):
+This is a set of Docker images to spin up a LAMP stack (Linux, Apache, MySQL and PHP) in one simple command. It's perfect for local development or even as a staging server, as you can very simply add new sites to a root directory, and they're magically accessible as a subdomain of your chosen hostname (eg. `http://info.localhost/`).
+
+It includes all the required dependencies for everyday PHP development. Everything from Laravel and Wordpress to Magento (1 & 2).
+
+Specifically, it has the following tech available:
 
 * Debian Jessie
-* PHP 7.0.x
+* PHP 7.1.x (default) and PHP 5.6.X
 * MySQL 5.7
 * Redis 3.x
 * Memcached
 * Composer
-* NodeJS & NPM (latest)
+* NodeJS & NPM
+* Blackfire (for PHP performance testing)
 
-We also have a separate container with dependencies for SiteHQ, specifically:
-
-* PHP 5.6
-
-Sites within this environment are accessible from the following URLs:
+We have some clever domain mapping available to allow you to run code from various platforms. By default, sites are accessible from the following URLs (however `APACHE_HOSTNAME` can modified in `/docker-compose.yml` to point to a different hostname):
 
 * __http://info.localhost__
-    * Maps to `~/Sites/info`
+    * Will map to `~/Sites/info`
 * __http://laravel.pub.localhost__
-    * Maps to `~/Sites/laravel/pub`
+    * Will map to `~/Sites/laravel/pub`
 * __http://sitehq.php5.localhost__
-    * Maps to `~/Sites/sitehq` and uses PHP5
+    * Will map to `~/Sites/sitehq` and uses PHP5
 
 ## Prerequisites
 
-* A machine with MacOS, Windows 10 Pro or Linux
-* Your CPU must also support virtualisation (Intel VT-x or AMD-V)
+* Your machine must be MacOS, Windows 10 _Pro_ or Linux
+* Your CPU must support virtualisation (Intel VT-x or AMD-V)
+* You must have [Docker Compose installed](https://docs.docker.com/compose/install/) and Docker running
 
-## Installation
+## Installing
 
-1. [Install Docker Compose](https://docs.docker.com/compose/install/)
 1. Clone this repo
-1. Modify `docker-compose.yml` at the line: `- ~/Sites/:/var/www/html/`. Change `~/Sites/` to be your folder containing all of your local projects
-    - _For example, inside my `~/Sites/` folder I have a folder called `vast`. After following these steps, I will be able to visit `vast.localhost` and it will run the files contained in the `vast` folder._
-1. From the root directory of this repo, run `docker-compose up -d`
+1. Configure your environment in `/docker-compose.yml`
+    - __Where do your sites live?__ - Modify `- ~/Sites/:/var/www/html/`, changing `~/Sites/` to the absolute path on your machine, where 'all the websites' live
+        - _eg. inside my `~/Sites/` folder I have a folder called `info`, which I can access at `https://info.localhost/`_
+    - __What is your hostname?__ - Simply update `APACHE_HOSTNAME`
+        - _eg. you could change it to `devserver.com` making the website in directory `~/Sites/wordpress` automatically accesible at `http://wordpress.devserver.com`_
+1. Run `docker-compose up -d` from the root directory of this repo
     - _This will download dependencies for the container and set it up from scratch. The first time running this will take a few minutes, after that, a few seconds_
-1. (Optional - not required on Mac-Chrome) For sites to be accessible in the browser at `<directory-name>.localhost` - modify your hosts file to point each url to `127.0.0.1`, eg: `127.0.0.1 vast.localhost`
+
+__(Optional)__ If you're doing local development at _.localhost_ for example, you may need to update your computer's hosts file to point each URL to `127.0.0.1` - eg: `127.0.0.1 info.localhost`.
 
 ## Updating
 
-Keeping your environment up to date is easy. Open a terminal window, browse to this project folder and run:
+Open a terminal window, browse to this project's folder and run:
 
 ```
 git pull;
@@ -51,17 +56,18 @@ docker-compose up -d;
 
 This will also install the latest versions of PHP, Redis, NodeJS and NPM.
 
-## Commands
+## Common Commands
 
 * Docker must be running
-* Commands must be run within this repo's root
+* Commands should be run within this repo's root
 
 | Command | Description |
 |---|---|
 | `docker-compose up -d` | Start |
 | `docker-compose down`  | Stop |
-| `docker exec -it pvtl-web bash`  | SSH into web container |
-| `docker exec -it pvtl-db bash`  | SSH into Database container |
+| `docker exec -it web bash`  | SSH into web container |
+| `docker exec -it db bash`  | SSH into Database container |
+| `docker ps` | Show which containers are running |
 
 ---
 
