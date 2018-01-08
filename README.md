@@ -38,7 +38,7 @@ We have some clever domain mapping available to allow you to run code for variou
         - _eg. inside my `~/Sites/` folder I have a folder called `info`, which I can access at `https://info.localhost/`_
     - __What is your hostname?__ - Update `APACHE_HOSTNAME`
         - _eg. you could change it to `devserver.com` making the website in directory `~/Sites/wordpress` automatically accesible at `http://wordpress.devserver.com`_
-1. Run `docker-compose up -d` from the root directory of this repo
+1. Run `docker-compose build && docker-compose up -d` from the root directory of this repo
     - _This will download dependencies for the container and set it up from scratch. The first time running this will take a few minutes, after that, a few seconds_
 
 __(Optional)__ If you're doing local development at _.localhost_ for example, you may need to update your computer's hosts file to point each URL to `127.0.0.1` - eg: `127.0.0.1 info.localhost`.
