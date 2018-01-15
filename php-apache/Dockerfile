@@ -1,4 +1,4 @@
-FROM php:7.0-apache
+FROM php:7.1-apache
 
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
@@ -9,7 +9,7 @@ COPY apache.conf /etc/apache2/sites-available/000-default.conf
 # Set umask to make generated files accessible on local machine
 RUN echo "umask 002" >> /etc/apache2/envars
 
-RUN a2enmod rewrite vhost_alias headers
+RUN a2enmod rewrite vhost_alias headers proxy proxy_http
 
 # Required PHP Extensions
 RUN apt-get update && apt-get install -y \
@@ -73,3 +73,4 @@ WORKDIR /var/www/html/
 
 EXPOSE 80
 CMD ["apache2-foreground"]
+
