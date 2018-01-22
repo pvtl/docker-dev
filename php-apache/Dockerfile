@@ -7,7 +7,7 @@ COPY php.ini /usr/local/etc/php/
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
 # Set umask to make generated files accessible on local machine
-RUN echo "umask 002" >> /etc/apache2/envars
+RUN echo "umask 002" >> /etc/apache2/envvars
 
 RUN a2enmod rewrite vhost_alias headers proxy proxy_http
 
