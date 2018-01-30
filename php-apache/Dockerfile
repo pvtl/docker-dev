@@ -62,7 +62,8 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php composer-setup.php \
   && php -r "unlink('composer-setup.php');" \
-  && mv composer.phar /usr/local/bin/composer
+  && mv composer.phar /usr/local/bin/composer \
+  && echo 'export PATH=$HOME/.composer/vendor/bin:$PATH' >> ~/.bashrc
 
 # Wordpress CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -73,4 +74,3 @@ WORKDIR /var/www/html/
 
 EXPOSE 80
 CMD ["apache2-foreground"]
-
