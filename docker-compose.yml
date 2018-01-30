@@ -14,7 +14,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ${DOCUMENTROOT}:/var/www/html/
+      - ${DOCUMENTROOT}:/var/www/html/:delegated
     env_file:
       - .env
   php5:
@@ -23,7 +23,7 @@ services:
     ports:
       - "8056:80"
     volumes:
-      - ${DOCUMENTROOT}:/var/www/html/
+      - ${DOCUMENTROOT}:/var/www/html/:delegated
     env_file:
       - .env
   db:
