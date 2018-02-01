@@ -37,6 +37,7 @@ services:
       - ./mysql/data:/var/lib/mysql
     env_file:
       - .env
+    command: mysqld --sql_mode=""
   blackfire:
     container_name: blackfire
     image: blackfire/blackfire
