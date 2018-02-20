@@ -13,6 +13,7 @@ Specifically, it has the following tech available:
 * Memcached
 * Composer
 * NodeJS & NPM
+* Mailhog
 * Blackfire (for PHP performance testing)
 
 We have some clever domain mapping available to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
@@ -72,6 +73,11 @@ This will also install the latest versions of PHP, Redis, NodeJS and NPM.
 ---
 
 ## Connections
+
+### Email
+All email is sent from the application and "caught" by [Mailhog](https://github.com/mailhog/MailHog). This means that the application will send the mail, just not out to a real email. This is helpful in development, so that others aren't spammed by test emails.
+
+You can view anything which has been sent and caught via [http://localhost:8025/](http://localhost:8025/).
 
 ### MySQL
 You can connect to the MySQL server running in the container using [MySQL Workbench](https://www.mysql.com/products/workbench/), [Navicat](https://www.navicat.com/) or [Sequel Pro](https://www.sequelpro.com/).
