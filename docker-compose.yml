@@ -38,6 +38,11 @@ services:
     env_file:
       - .env
     command: mysqld --sql_mode=""
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
   blackfire:
     container_name: blackfire
     image: blackfire/blackfire
