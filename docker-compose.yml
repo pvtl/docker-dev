@@ -1,38 +1,14 @@
 version: '3'
 services:
-  redis:
+  blackfire:
+    container_name: blackfire
     restart: ${DOCKER_RESTART}
-    container_name: redis
-    image: "redis:3-alpine"
-    ports:
-      - "6379"
-  memcached:
-    restart: ${DOCKER_RESTART}
-    container_name: memcached
-    image: "memcached:1-alpine"
-  web:
-    restart: ${DOCKER_RESTART}
-    container_name: web
-    build: ./php-apache
-    ports:
-      - "80:80"
-    volumes:
-      - ${DOCUMENTROOT}:/var/www/html/:delegated
-    env_file:
-      - .env
-  php5:
-    restart: ${DOCKER_RESTART}
-    container_name: php5
-    build: ./php5
-    ports:
-      - "8056:80"
-    volumes:
-      - ${DOCUMENTROOT}:/var/www/html/:delegated
+    image: blackfire/blackfire
     env_file:
       - .env
   db:
-    restart: ${DOCKER_RESTART}
     container_name: db
+    restart: ${DOCKER_RESTART}
     image: "mysql:5.7"
     env_file:
       - .env
@@ -40,17 +16,40 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql/data:/var/lib/mysql
-    env_file:
-      - .env
     command: mysqld --sql_mode=""
   mailhog:
+    container_name: mailhog
     image: mailhog/mailhog
     ports:
       - "1025:1025"
       - "8025:8025"
-  blackfire:
+  memcached:
+    container_name: memcached
     restart: ${DOCKER_RESTART}
-    container_name: blackfire
-    image: blackfire/blackfire
+    image: "memcached:1-alpine"
+  php5:
+    container_name: php5
+    restart: ${DOCKER_RESTART}
+    build: ./php5
     env_file:
       - .env
+    ports:
+      - "8056:80"
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html/:delegated
+  redis:
+    container_name: redis
+    restart: ${DOCKER_RESTART}
+    image: "redis:3-alpine"
+    ports:
+      - "6379"
+  web:
+    container_name: web
+    restart: ${DOCKER_RESTART}
+    build: ./php-apache
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html/:delegated
