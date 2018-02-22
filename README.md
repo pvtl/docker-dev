@@ -1,8 +1,10 @@
-# Pivotal Docker Environment
+# A LAMP Local Development Environment for Docker
 
-This is a set of Docker images to spin up a LAMP stack (Linux, Apache, MySQL and PHP) in one simple command. It's perfect for local development or even as a staging server, as you can very simply add new sites to a root directory, and they're magically accessible as a subdomain of your chosen hostname (eg. `http://info.localhost/`).
+## Intro 👋
 
-It includes all the required dependencies for everyday PHP development. Everything from Laravel and Wordpress to Magento (1 & 2).
+This is a set of Docker images to spin up a LAMP stack (Linux, Apache, MySQL and PHP) for developing locally. It's perfect for local development because you can very simply add new sites to specified directory and they're magically accessible as a subdomain of your chosen hostname (eg. eg. `~/Sites/info` maps to `http://info.localhost/`).
+
+It includes all the required dependencies for everyday PHP development with common tools like Laravel, Wordpress and Magento (1 & 2).
 
 Specifically, it has the following tech available:
 
@@ -25,42 +27,50 @@ We have some clever domain mapping available to allow you to run code for variou
 * __http://sitehq.php5.{APACHE_HOSTNAME}__
     * Will map to `~/Sites/sitehq` and use PHP5
 
-## Prerequisites
+## Prerequisites ⚠️
 
 * Your machine must be MacOS, Windows 10 _Pro_ or Linux
 * Your CPU must support virtualisation (Intel VT-x or AMD-V)
 * You must have [Docker Compose installed](https://docs.docker.com/compose/install/) and Docker running
 
-## Installing
+## Installation 🚀
 
-1. Clone this repo
-1. Create an environment file and configure for your environment `cp .env.example .env`
-    - __Where do your sites live?__ - Change `DOCUMENTROOT` to the absolute path on your machine, where 'all the websites' live
-        - _eg. inside my `~/Sites/` folder I have a folder called `info`, which I can access at `https://info.localhost/`_
-    - __What is your hostname?__ - Update `APACHE_HOSTNAME`
-        - _eg. you could change it to `devserver.com` making the website in directory `~/Sites/wordpress` automatically accesible at `http://wordpress.devserver.com`_
-1. Run `docker-compose build && docker-compose up -d` from the root directory of this repo
-    - _This will download dependencies for the container and set it up from scratch. The first time running this will take a few minutes, after that, a few seconds_
+```bash
+# Clone the repo
+git clone https://github.com/pvtl/docker-dev && cd docker-dev
 
-__(Optional)__ If you're doing local development at _.localhost_ for example, you may need to update your computer's hosts file to point each URL to `127.0.0.1` - eg: `127.0.0.1 info.localhost`.
+# Create & update relevant config (eg. point sites to your sites directory)
+cp .env.example .env
 
-## Updating
+# Start the environment
+docker-compose build && docker-compose up -d
+```
+
+__(Optional)__ If you're doing local development at _.localhost_ for example, you may need to update your computer's hosts file to point each URL to `127.0.0.1`. Eg.
+
+```bash
+# Open your hosts files (with admin rights)
+sudo nano /etc/hosts
+
+# Append each site you need to access - eg.
+127.0.0.1 info.localhost
+```
+
+## Updating 🔄
 
 Open a terminal window, browse to this project's folder and run:
+*This will also install the latest versions of PHP, Redis, NodeJS and NPM.
 
+```bash
+git pull;              # 1. Pull from Git
+docker-compose down;   # 2. Close any running containers
+docker-compose build;  # 3. Build the new env
+docker-compose up -d   # 4. Start
 ```
-git pull;
-docker-compose down;
-docker-compose build;
-docker-compose up -d;
-```
 
-This will also install the latest versions of PHP, Redis, NodeJS and NPM.
+## Common Commands 🔥
 
-## Common Commands
-
-* Docker must be running
-* Commands should be run within this repo's root
+Docker must be running and commands should be run within this repo's root.
 
 | Command | Description |
 |---|---|
@@ -72,7 +82,7 @@ This will also install the latest versions of PHP, Redis, NodeJS and NPM.
 
 ---
 
-## Connections
+## Connections 🚥
 
 ### Email
 All email is sent from the application and "caught" by [Mailhog](https://github.com/mailhog/MailHog). This means that the application will send the mail, just not out to a real email. This is helpful in development, so that others aren't spammed by test emails.
