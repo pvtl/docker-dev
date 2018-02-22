@@ -1,4 +1,8 @@
-# A LAMP Local Development Environment for Docker
+# A LAMP Local Development Environment on Docker
+
+__An everyday local development environment for PHP Developers.__ At [Pivotal Agency](https://pivotal.agency), we've done a _buuunnnch_ of R&D to find the best local dev tools for our team. This is the result of our hard work. It's put to paces everyday by our team, we hope it can also help yours.
+
+---
 
 ## Intro 👋
 
@@ -27,11 +31,15 @@ We have some clever domain mapping available to allow you to run code for variou
 * __http://sitehq.php5.{APACHE_HOSTNAME}__
     * Will map to `~/Sites/sitehq` and use PHP5
 
+---
+
 ## Prerequisites ⚠️
 
 * Your machine must be MacOS, Windows 10 _Pro_ or Linux
 * Your CPU must support virtualisation (Intel VT-x or AMD-V)
-* You must have [Docker Compose installed](https://docs.docker.com/compose/install/) and Docker running
+* You must have [Docker Compose installed](https://docs.docker.com/compose/install/) and Docker installed & running
+
+---
 
 ## Installation 🚀
 
@@ -56,6 +64,8 @@ sudo nano /etc/hosts
 127.0.0.1 info.localhost
 ```
 
+---
+
 ## Updating 🔄
 
 Open a terminal window, browse to this project's folder and run:
@@ -67,6 +77,8 @@ docker-compose down;   # 2. Close any running containers
 docker-compose build;  # 3. Build the new env
 docker-compose up -d   # 4. Start
 ```
+
+---
 
 ## Common Commands 🔥
 
