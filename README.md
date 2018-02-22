@@ -51,7 +51,7 @@ git clone https://github.com/pvtl/docker-dev && cd docker-dev
 cp .env.example .env
 
 # Start the environment
-docker-compose build && docker-compose up -d
+docker-compose up -d
 ```
 
 __(Optional)__ If you're doing local development at _.localhost_ for example, you may need to update your computer's hosts file to point each URL to `127.0.0.1`. Eg.
@@ -69,14 +69,15 @@ sudo nano /etc/hosts
 ## Updating 🔄
 
 Open a terminal window, browse to this project's folder and run:
-*This will also install the latest versions of PHP, Redis, NodeJS and NPM.
+
 
 ```bash
-git pull;              # 1. Pull from Git
-docker-compose down;   # 2. Close any running containers
-docker-compose build;  # 3. Build the new env
-docker-compose up -d   # 4. Start
+git pull                        # 1. Pull from Git
+docker-compose up -d --build    # 2. Rebuild & start the new env
 ```
+
+*This will also install the latest versions of PHP, Redis, NodeJS and NPM.
+
 
 ---
 
