@@ -3,9 +3,6 @@ FROM php:7.1-apache
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
 
-HOST_IP=$(ip a | grep <interface> | grep inet | awk '{print $2}' | awk -F'/' '{print $1}')
-echo "HOST_IP=\"$HOST_IP\"" > .env
-
 COPY php.ini /usr/local/etc/php/
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 

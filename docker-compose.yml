@@ -47,9 +47,6 @@ services:
     container_name: web
     restart: ${DOCKER_RESTART}
     build: ./php-apache
-      context: .
-      args:
-        HOST_IP: ${HOST_IP}
     env_file:
       - .env
     ports:
