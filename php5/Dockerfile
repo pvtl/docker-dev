@@ -47,6 +47,14 @@ RUN cd /tmp \
     && rm -Rf ioncube.tar.gz ioncube \
     && echo "zend_extension=ioncube_loader_lin_5.6.so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_5.6.ini
 
+# LDAP
+RUN \
+  apt-get update && \
+  apt-get install libldap2-dev -y && \
+  rm -rf /var/lib/apt/lists/* && \
+  docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+  docker-php-ext-install ldap
+
 WORKDIR /var/www/html/
 
 EXPOSE 8056
