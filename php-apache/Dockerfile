@@ -50,7 +50,8 @@ RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-m
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash \
     && export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
     && nvm install node && nvm use node \
-    && npm i -g grunt-cli
+    && npm i -g grunt-cli \
+    && npm i -g gulp-cli
 
 # IonCube
 RUN cd /tmp \
