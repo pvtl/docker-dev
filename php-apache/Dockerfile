@@ -73,6 +73,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
   && php -r "unlink('composer-setup.php');" \
   && mv composer.phar /usr/local/bin/composer \
   && echo 'export PATH=$HOME/.composer/vendor/bin:$PATH' >> ~/.bashrc
+  && composer global require hirak/prestissimo
 
 # Wordpress CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
