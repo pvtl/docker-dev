@@ -39,6 +39,12 @@ ENV PATH /usr/local/go/bin:$PATH
 RUN go get github.com/mailhog/mhsendmail
 RUN cp /root/go/bin/mhsendmail /usr/bin/mhsendmail
 
+# NodeJS and NPM (latest versions)
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash \
+    && export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
+    && nvm install node && nvm use node \
+    && npm i -g grunt-cli
+
 # IonCube
 RUN cd /tmp \
     && curl -o ioncube.tar.gz http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
@@ -54,6 +60,25 @@ RUN \
   rm -rf /var/lib/apt/lists/* && \
   docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
   docker-php-ext-install ldap
+
+# Blackfire PHP Profiler
+RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
+    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$version \
+    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp \
+    && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
+    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini
+
+# Composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
+  && php composer-setup.php \
+  && php -r "unlink('composer-setup.php');" \
+  && mv composer.phar /usr/local/bin/composer \
+  && echo 'export PATH=$HOME/.composer/vendor/bin:$PATH' >> ~/.bashrc
+
+# Wordpress CLI
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+  && chmod +x wp-cli.phar \
+  && mv wp-cli.phar /usr/local/bin/wp
 
 WORKDIR /var/www/html/
 
