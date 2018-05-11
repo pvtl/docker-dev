@@ -129,3 +129,21 @@ You can connect to the Memcached server with:
 |-------------|---|
 | Host | `memcached` (from a container) OR `localhost` (from your computer) |
 | Port | `11211` |
+
+
+---
+
+## Troubleshooting ❓
+
+In some instances a build may fail due to a "Container Name already in use" error. You can overcome this issue by explicitly removing all of the containers. Run:
+
+
+```bash
+docker stop <containername>     # 1. Make sure the container is not running
+docker rm <containername>     # 2. Remove the container explicitly
+docker-compose up -d --build    # 3. Rebuild & start the new env
+```
+
+*The `stop` and `rm` commands allow you to reference multiple containers at once by adding spaces between the container names.
+
+
