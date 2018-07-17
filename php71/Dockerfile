@@ -1,18 +1,13 @@
-FROM php:7.1-apache
+FROM php:7.1-fpm
 
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
 
-COPY php.ini /usr/local/etc/php/
-COPY apache.conf /etc/apache2/sites-available/000-default.conf
-
-# Set umask to make generated files accessible on local machine
-RUN echo "umask 002" >> /etc/apache2/envvars
-
-RUN a2enmod rewrite vhost_alias headers proxy proxy_http
-
 # Required PHP Extensions
 RUN apt-get update && apt-get install -y \
+        cron \
+        supervisor \
+        ssmtp \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmemcached-dev \
@@ -23,20 +18,33 @@ RUN apt-get update && apt-get install -y \
         libicu-dev \
         less \
         nano \
-        ca-certificates \
-        curl \
+        ssh \
         git \
+        zip \
+        net-tools \
+        gnupg \
         --no-install-recommends \
+    && yes '' | pecl install -f redis \
+    && docker-php-ext-enable redis \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) calendar gd intl mcrypt mysqli opcache pdo_mysql soap xsl zip \
+    && docker-php-ext-install -j$(nproc) calendar gd intl mcrypt mysqli opcache pdo_mysql soap xsl zip bcmath \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Mail server
-ENV PATH /usr/local/go/bin:$PATH
-RUN curl -Lsf 'https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz' | tar -C '/usr/local' -xvzf - \
-  && go get github.com/mailhog/mhsendmail \
-  && cp /root/go/bin/mhsendmail /usr/bin/mhsendmail
+# Install Composer
+RUN curl --silent --show-error https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer
+
+# Install Node
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Downgrade npm & install useful NPM CLIs
+RUN npm install -g npm@4 \
+    && npm i -g grunt-cli \
+    && npm i -g gulp-cli
 
 # Memcache
 RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz" \
@@ -46,12 +54,16 @@ RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-m
     && docker-php-ext-install memcached \
     && rm /tmp/memcached.tar.gz
 
-# NodeJS and NPM (latest versions)
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash \
-    && export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
-    && nvm install node && nvm use node \
-    && npm i -g grunt-cli \
-    && npm i -g gulp-cli
+# Mail server
+ENV PATH /usr/local/go/bin:$PATH
+RUN curl -Lsf 'https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz' | tar -C '/usr/local' -xvzf - \
+  && go get github.com/mailhog/mhsendmail \
+  && cp /root/go/bin/mhsendmail /usr/bin/mhsendmail
+
+# Wordpress CLI
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+  && chmod +x wp-cli.phar \
+  && mv wp-cli.phar /usr/local/bin/wp
 
 # IonCube
 RUN cd /tmp \
@@ -68,20 +80,17 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
     && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
     && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini
 
-# Composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-  && php composer-setup.php \
-  && php -r "unlink('composer-setup.php');" \
-  && mv composer.phar /usr/local/bin/composer \
-  && echo 'export PATH=$HOME/.composer/vendor/bin:$PATH' >> ~/.bashrc \
-  && composer global require hirak/prestissimo
+# Custom PHP.ini Config
+COPY ./custom.ini /usr/local/etc/php/conf.d/999-custom.ini
 
-# Wordpress CLI
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-  && chmod +x wp-cli.phar \
-  && mv wp-cli.phar /usr/local/bin/wp
+# CRON's
+COPY ./crontab /root/custom_crontab
+RUN /usr/bin/crontab -u www-data /root/custom_crontab
 
-WORKDIR /var/www/html/
+# PHP-FPM and CRON supervisord config
+COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf
 
-EXPOSE 80
-CMD ["apache2-foreground"]
+RUN chown -R www-data /var/www/
+
+ENTRYPOINT []
+CMD ["/usr/bin/supervisord"]

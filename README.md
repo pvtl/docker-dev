@@ -12,24 +12,23 @@ It includes all the required dependencies for everyday PHP development with comm
 
 Specifically, it has the following tech available:
 
-* Debian Jessie
-* PHP 7.1.x (default) and PHP 5.6.X
+* PHP 5.6, 7.0 and 7.1
 * MySQL 5.7
-* Redis 3.x
-* Memcached
-* Composer
-* NodeJS & NPM
-* Mailhog
-* Blackfire (for PHP performance testing)
+* Redis 4.x
+* Memcached 1.x
+* Composer (latest)
+* NodeJS (10.x) & NPM (4.x)
+* Mailhog (latest)
+* [Blackfire](https://blackfire.io/) (latest)
 
 We have some clever domain mapping available to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
 
-* __http://info.{APACHE_HOSTNAME}__ (eg. http://info.localhost)
-    * Will map to `~/Sites/info`
-* __http://laravel.pub.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/laravel/pub`
-* __http://sitehq.php5.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/sitehq` and use PHP5
+* __http://classic-php.php56.{APACHE_HOSTNAME}__ (eg. http://classic-php.php56.localhost)
+    * Will map to `~/Sites/classic-php` and use PHP 5.6
+* __http://laravel.php70.pub.{APACHE_HOSTNAME}__
+    * Will map to `~/Sites/laravel/public` and use PHP 7.0
+* __http://another-project.{APACHE_HOSTNAME}__
+    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.1)
 
 ---
 
@@ -73,7 +72,8 @@ Open a terminal window, browse to this project's folder and run:
 
 ```bash
 git pull                        # 1. Pull from Git
-docker-compose up -d --build    # 2. Rebuild & start the new env
+docker-compose pull             # 2. Get latest docker images
+docker-compose up -d --build    # 3. Rebuild & start the new env
 ```
 
 *This will also install the latest versions of PHP, Redis, NodeJS and NPM.
@@ -87,12 +87,13 @@ Docker must be running and commands should be run within this repo's root.
 
 | Command | Description |
 |---|---|
-| `docker-compose up -d` | Start |
-| `docker-compose down`  | Stop |
-| `docker exec -it web bash`  | SSH into web container |
-| `docker exec -it db bash`  | SSH into Database container |
+| `docker-compose start` | Start |
+| `docker-compose stop`  | Stop |
+| `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
+| `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
+| `docker exec -it php71-fpm bash`  | SSH into PHP 7.1 container |
+| `docker exec -it mysql bash`  | SSH into Database container |
 | `docker ps` | Show which containers are running |
-
 ---
 
 ## Connections 🚥
@@ -108,7 +109,7 @@ You can connect to the MySQL server running in the container using [MySQL Workbe
 | Parameter | Value |
 |-------------|---|
 | Connection | Standard TCP/IP |
-| Host | `db` (from a container) OR `localhost` (from your computer) |
+| Host | `mysql` (from a container) OR `localhost` (from your computer) |
 | Port | `3306` |
 | Username | `root` |
 | Password | `dbroot` (this can be changed in `.env`) |
@@ -139,11 +140,9 @@ In some instances a build may fail due to a "Container Name already in use" erro
 
 
 ```bash
-docker stop <containername>     # 1. Make sure the container is not running
-docker rm <containername>     # 2. Remove the container explicitly
-docker-compose up -d --build    # 3. Rebuild & start the new env
+docker stop <containername>       # 1. Make sure the container is not running
+docker rm <containername>         # 2. Remove the container explicitly
+docker-compose up -d --build      # 3. Rebuild & start the new env
 ```
 
 *The `stop` and `rm` commands allow you to reference multiple containers at once by adding spaces between the container names.
-
-
