@@ -71,26 +71,36 @@ Open a terminal window, browse to this project's folder and run:
 
 
 ```bash
-git pull                        # 1. Pull from Git
-docker-compose pull             # 2. Get latest docker images
-docker-compose up -d --build    # 3. Rebuild & start the new env
+git pull                                  # 1. Pull from Git
+docker-compose down --remove-orphans      # 2. Erase previous containers
+docker-compose pull                       # 3. Get latest docker images
+docker-compose up -d --build --no-cache   # 4. Rebuild & start the new env
 ```
 
 *This will also install the latest versions of PHP, Redis, NodeJS and NPM.
+
+### Important Breaking Changes
+
+* The MySQL hostname and container name has changed from `db` to `mysql`. This enables us to add other DB's in the future without the naming convention getting confusing (eg. MongoDB, PostgreSQL).
+* PHP 7.1 and Apache server have been separated into their own containers (`php71-fpm` and `apache` respectively).
+* PHP 5 is now PHP 5.6 specifically. The URL has changed to: `<project>.php56.localhost`
+* You can use `<project>.pub.localhost` (Laravel) URL's with any PHP version now. Eg: `<project>.php56.pub.localhost`
+* We recommend you specify a PHP version number in the URL's of your projects rather than rely on the default. It's currently PHP 7.1, but this may change in the future.
 
 
 ---
 
 ## Common Commands 🔥
 
-Docker must be running and commands should be run within this repo's root.
+The Docker Engine must be running and commands must be run within this repo's root.
 
 | Command | Description |
 |---|---|
-| `docker-compose start` | Start |
-| `docker-compose stop`  | Stop |
+| `docker-compose start` | Start all containers |
+| `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
+| `docker-compose logs php71-fpm` | View all logs for PHP-FPM 7.1 |
 | `docker exec -it php71-fpm bash`  | SSH into PHP 7.1 container |
 | `docker exec -it mysql bash`  | SSH into Database container |
 | `docker ps` | Show which containers are running |
@@ -136,13 +146,4 @@ You can connect to the Memcached server with:
 
 ## Troubleshooting ❓
 
-In some instances a build may fail due to a "Container Name already in use" error. You can overcome this issue by explicitly removing all of the containers. Run:
-
-
-```bash
-docker stop <containername>       # 1. Make sure the container is not running
-docker rm <containername>         # 2. Remove the container explicitly
-docker-compose up -d --build      # 3. Rebuild & start the new env
-```
-
-*The `stop` and `rm` commands allow you to reference multiple containers at once by adding spaces between the container names.
+In some instances a build may fail due to a `Container Name already in use` error. You can fix this by following the "update" instructions above. This will recreate a fresh environment from scratch.
