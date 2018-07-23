@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
         --no-install-recommends \
     && yes '' | pecl install -f memcache-2.2.7 \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) calendar gd intl mcrypt mysql mysqli opcache pdo_mysql soap xsl zip \
+    && docker-php-ext-install -j$(nproc) calendar gd intl mcrypt mysql mysqli opcache pdo_mysql soap xsl zip bcmath \
     && docker-php-ext-enable memcache \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
