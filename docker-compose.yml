@@ -34,6 +34,7 @@ services:
     ports:
       - "6379"
   apache:
+    container_name: apache
     build: ./apache
     ports:
       - "80:80"
@@ -48,6 +49,7 @@ services:
     env_file:
       - .env
   php56-fpm:
+    container_name: php56
     build: ./php56
     restart: ${DOCKER_RESTART}
     volumes:
@@ -55,6 +57,7 @@ services:
     env_file:
       - .env
   php70-fpm:
+    container_name: php70
     build: ./php70
     restart: ${DOCKER_RESTART}
     volumes:
@@ -62,6 +65,7 @@ services:
     env_file:
       - .env
   php71-fpm:
+    container_name: php71
     build: ./php71
     restart: ${DOCKER_RESTART}
     volumes:
