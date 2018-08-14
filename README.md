@@ -71,10 +71,10 @@ Open a terminal window, browse to this project's folder and run:
 
 
 ```bash
-git pull                                  # 1. Pull from Git
-docker-compose down --remove-orphans      # 2. Erase previous containers
-docker-compose pull                       # 3. Get latest docker images
-docker-compose up -d --build --no-cache   # 4. Rebuild & start the new env
+git pull                                        # 1. Pull from Git
+docker-compose down --remove-orphans            # 2. Erase previous containers
+docker-compose pull                             # 3. Get latest docker images
+docker-compose up -d --build --force-recreate   # 4. Rebuild & start the new env
 ```
 
 *This will also install the latest versions of PHP, Redis, NodeJS and NPM.
