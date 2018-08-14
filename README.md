@@ -12,7 +12,7 @@ It includes all the required dependencies for everyday PHP development with comm
 
 Specifically, it has the following tech available:
 
-* PHP 5.6, 7.0 and 7.1
+* PHP 5.6, 7.0 and 7.2
 * MySQL 5.7
 * Redis 4.x
 * Memcached 1.x
@@ -28,7 +28,7 @@ We have some clever domain mapping available to allow you to run code for variou
 * __http://laravel.php70.pub.{APACHE_HOSTNAME}__
     * Will map to `~/Sites/laravel/public` and use PHP 7.0
 * __http://another-project.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.1)
+    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.2)
 
 ---
 
@@ -82,10 +82,10 @@ docker-compose up -d --build --no-cache   # 4. Rebuild & start the new env
 ### Important Breaking Changes
 
 * The MySQL hostname and container name has changed from `db` to `mysql`. This enables us to add other DB's in the future without the naming convention getting confusing (eg. MongoDB, PostgreSQL).
-* PHP 7.1 and Apache server have been separated into their own containers (`php71-fpm` and `apache` respectively).
+* PHP 7.2 and Apache server have been separated into their own containers (`php72-fpm` and `apache` respectively).
 * PHP 5 is now PHP 5.6 specifically. The URL has changed to: `<project>.php56.localhost`
 * You can use `<project>.pub.localhost` (Laravel) URL's with any PHP version now. Eg: `<project>.php56.pub.localhost`
-* We recommend you specify a PHP version number in the URL's of your projects rather than rely on the default. It's currently PHP 7.1, but this may change in the future.
+* We recommend you specify a PHP version number in the URL's of your projects rather than rely on the default. It's currently PHP 7.2, but this may change in the future.
 
 
 ---
@@ -100,8 +100,8 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
-| `docker-compose logs php71-fpm` | View all logs for PHP-FPM 7.1 |
-| `docker exec -it php71-fpm bash`  | SSH into PHP 7.1 container |
+| `docker-compose logs php71-fpm` | View all logs for PHP-FPM 7.2 |
+| `docker exec -it php71-fpm bash`  | SSH into PHP 7.2 container |
 | `docker exec -it mysql bash`  | SSH into Database container |
 | `docker ps` | Show which containers are running |
 ---
@@ -123,6 +123,8 @@ You can connect to the MySQL server running in the container using [MySQL Workbe
 | Port | `3306` |
 | Username | `root` |
 | Password | `dbroot` (this can be changed in `.env`) |
+
+Alternatively you can add `127.0.0.1 mysql` to your hosts file so that the `mysql` hostname will work either from your host machine or from the docker containers (useful for CLI tools like Laravel's `artisan` command).
 
 ### Redis
 You can connect to the Redis server with:
