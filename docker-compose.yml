@@ -19,6 +19,7 @@ services:
     command: mysqld --sql_mode=""
   mailhog:
     container_name: mailhog
+    restart: ${DOCKER_RESTART}
     image: mailhog/mailhog
     ports:
       - "1025:1025"
