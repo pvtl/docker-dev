@@ -68,6 +68,9 @@ services:
   php72-fpm:
     container_name: php72
     build: ./php72
+    ports:
+      - "8080:8080"
+      - "3000:3000"
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated

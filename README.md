@@ -101,8 +101,8 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
-| `docker-compose logs php71-fpm` | View all logs for PHP-FPM 7.2 |
-| `docker exec -it php71-fpm bash`  | SSH into PHP 7.2 container |
+| `docker-compose logs php72-fpm` | View all logs for PHP-FPM 7.2 |
+| `docker exec -it php72-fpm bash`  | SSH into PHP 7.2 container |
 | `docker exec -it mysql bash`  | SSH into Database container |
 | `docker ps` | Show which containers are running |
 ---
@@ -156,4 +156,18 @@ You can connect to the Memcached server with:
 
 ## Troubleshooting ❓
 
+### Container Name already in use
+
 In some instances a build may fail due to a `Container Name already in use` error. You can fix this by following the "update" instructions above. This will recreate a fresh environment from scratch.
+
+### BrowserSync
+
+To run BrowserSync from within a container, it needs to proxy a PHP site to generate the site. To do this, it needs to know where the URL lives (which, from the outside world, is through the `apache` container).
+
+Note: BrowserSync will only work from within the `php72-fpm` container.
+
+1. `docker exec -it php72-fpm bash` - SSH into the PHP7.2 container
+1. `nano /etc/hosts` - Edit the hosts files
+    - `172.22.0.10 <THIS SITE URL eg. wp.pub.localhost>` - Add the current site's URL, pointing to the `apache` container
+
+Now you can run `npm start` and you'll be able to access the BrowserSync version of the site at `<THIS SITE URL>:3000`
