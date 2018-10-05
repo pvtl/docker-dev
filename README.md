@@ -49,7 +49,7 @@ git clone https://github.com/pvtl/docker-dev && cd docker-dev
 # Create & update relevant config (eg. point sites to your sites directory)
 cp .env.example .env
 
-# Start the environment
+# Start the environment and go get a ☕️ (it'll take a while to install e'ry-thing)
 docker-compose up -d
 ```
 
@@ -112,6 +112,13 @@ The Docker Engine must be running and commands must be run within this repo's ro
 All email is sent from the application and "caught" by [Mailhog](https://github.com/mailhog/MailHog). This means that the application will send the mail, just not out to a real email. This is helpful in development, so that others aren't spammed by test emails.
 
 You can view anything which has been sent and caught via [http://localhost:8025/](http://localhost:8025/).
+
+| Parameter | Value |
+|-------------|---|
+| Host | `mailhog` |
+| Port | `1025` |
+| Username | `testuser` |
+| Password | `testpwd` |
 
 ### MySQL
 You can connect to the MySQL server running in the container using [MySQL Workbench](https://www.mysql.com/products/workbench/), [Navicat](https://www.navicat.com/) or [Sequel Pro](https://www.sequelpro.com/).
