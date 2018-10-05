@@ -43,6 +43,11 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 RUN npm i -g grunt-cli \
     && npm i -g gulp-cli
 
+# Install Yarn
+RUN curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get update && apt-get install yarn
+
 # Mail server
 ENV PATH /usr/local/go/bin:$PATH
 RUN curl -Lsf 'https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz' | tar -C '/usr/local' -xvzf - \

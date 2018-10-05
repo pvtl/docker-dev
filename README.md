@@ -17,7 +17,8 @@ Specifically, it has the following tech available:
 * Redis 4.x
 * Memcached 1.x
 * Composer (latest)
-* NodeJS (10.x) & NPM (4.x)
+* NodeJS (10.x) & NPM (6.x)
+* Yarn (latest)
 * Mailhog (latest)
 * [Blackfire](https://blackfire.io/) (latest)
 

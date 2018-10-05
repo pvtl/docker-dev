@@ -45,6 +45,11 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
 RUN npm i -g grunt-cli \
     && npm i -g gulp-cli
 
+# Install Yarn
+RUN curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt-get update && apt-get install yarn
+
 # Memcache
 RUN curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz" \
     && mkdir -p /usr/src/php/ext/memcached \
