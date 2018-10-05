@@ -41,9 +41,8 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Downgrade npm & install useful NPM CLIs
-RUN npm install -g npm@4 \
-    && npm i -g grunt-cli \
+# Install useful NPM CLIs
+RUN npm i -g grunt-cli \
     && npm i -g gulp-cli
 
 # Memcache
