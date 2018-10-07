@@ -46,7 +46,7 @@ services:
     links:
       - php56-fpm
       - php70-fpm
-      - php72-fpm
+      - php71-fpm
     env_file:
       - .env
   php56-fpm:
@@ -65,9 +65,9 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     env_file:
       - .env
-  php72-fpm:
-    container_name: php72
-    build: ./php72
+  php71-fpm:
+    container_name: php71
+    build: ./php71
     ports:
       - "8080:8080"
       - "3000:3000"

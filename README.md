@@ -12,7 +12,7 @@ It includes all the required dependencies for everyday PHP development with comm
 
 Specifically, it has the following tech available:
 
-* PHP 5.6, 7.0 and 7.2
+* PHP 5.6, 7.0 and 7.1
 * MySQL 5.7
 * Redis 4.x
 * Memcached 1.x
@@ -29,7 +29,7 @@ We have some clever domain mapping available to allow you to run code for variou
 * __http://laravel.php70.pub.{APACHE_HOSTNAME}__
     * Will map to `~/Sites/laravel/public` and use PHP 7.0
 * __http://another-project.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.2)
+    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.1)
 
 ---
 
@@ -54,7 +54,7 @@ cp .env.example .env
 docker-compose up -d
 ```
 
-__(Optional)__ If you're doing local development at _.localhost_ for example, you may need to update your computer's hosts file to point each URL to `127.0.0.1`. Eg.
+__Then, for each website, simply point the URL to localhost (127.0.0.1):__
 
 ```bash
 # Open your hosts files (with admin rights)
@@ -70,7 +70,6 @@ sudo nano /etc/hosts
 
 Open a terminal window, browse to this project's folder and run:
 
-
 ```bash
 git pull                                        # 1. Pull from Git
 docker-compose down --remove-orphans            # 2. Erase previous containers
@@ -78,16 +77,7 @@ docker-compose pull                             # 3. Get latest docker images
 docker-compose up -d --build --force-recreate   # 4. Rebuild & start the new env
 ```
 
-*This will also install the latest versions of PHP, Redis, NodeJS and NPM.
-
-### Important Breaking Changes
-
-* The MySQL hostname and container name has changed from `db` to `mysql`. This enables us to add other DB's in the future without the naming convention getting confusing (eg. MongoDB, PostgreSQL).
-* PHP 7.2 and Apache server have been separated into their own containers (`php72-fpm` and `apache` respectively).
-* PHP 5 is now PHP 5.6 specifically. The URL has changed to: `<project>.php56.localhost`
-* You can use `<project>.pub.localhost` (Laravel) URL's with any PHP version now. Eg: `<project>.php56.pub.localhost`
-* We recommend you specify a PHP version number in the URL's of your projects rather than rely on the default. It's currently PHP 7.2, but this may change in the future.
-
+*This will also install the latest versions of PHP, Redis, NodeJS and NPM.*
 
 ---
 
@@ -101,8 +91,8 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
-| `docker-compose logs php72-fpm` | View all logs for PHP-FPM 7.2 |
-| `docker exec -it php72-fpm bash`  | SSH into PHP 7.2 container |
+| `docker exec -it php71-fpm bash`  | SSH into PHP 7.1 container |
+| `docker-compose logs php71-fpm` | View all logs for PHP-FPM 7.1 |
 | `docker exec -it mysql bash`  | SSH into Database container |
 | `docker ps` | Show which containers are running |
 ---
@@ -151,7 +141,6 @@ You can connect to the Memcached server with:
 | Host | `memcached` (from a container) OR `localhost` (from your computer) |
 | Port | `11211` |
 
-
 ---
 
 ## Troubleshooting ❓
@@ -164,10 +153,20 @@ In some instances a build may fail due to a `Container Name already in use` erro
 
 To run BrowserSync from within a container, it needs to proxy a PHP site to generate the site. To do this, it needs to know where the URL lives (which, from the outside world, is through the `apache` container).
 
-Note: BrowserSync will only work from within the `php72-fpm` container.
+Note: BrowserSync will only work from within the `php71-fpm` container.
 
-1. `docker exec -it php72-fpm bash` - SSH into the PHP7.2 container
+1. `docker exec -it php71-fpm bash` - SSH into the PHP7.1 container
 1. `nano /etc/hosts` - Edit the hosts files
-    - `172.22.0.10 <THIS SITE URL eg. wp.pub.localhost>` - Add the current site's URL, pointing to the `apache` container
+    - `171.22.0.10 <THIS SITE URL eg. wp.pub.localhost>` - Add the current site's URL, pointing to the `apache` container
 
 Now you can run `npm start` and you'll be able to access the BrowserSync version of the site at `<THIS SITE URL>:3000`
+
+---
+
+### Breaking Changes ⚠️
+
+* The MySQL hostname and container name has changed from `db` to `mysql`. This enables us to add other DB's in the future without the naming convention getting confusing (eg. MongoDB, PostgreSQL).
+* PHP 7.1 and Apache server have been separated into their own containers (`php71-fpm` and `apache` respectively).
+* PHP 5 is now PHP 5.6 specifically. The URL has changed to: `<project>.php56.localhost`
+* You can use `<project>.pub.localhost` (Laravel) URL's with any PHP version now. Eg: `<project>.php56.pub.localhost`
+* We recommend you specify a PHP version number in the URL's of your projects rather than rely on the default. It's currently PHP 7.1, but this may change in the future.
