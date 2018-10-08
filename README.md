@@ -91,7 +91,7 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
-| `docker exec -it php71-fpm bash`  | SSH into PHP 7.1 container |
+| `docker exec -it php71 bash`  | SSH into PHP 7.1 container |
 | `docker-compose logs php71-fpm` | View all logs for PHP-FPM 7.1 |
 | `docker exec -it mysql bash`  | SSH into Database container |
 | `docker ps` | Show which containers are running |
