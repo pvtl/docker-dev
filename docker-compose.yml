@@ -6,8 +6,8 @@ services:
     image: blackfire/blackfire
     env_file:
       - .env
-  db:
-    container_name: db
+  mysql:
+    container_name: mysql
     restart: ${DOCKER_RESTART}
     image: "mysql:5.7"
     env_file:
@@ -19,6 +19,7 @@ services:
     command: mysqld --sql_mode=""
   mailhog:
     container_name: mailhog
+    restart: ${DOCKER_RESTART}
     image: mailhog/mailhog
     ports:
       - "1025:1025"
@@ -27,30 +28,51 @@ services:
     container_name: memcached
     restart: ${DOCKER_RESTART}
     image: "memcached:1-alpine"
-  php5:
-    container_name: php5
-    restart: ${DOCKER_RESTART}
-    build: ./php5
-    env_file:
-      - .env
-    ports:
-      - "8056:80"
-    volumes:
-      - ${DOCUMENTROOT}:/var/www/html/:delegated
   redis:
     container_name: redis
     restart: ${DOCKER_RESTART}
-    image: "redis:3-alpine"
+    image: "redis:4-alpine"
     ports:
       - "6379"
-  web:
-    container_name: web
-    restart: ${DOCKER_RESTART}
-    build: ./php-apache
-    env_file:
-      - .env
+  apache:
+    container_name: apache
+    build: ./apache
     ports:
       - "80:80"
-      - "35729:35729"
+    restart: ${DOCKER_RESTART}
     volumes:
-      - ${DOCUMENTROOT}:/var/www/html/:delegated
+      - ./apache/sites:/usr/local/apache2/conf/sites:ro
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    links:
+      - php56-fpm
+      - php70-fpm
+      - php71-fpm
+    env_file:
+      - .env
+  php56-fpm:
+    container_name: php56
+    build: ./php56
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    env_file:
+      - .env
+  php70-fpm:
+    container_name: php70
+    build: ./php70
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    env_file:
+      - .env
+  php71-fpm:
+    container_name: php71
+    build: ./php71
+    ports:
+      - "8080:8080"
+      - "3000:3000"
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    env_file:
+      - .env

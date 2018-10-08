@@ -1,0 +1,10 @@
+# PHP 7.0 CRON's
+#
+# Make sure you use the full path to the PHP file. Eg.
+#   * * * * * php -q > /var/www/html/example-site/wp-cron.php
+
+MAILTO=""
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# Put your CRON's here... #

@@ -3,3 +3,6 @@ mysql/data/*
 .DS_Store
 npm-debug.log
 .env
+php56/crontab
+php70/crontab
+php71/crontab

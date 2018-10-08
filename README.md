@@ -12,24 +12,24 @@ It includes all the required dependencies for everyday PHP development with comm
 
 Specifically, it has the following tech available:
 
-* Debian Jessie
-* PHP 7.1.x (default) and PHP 5.6.X
+* PHP 5.6, 7.0 and 7.1
 * MySQL 5.7
-* Redis 3.x
-* Memcached
-* Composer
-* NodeJS & NPM
-* Mailhog
-* Blackfire (for PHP performance testing)
+* Redis 4.x
+* Memcached 1.x
+* Composer (latest)
+* NodeJS (10.x) & NPM (6.x)
+* Yarn (latest)
+* Mailhog (latest)
+* [Blackfire](https://blackfire.io/) (latest)
 
 We have some clever domain mapping available to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
 
-* __http://info.{APACHE_HOSTNAME}__ (eg. http://info.localhost)
-    * Will map to `~/Sites/info`
-* __http://laravel.pub.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/laravel/pub`
-* __http://sitehq.php5.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/sitehq` and use PHP5
+* __http://classic-php.php56.{APACHE_HOSTNAME}__ (eg. http://classic-php.php56.localhost)
+    * Will map to `~/Sites/classic-php` and use PHP 5.6
+* __http://laravel.php70.pub.{APACHE_HOSTNAME}__
+    * Will map to `~/Sites/laravel/public` and use PHP 7.0
+* __http://another-project.{APACHE_HOSTNAME}__
+    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.1)
 
 ---
 
@@ -50,11 +50,11 @@ git clone https://github.com/pvtl/docker-dev && cd docker-dev
 # Create & update relevant config (eg. point sites to your sites directory)
 cp .env.example .env
 
-# Start the environment
+# Start the environment and go get a ☕️ (it'll take a while to install e'ry-thing)
 docker-compose up -d
 ```
 
-__(Optional)__ If you're doing local development at _.localhost_ for example, you may need to update your computer's hosts file to point each URL to `127.0.0.1`. Eg.
+__Then, for each website, simply point the URL to localhost (127.0.0.1):__
 
 ```bash
 # Open your hosts files (with admin rights)
@@ -70,29 +70,31 @@ sudo nano /etc/hosts
 
 Open a terminal window, browse to this project's folder and run:
 
-
 ```bash
-git pull                        # 1. Pull from Git
-docker-compose up -d --build    # 2. Rebuild & start the new env
+git pull                                        # 1. Pull from Git
+docker-compose down --remove-orphans            # 2. Erase previous containers
+docker-compose pull                             # 3. Get latest docker images
+docker-compose up -d --build --force-recreate   # 4. Rebuild & start the new env
 ```
 
-*This will also install the latest versions of PHP, Redis, NodeJS and NPM.
-
+*This will also install the latest versions of PHP, Redis, NodeJS and NPM.*
 
 ---
 
 ## Common Commands 🔥
 
-Docker must be running and commands should be run within this repo's root.
+The Docker Engine must be running and commands must be run within this repo's root.
 
 | Command | Description |
 |---|---|
-| `docker-compose up -d` | Start |
-| `docker-compose down`  | Stop |
-| `docker exec -it web bash`  | SSH into web container |
-| `docker exec -it db bash`  | SSH into Database container |
+| `docker-compose start` | Start all containers |
+| `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
+| `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
+| `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
+| `docker exec -it php71-fpm bash`  | SSH into PHP 7.1 container |
+| `docker-compose logs php71-fpm` | View all logs for PHP-FPM 7.1 |
+| `docker exec -it mysql bash`  | SSH into Database container |
 | `docker ps` | Show which containers are running |
-
 ---
 
 ## Connections 🚥
@@ -102,16 +104,25 @@ All email is sent from the application and "caught" by [Mailhog](https://github.
 
 You can view anything which has been sent and caught via [http://localhost:8025/](http://localhost:8025/).
 
+| Parameter | Value |
+|-------------|---|
+| Host | `mailhog` |
+| Port | `1025` |
+| Username | `testuser` |
+| Password | `testpwd` |
+
 ### MySQL
 You can connect to the MySQL server running in the container using [MySQL Workbench](https://www.mysql.com/products/workbench/), [Navicat](https://www.navicat.com/) or [Sequel Pro](https://www.sequelpro.com/).
 
 | Parameter | Value |
 |-------------|---|
 | Connection | Standard TCP/IP |
-| Host | `db` (from a container) OR `localhost` (from your computer) |
+| Host | `mysql` (from a container) OR `localhost` (from your computer) |
 | Port | `3306` |
 | Username | `root` |
 | Password | `dbroot` (this can be changed in `.env`) |
+
+Alternatively you can add `127.0.0.1 mysql` to your hosts file so that the `mysql` hostname will work either from your host machine or from the docker containers (useful for CLI tools like Laravel's `artisan` command).
 
 ### Redis
 You can connect to the Redis server with:
@@ -130,20 +141,32 @@ You can connect to the Memcached server with:
 | Host | `memcached` (from a container) OR `localhost` (from your computer) |
 | Port | `11211` |
 
-
 ---
 
 ## Troubleshooting ❓
 
-In some instances a build may fail due to a "Container Name already in use" error. You can overcome this issue by explicitly removing all of the containers. Run:
+### Container Name already in use
 
+In some instances a build may fail due to a `Container Name already in use` error. You can fix this by following the "update" instructions above. This will recreate a fresh environment from scratch.
 
-```bash
-docker stop <containername>     # 1. Make sure the container is not running
-docker rm <containername>     # 2. Remove the container explicitly
-docker-compose up -d --build    # 3. Rebuild & start the new env
-```
+### BrowserSync
 
-*The `stop` and `rm` commands allow you to reference multiple containers at once by adding spaces between the container names.
+To run BrowserSync from within a container, it needs to proxy a PHP site to generate the site. To do this, it needs to know where the URL lives (which, from the outside world, is through the `apache` container).
 
+Note: BrowserSync will only work from within the `php71-fpm` container.
 
+1. `docker exec -it php71-fpm bash` - SSH into the PHP7.1 container
+1. `nano /etc/hosts` - Edit the hosts files
+    - `171.22.0.10 <THIS SITE URL eg. wp.pub.localhost>` - Add the current site's URL, pointing to the `apache` container
+
+Now you can run `npm start` and you'll be able to access the BrowserSync version of the site at `<THIS SITE URL>:3000`
+
+---
+
+### Breaking Changes ⚠️
+
+* The MySQL hostname and container name has changed from `db` to `mysql`. This enables us to add other DB's in the future without the naming convention getting confusing (eg. MongoDB, PostgreSQL).
+* PHP 7.1 and Apache server have been separated into their own containers (`php71-fpm` and `apache` respectively).
+* PHP 5 is now PHP 5.6 specifically. The URL has changed to: `<project>.php56.localhost`
+* You can use `<project>.pub.localhost` (Laravel) URL's with any PHP version now. Eg: `<project>.php56.pub.localhost`
+* We recommend you specify a PHP version number in the URL's of your projects rather than rely on the default. It's currently PHP 7.1, but this may change in the future.
