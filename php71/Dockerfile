@@ -87,9 +87,10 @@ RUN cd /tmp \
 # Custom PHP.ini Config
 COPY ./custom.ini /usr/local/etc/php/conf.d/999-custom.ini
 
-# CRON's
-COPY ./crontab /root/custom_crontab
-RUN /usr/bin/crontab -u www-data /root/custom_crontab
+# CRON's (if they exist)
+COPY Dockerfile custom_crontab* /root/
+RUN touch /root/custom_crontab \
+    && /usr/bin/crontab -u www-data /root/custom_crontab
 
 # PHP-FPM and CRON supervisord config
 COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf

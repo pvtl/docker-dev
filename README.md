@@ -143,13 +143,19 @@ You can connect to the Memcached server with:
 
 ---
 
-## Troubleshooting ❓
+## FAQs ❓
 
-### Container Name already in use
+### How do I setup/run Crons?
+
+Within each PHP directory (eg. `/php71` in this repo root), simply create a file called `custom_crontab` and add any crons to this script.
+
+When you start Docker, it'll copy and setup the crons into the respective container.
+
+### "Container Name already in use" error
 
 In some instances a build may fail due to a `Container Name already in use` error. You can fix this by following the "update" instructions above. This will recreate a fresh environment from scratch.
 
-### BrowserSync
+### How do I get BrowserSync working from inside a container?
 
 To run BrowserSync from within a container, it needs to proxy a PHP site to generate the site. To do this, it needs to know where the URL lives (which, from the outside world, is through the `apache` container).
 
@@ -163,7 +169,7 @@ Now you can run `npm start` and you'll be able to access the BrowserSync version
 
 ---
 
-### Breaking Changes ⚠️
+## Breaking Changes ⚠️
 
 * The MySQL hostname and container name has changed from `db` to `mysql`. This enables us to add other DB's in the future without the naming convention getting confusing (eg. MongoDB, PostgreSQL).
 * PHP 7.1 and Apache server have been separated into their own containers (`php71-fpm` and `apache` respectively).
