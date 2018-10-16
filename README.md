@@ -17,7 +17,7 @@ Specifically, it has the following tech available:
 * Redis 4.x
 * Memcached 1.x
 * Composer (latest)
-* NodeJS (10.x) & NPM (6.x)
+* NodeJS (10.x) & NPM (latest)
 * Yarn (latest)
 * Mailhog (latest)
 * [Blackfire](https://blackfire.io/) (latest)
@@ -35,7 +35,7 @@ We have some clever domain mapping available to allow you to run code for variou
 
 ## Prerequisites ⚠️
 
-* Your machine must be MacOS, Windows 10 _Pro_ or Linux
+* Your machine must be running MacOS, Windows 10 _Pro_ or Linux
 * Your CPU must support virtualisation (Intel VT-x or AMD-V)
 * You must have [Docker Compose installed](https://docs.docker.com/compose/install/) and Docker installed & running
 
@@ -74,7 +74,8 @@ Open a terminal window, browse to this project's folder and run:
 git pull                                        # 1. Pull from Git
 docker-compose down --remove-orphans            # 2. Erase previous containers
 docker-compose pull                             # 3. Get latest docker images
-docker-compose up -d --build --force-recreate   # 4. Rebuild & start the new env
+docker-compose build --pull --no-cache          # 4. Rebuild Dockerfiles from scratch (inc. pull parent images)
+docker-compose up -d                            # 5. Start the new env
 ```
 
 *This will also install the latest versions of PHP, Redis, NodeJS and NPM.*
@@ -91,16 +92,16 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
-| `docker exec -it php71 bash`  | SSH into PHP 7.1 container |
+| `docker-compose exec php56-fpm bash`  | Open a bash terminal in the PHP 5.6 container |
 | `docker-compose logs php71-fpm` | View all logs for PHP-FPM 7.1 |
-| `docker exec -it mysql bash`  | SSH into Database container |
-| `docker ps` | Show which containers are running |
+| `docker-compose ps` | Show which containers are running |
+| `docker system prune --volumes` | Erase any unused containers, images, volumes etc. to free disk space. |
 ---
 
 ## Connections 🚥
 
 ### Email
-All email is sent from the application and "caught" by [Mailhog](https://github.com/mailhog/MailHog). This means that the application will send the mail, just not out to a real email. This is helpful in development, so that others aren't spammed by test emails.
+By default all email sent from PHP is "caught" by [Mailhog](https://github.com/mailhog/MailHog). This allows you to review the emails being sent without the system actually delivering them to real email addresses.
 
 You can view anything which has been sent and caught via [http://localhost:8025/](http://localhost:8025/).
 
@@ -147,9 +148,19 @@ You can connect to the Memcached server with:
 
 ### How do I setup/run Crons?
 
-Within each PHP directory (eg. `/php71` in this repo root), simply create a file called `custom_crontab` and add any crons to this script.
+Each version of PHP can have it's own CRON's.
 
-When you start Docker, it'll copy and setup the crons into the respective container.
+1. Simply create a file called `custom_crontab` in the PHP directory of your choice (eg. `/php71/custom_crontab`). Add your CRON's to this script.
+1. Rebuild that PHP container: `docker-compose build php71-fpm`
+1. And start it up: `docker-compose up -d`
+
+Your CRON entries should look something like this:
+
+```
+* * * * * php /var/www/html/my-wordpress-site/wp-cron.php
+```
+
+The CRON's will only run while your docker containers are running.
 
 ### "Container Name already in use" error
 
