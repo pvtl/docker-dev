@@ -29,9 +29,10 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Composer
+# Install Composer and Prestissimo
 RUN curl --silent --show-error https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/composer
+    && mv composer.phar /usr/local/bin/composer \
+    && composer global require hirak/prestissimo
 
 # Install Node
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
