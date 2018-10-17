@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install -y \
         ssh \
         git \
         zip \
+        unzip \
         net-tools \
         gnupg \
         --no-install-recommends \

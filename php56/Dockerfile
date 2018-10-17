@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
         ssh \
         git \
         zip \
+        unzip \
         gnupg \
         --no-install-recommends \
     && yes '' | pecl install -f memcache redis \
