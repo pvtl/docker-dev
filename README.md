@@ -125,6 +125,16 @@ You can connect to the MySQL server running in the container using [MySQL Workbe
 
 Alternatively you can add `127.0.0.1 mysql` to your hosts file so that the `mysql` hostname will work either from your host machine or from the docker containers (useful for CLI tools like Laravel's `artisan` command).
 
+### Xdebug
+
+To enable Xdebug for PHP you will need to edit `.env` and adjust `XDEBUG_CONFIG` to match your device's IP address. Do not use `localhost`, `127.0.0.1` or `::1` as your IP (as this will resolve to the Docker container, not your device). Next, rebuild the container(s) (eg. `docker-compose build php71-fpm && docker-compose up -d`).
+
+If you're using PHPStorm follow the [remote debug (docker) setup guide](https://www.jetbrains.com/help/phpstorm/configuring-remote-php-interpreters.html#d36845e650).
+
+The easiest way to trigger a debugging session is to use this [Google Chrome extension](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). Just enable debug mode in the extension, set a breakpoint in the code and reload the page.
+
+If you're using Postman, cURL or another HTTP client simply send `XDEBUG_SESSION_START=session_name` as a GET or POST parameter.
+
 ### Redis
 You can connect to the Redis server with:
 

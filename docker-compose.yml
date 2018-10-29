@@ -69,8 +69,8 @@ services:
     container_name: php71
     build: ./php71
     ports:
-      - "8080:8080"
-      - "3000:3000"
+      - "8080:8080" # Browser Sync
+      - "3000:3000" # Browser Sync
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
