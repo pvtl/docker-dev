@@ -51,7 +51,9 @@ services:
       - .env
   php56-fpm:
     container_name: php56
-    build: ./php56
+    build:
+      context: ./php
+      dockerfile: ./56/Dockerfile
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
@@ -59,7 +61,9 @@ services:
       - .env
   php70-fpm:
     container_name: php70
-    build: ./php70
+    build:
+      context: ./php
+      dockerfile: ./70/Dockerfile
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
@@ -67,7 +71,9 @@ services:
       - .env
   php71-fpm:
     container_name: php71
-    build: ./php71
+    build:
+      context: ./php
+      dockerfile: ./71/Dockerfile
     ports:
       - "8080:8080" # Browser Sync
       - "3000:3000" # Browser Sync
