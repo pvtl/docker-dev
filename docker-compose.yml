@@ -33,7 +33,7 @@ services:
     restart: ${DOCKER_RESTART}
     image: "redis:4-alpine"
     ports:
-      - "6379"
+      - "6379:6379"
   apache:
     container_name: apache
     build: ./apache
