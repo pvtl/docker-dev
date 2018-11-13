@@ -180,7 +180,7 @@ You can connect to the Memcached server with:
 
 Each version of PHP can have it's own CRON's.
 
-1. Simply create a file called `custom_crontab` in the PHP directory of your choice (eg. `/php71/custom_crontab`). Add your CRON's to this script.
+1. Simply create a file called `custom_crontab` in the PHP directory of your choice (eg. `/php/71/custom_crontab`). Add your CRON's to this script.
 1. Rebuild that PHP container: `docker-compose build php71-fpm`
 1. And start it up: `docker-compose up -d`
 
