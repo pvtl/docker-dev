@@ -12,7 +12,7 @@ It includes all the required dependencies for everyday PHP development with comm
 
 Specifically, it has the following tech available:
 
-* PHP 5.6, 7.0 and 7.1
+* PHP 5.6, 7.0, 7.1 and 7.2
 * MySQL 5.7
 * Redis 4.x
 * Memcached 1.x
@@ -29,7 +29,7 @@ We have some clever domain mapping available to allow you to run code for variou
 * __http://laravel.php70.pub.{APACHE_HOSTNAME}__
     * Will map to `~/Sites/laravel/public` and use PHP 7.0
 * __http://another-project.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.1)
+    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.2)
 
 ---
 
