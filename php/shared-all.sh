@@ -36,7 +36,7 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 #     && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini
 
 # Setup Crons
-RUN touch /root/custom_crontab \
+touch /root/custom_crontab \
     && /usr/bin/crontab -u www-data /root/custom_crontab
 
 # Update site's directory permissions
