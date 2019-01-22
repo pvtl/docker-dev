@@ -52,7 +52,7 @@ COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf
 
 # Execute shared commands (eg. install of npm, composer etc)
 COPY ./shared-all.sh /container-setup.sh
-RUN chmod +x /container-setup.sh && /container-setup.sh
+RUN /container-setup.sh
 
 ENTRYPOINT []
 CMD ["/usr/bin/supervisord"]

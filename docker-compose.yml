@@ -42,7 +42,7 @@ services:
     restart: ${DOCKER_RESTART}
     volumes:
       - ./apache/sites:/usr/local/apache2/conf/sites:ro
-      - ${DOCUMENTROOT}:/var/www/html:delegated
+      - lde-docker-sync:/var/www/html:nocopy
     links:
       - php56-fpm
       - php70-fpm
@@ -57,7 +57,7 @@ services:
       dockerfile: ./56/Dockerfile
     restart: ${DOCKER_RESTART}
     volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
+      - lde-docker-sync:/var/www/html:nocopy
     env_file:
       - .env
   php70-fpm:
@@ -67,7 +67,7 @@ services:
       dockerfile: ./70/Dockerfile
     restart: ${DOCKER_RESTART}
     volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
+      - lde-docker-sync:/var/www/html:nocopy
     env_file:
       - .env
   php71-fpm:
@@ -77,7 +77,7 @@ services:
       dockerfile: ./71/Dockerfile
     restart: ${DOCKER_RESTART}
     volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
+      - lde-docker-sync:/var/www/html:nocopy
     env_file:
       - .env
   php72-fpm:
@@ -90,6 +90,9 @@ services:
       - "8080:8080" # Browser Sync
       - "3000:3000" # Browser Sync
     volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
+      - lde-docker-sync:/var/www/html:nocopy
     env_file:
       - .env
+volumes:
+  lde-docker-sync:
+    external: true

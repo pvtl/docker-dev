@@ -1,0 +1,12 @@
+version: "2"
+options:
+    verbose: true
+syncs:
+    lde-docker-sync: # tip: add -sync and you keep consistent names als a convention
+        src: ${DOCUMENTROOT}
+        # sync_user: 'www-data'
+        # sync_userid: '33'
+        sync_args: ['-perms=0'] #required for two way sync ie generators, etc
+        sync_strategy: 'unison' 
+        sync_host_ip: '127.0.0.1' #host ip isn't properly inferred
+        sync_excludes: []
