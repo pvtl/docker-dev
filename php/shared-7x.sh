@@ -1,24 +1,25 @@
 # Required PHP Extensions
 apt-get update && apt-get install -y \
         cron \
-        supervisor \
-        ssmtp \
+        git \
+        gnupg \
+        iputils-ping \
+        less \
         libfreetype6-dev \
+        libicu-dev \
         libjpeg62-turbo-dev \
-        libmemcached-dev \
         libmcrypt-dev \
+        libmemcached-dev \
         libpng-dev \
         libxml2-dev \
         libxslt-dev \
-        libicu-dev \
-        less \
         nano \
-        ssh \
-        git \
-        zip \
-        unzip \
         net-tools \
-        gnupg \
+        ssh \
+        ssmtp \
+        supervisor \
+        unzip \
+        zip \
         --no-install-recommends \
     && yes '' | pecl install -f redis xdebug mcrypt \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \

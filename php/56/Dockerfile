@@ -8,22 +8,22 @@ ENV PATH /usr/local/go/bin:$PATH
 # Required PHP Extensions
 RUN apt-get update && apt-get install -y \
         cron \
-        supervisor \
-        ssmtp \
+        git \
+        gnupg \
+        less \
         libfreetype6-dev \
+        libicu-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
         libpng-dev \
         libxml2-dev \
         libxslt-dev \
-        libicu-dev \
-        less \
         nano \
         ssh \
-        git \
-        zip \
+        ssmtp \
+        supervisor \
         unzip \
-        gnupg \
+        zip \
         --no-install-recommends \
     && yes '' | pecl install -f memcache redis xdebug-2.5.5 \
     && docker-php-ext-enable memcache redis xdebug \
