@@ -4,14 +4,10 @@ curl --silent --show-error https://getcomposer.org/installer | php \
   && composer global require hirak/prestissimo
 
 # Install Node
-curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   && apt-get install -y nodejs \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
-
-# Install useful NPM CLIs
-npm i -g grunt-cli \
-  && npm i -g gulp-cli
 
 # Install Yarn
 curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
@@ -29,11 +25,11 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
   && mv wp-cli.phar /usr/local/bin/wp
 
 # Blackfire PHP Profiler
-version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
-  && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe# /php/linux/amd64/$version \
-  && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp \
-  && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
-  && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini
+# version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
+#   && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe# /php/linux/amd64/$version \
+#   && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp \
+#   && mv /tmp/blackfire-*.so $(php -r "echo ini_get('extension_dir');")/blackfire.so \
+#   && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > $PHP_INI_DIR/conf.d/blackfire.ini
 
 # Setup Crons
 touch /root/custom_crontab \

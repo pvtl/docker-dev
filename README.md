@@ -12,7 +12,7 @@ It includes all the required dependencies for everyday PHP development with comm
 
 Specifically, it has the following tech available:
 
-* PHP 5.6, 7.0, 7.1, 7.2 and 7.3
+* PHP 5.6, 7.0, 7.1, 7.2, 7.3 and 7.4
 * MySQL 5.7
 * Redis 4.x
 * Memcached 1.x
@@ -29,7 +29,7 @@ We have some clever domain mapping available to allow you to run code for variou
 * __http://laravel.php70.pub.{APACHE_HOSTNAME}__
     * Will map to `~/Sites/laravel/public` and use PHP 7.0
 * __http://another-project.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.3)
+    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.4)
 
 ---
 
@@ -92,8 +92,8 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
-| `docker-compose exec php73-fpm bash`  | Open a bash terminal in the PHP 7.3 container |
-| `docker-compose logs php73-fpm` | View all logs for PHP-FPM 7.3 |
+| `docker-compose exec php74-fpm bash`  | Open a bash terminal in the PHP 7.4 container |
+| `docker-compose logs php74-fpm` | View all logs for PHP-FPM 7.4 |
 | `docker-compose ps` | Show which containers are running |
 | `docker system prune --volumes` | Erase any unused containers, images, volumes etc. to free disk space. |
 ---
@@ -180,8 +180,8 @@ You can connect to the Memcached server with:
 
 Each version of PHP can have it's own CRON's.
 
-1. Simply create a file called `custom_crontab` in the PHP directory of your choice (eg. `/php/73/custom_crontab`). Add your CRON's to this script.
-1. Rebuild that PHP container: `docker-compose build php73-fpm`
+1. Simply create a file called `custom_crontab` in the PHP directory of your choice (eg. `/php/74/custom_crontab`). Add your CRON's to this script.
+1. Rebuild that PHP container: `docker-compose build php74-fpm`
 1. And start it up: `docker-compose up -d`
 
 Your CRON entries should look something like this:
@@ -200,9 +200,9 @@ In some instances a build may fail due to a `Container Name already in use` erro
 
 To run BrowserSync from within a container, it needs to proxy a PHP site to generate the site. To do this, it needs to know where the URL lives (which, from the outside world, is through the `apache` container).
 
-Note: BrowserSync will only work from within the `php73-fpm` container.
+Note: BrowserSync will only work from within the `php74-fpm` container.
 
-1. `docker exec -it php73-fpm bash` - SSH into the PHP7.3 container
+1. `docker exec -it php74-fpm bash` - SSH into the PHP7.4 container
 1. `nano /etc/hosts` - Edit the hosts files
     - `171.22.0.10 <THIS SITE URL eg. wp.pub.localhost>` - Add the current site's URL, pointing to the `apache` container
 
