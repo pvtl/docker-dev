@@ -48,6 +48,7 @@ services:
       - php70-fpm
       - php71-fpm
       - php72-fpm
+      - php73-fpm
     env_file:
       - .env
   php56-fpm:
@@ -85,6 +86,16 @@ services:
     build:
       context: ./php
       dockerfile: ./72/Dockerfile
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    env_file:
+      - .env
+  php73-fpm:
+    container_name: php73
+    build:
+      context: ./php
+      dockerfile: ./73/Dockerfile
     restart: ${DOCKER_RESTART}
     ports:
       - "8080:8080" # Browser Sync
