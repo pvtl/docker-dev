@@ -1,11 +1,11 @@
 version: '3'
 services:
-  blackfire:
-    container_name: blackfire
-    restart: ${DOCKER_RESTART}
-    image: blackfire/blackfire
-    env_file:
-      - .env
+#  blackfire:
+#    container_name: blackfire
+#    restart: ${DOCKER_RESTART}
+#    image: blackfire/blackfire
+#    env_file:
+#      - .env
   mysql:
     container_name: mysql
     restart: ${DOCKER_RESTART}
