@@ -1,11 +1,14 @@
 version: '3'
 services:
-#  blackfire:
-#    container_name: blackfire
-#    restart: ${DOCKER_RESTART}
-#    image: blackfire/blackfire
-#    env_file:
-#      - .env
+  # Blackfire ---------------------------------------------------
+  # blackfire:
+  #   container_name: blackfire
+  #   restart: ${DOCKER_RESTART}
+  #   image: blackfire/blackfire
+  #   env_file:
+  #     - .env
+
+  # MySQL ---------------------------------------------------
   mysql:
     container_name: mysql
     restart: ${DOCKER_RESTART}
@@ -17,6 +20,8 @@ services:
     volumes:
       - ./mysql/data:/var/lib/mysql
     command: mysqld --sql_mode=""
+
+  # Mailhog ---------------------------------------------------
   mailhog:
     container_name: mailhog
     restart: ${DOCKER_RESTART}
@@ -24,16 +29,22 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+
+  # Memcached ---------------------------------------------------
   memcached:
     container_name: memcached
     restart: ${DOCKER_RESTART}
     image: "memcached:1-alpine"
+
+  # Redis ---------------------------------------------------
   redis:
     container_name: redis
     restart: ${DOCKER_RESTART}
     image: "redis:5-alpine"
     ports:
       - "6379:6379"
+
+  # Apache ---------------------------------------------------
   apache:
     container_name: apache
     build: ./apache
@@ -51,6 +62,8 @@ services:
       - php73-fpm
     env_file:
       - .env
+
+  # PHP 5.6 ---------------------------------------------------
   php56-fpm:
     container_name: php56
     build:
@@ -61,6 +74,8 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     env_file:
       - .env
+
+  # PHP 7.0 ---------------------------------------------------
   php70-fpm:
     container_name: php70
     build:
@@ -71,6 +86,8 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     env_file:
       - .env
+
+  # PHP 7.1 ---------------------------------------------------
   php71-fpm:
     container_name: php71
     build:
@@ -81,6 +98,8 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     env_file:
       - .env
+
+  # PHP 7.2 ---------------------------------------------------
   php72-fpm:
     container_name: php72
     build:
@@ -91,6 +110,8 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     env_file:
       - .env
+
+  # PHP 7.3 ---------------------------------------------------
   php73-fpm:
     container_name: php73
     build:
