@@ -14,7 +14,7 @@ Specifically, it has the following tech available:
 
 * PHP 5.6, 7.0, 7.1, 7.2, 7.3 and 7.4
 * MySQL 5.7
-* Redis 4.x
+* Redis 5.x
 * Memcached 1.x
 * Composer (latest)
 * NodeJS (10.x) & NPM (latest)
