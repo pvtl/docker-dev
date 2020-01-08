@@ -76,6 +76,7 @@ docker-compose down --remove-orphans            # 2. Erase previous containers
 docker-compose pull                             # 3. Get latest docker images
 docker-compose build --pull --no-cache          # 4. Rebuild Dockerfiles from scratch (inc. pull parent images)
 docker-compose up -d                            # 5. Start the new env
+docker system prune --volumes                   # 6. Erase any unused containers, images, volumes etc. to free disk space.
 ```
 
 *This will install the latest versions of all tools (eg. PHP, Redis, Node.js etc.)*
@@ -95,7 +96,6 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose exec php74-fpm bash`  | Open a bash terminal in the PHP 7.4 container |
 | `docker-compose logs php74-fpm` | View all logs for PHP-FPM 7.4 |
 | `docker-compose ps` | Show which containers are running |
-| `docker system prune --volumes` | Erase any unused containers, images, volumes etc. to free disk space. |
 ---
 
 ## Connections 🚥
