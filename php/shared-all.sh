@@ -1,18 +1,18 @@
 # Install Composer and Prestissimo
 curl --silent --show-error https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
-  && composer global require hirak/prestissimo
-
-# Install Node
-curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-  && apt-get install -y nodejs \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+  && composer global require hirak/prestissimo \
+  && composer clear-cache
 
 # Install Yarn
 curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-  && apt-get update && apt-get install yarn
+  && apt update \
+  && apt install -y --no-install-recommends yarn
+
+# Install Node
+curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+  && apt install -y --no-install-recommends nodejs
 
 # Mail server
 curl -L -o /usr/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
@@ -36,3 +36,7 @@ touch /root/custom_crontab \
 
 # Update site's directory permissions
 chown -R www-data /var/www/
+
+# Cleanup
+apt clean \
+  && rm -rf /var/lib/apt/lists/*
