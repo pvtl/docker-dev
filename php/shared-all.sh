@@ -11,7 +11,7 @@ curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
   && apt install -y --no-install-recommends yarn
 
 # Install Node
-curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+curl -sL https://deb.nodesource.com/setup_13.x | bash - \
   && apt install -y --no-install-recommends nodejs
 
 # Mail server

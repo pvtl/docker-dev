@@ -17,7 +17,7 @@ Specifically, it has the following tech available:
 * Redis 5.x
 * Memcached 1.x
 * Composer (latest)
-* NodeJS (10.x) & NPM (latest)
+* Node.js (13.x) & NPM (latest)
 * Yarn (latest)
 * Mailhog (latest)
 * [Blackfire](https://blackfire.io/) (latest)
@@ -78,7 +78,7 @@ docker-compose build --pull --no-cache          # 4. Rebuild Dockerfiles from sc
 docker-compose up -d                            # 5. Start the new env
 ```
 
-*This will also install the latest versions of PHP, Redis, NodeJS and NPM.*
+*This will install the latest versions of all tools (eg. PHP, Redis, Node.js etc.)*
 
 ---
 
