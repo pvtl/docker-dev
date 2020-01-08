@@ -15,9 +15,8 @@ curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
   && apt-get update && apt-get install yarn
 
 # Mail server
-curl -Lsf 'https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz' | tar -C '/usr/local' -xvzf - \
-  && go get github.com/mailhog/mhsendmail \
-  && cp /root/go/bin/mhsendmail /usr/bin/mhsendmail
+curl -L -o /usr/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
+  && chmod +x /usr/bin/mhsendmail
 
 # Wordpress CLI
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
