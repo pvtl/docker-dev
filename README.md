@@ -208,6 +208,23 @@ Note: BrowserSync will only work from within the `php74-fpm` container.
 
 Now you can run `npm start` and you'll be able to access the BrowserSync version of the site at `<THIS SITE URL>:3000`
 
+### How do I use Blackfire?
+
+By default, Blackfire is commented out (as it's not used regularly by everyone). To enable it:
+
+*1. Update your environment*
+
+- Update the environment variables (`BLACKFIRE_CLIENT_ID` etc) in `/.env`
+- Add the container - Uncomment the `blackfire` container in `/docker-compose.yml`
+- Add the PHP module - Uncomment the `Blackfire PHP Profiler...` block in `/php/shared-all.sh`
+- Rebuild and restart - `docker-compose down && docker-compose build --pull --no-cache && docker-compose up -d` (this will take a while)
+
+*2. Profile*
+
+- Sign into [blackfire.io](https://blackfire.io)
+- Install the [Chrome Blackfire extension](https://chrome.google.com/webstore/detail/blackfire-profiler/miefikpgahefdbcgoiicnmpbeeomffld?utm_source=chrome-ntp-icon)
+- Navigate to the page/site you'd like to profile and click the 'Profile' button from the Chrome extension
+
 ---
 
 ## Breaking Changes ⚠️
