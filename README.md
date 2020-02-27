@@ -96,141 +96,18 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose exec php74-fpm bash`  | Open a bash terminal in the PHP 7.4 container |
 | `docker-compose logs php74-fpm` | View all logs for PHP-FPM 7.4 |
 | `docker-compose ps` | Show which containers are running |
----
-
-## Connections 🚥
-
-### Email
-By default all email sent from PHP is "caught" by [Mailhog](https://github.com/mailhog/MailHog). This allows you to review the emails being sent without the system actually delivering them to real email addresses.
-
-You can view anything which has been sent and caught via [http://localhost:8025/](http://localhost:8025/).
-
-| Parameter | Value |
-|-------------|---|
-| Host | `mailhog` |
-| Port | `1025` |
-| Username | `testuser` |
-| Password | `testpwd` |
-
-### MySQL
-You can connect to the MySQL server running in the container using [MySQL Workbench](https://www.mysql.com/products/workbench/), [Navicat](https://www.navicat.com/) or [Sequel Pro](https://www.sequelpro.com/).
-
-| Parameter | Value |
-|-------------|---|
-| Connection | Standard TCP/IP |
-| Host | `mysql` (from a container) OR `localhost` (from your computer) |
-| Port | `3306` |
-| Username | `root` |
-| Password | `dbroot` (this can be changed in `.env`) |
-
-Alternatively you can add `127.0.0.1 mysql` to your hosts file so that the `mysql` hostname will work either from your host machine or from the docker containers (useful for CLI tools like Laravel's `artisan` command).
-
-### Xdebug
-
-> **NOTE**: This feature requires Docker 18.03 or later
-
-Xdebug has been installed and configured, but it's disabled by default as it makes everything run much slower!
-
-You can enable Xdebug as-needed by exec'ing into the desired PHP container, moving the Xdebug config file into place, and restarting that container:
-
-```
-docker-compose exec php71-fpm bash
-mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-docker-compose restart php71-fpm
-```
-
-To disable Xdebug again, simply reverse the process:
-
-```
-docker-compose exec php71-fpm bash
-mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE
-docker-compose restart php71-fpm
-```
-
-Xdebug expects the debugging client (eg. PHPStorm) to be running on port `9000` of the Docker host machine.
-
-If you're using PHPStorm follow the [remote debug (docker) setup guide](https://www.jetbrains.com/help/phpstorm/configuring-remote-php-interpreters.html#d36845e650).
-
-The easiest way to trigger a debugging session is to use this [Google Chrome extension](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). Just enable debug mode in the extension, set a breakpoint in the code and reload the page.
-
-If you're using Postman, cURL or another HTTP client simply send `XDEBUG_SESSION_START=session_name` as a GET or POST parameter.
-
-### Redis
-You can connect to the Redis server with:
-
-| Parameter | Value |
-|-------------|---|
-| Host | `redis` (from a container) OR `localhost` (from your computer) |
-| Port | `6379` |
-| Password | `` |
-
-### Memcached
-You can connect to the Memcached server with:
-
-| Parameter | Value |
-|-------------|---|
-| Host | `memcached` (from a container) OR `localhost` (from your computer) |
-| Port | `11211` |
 
 ---
 
-## FAQs ❓
+## Further Reading
 
-### How do I setup/run Crons?
-
-Each version of PHP can have it's own CRON's.
-
-1. Simply create a file called `custom_crontab` in the PHP directory of your choice (eg. `/php/74/custom_crontab`). Add your CRON's to this script.
-1. Rebuild that PHP container: `docker-compose build php74-fpm`
-1. And start it up: `docker-compose up -d`
-
-Your CRON entries should look something like this:
-
-```
-* * * * * php /var/www/html/my-wordpress-site/wp-cron.php
-```
-
-The CRON's will only run while your docker containers are running.
-
-### "Container Name already in use" error
-
-In some instances a build may fail due to a `Container Name already in use` error. You can fix this by following the "update" instructions above. This will recreate a fresh environment from scratch.
-
-### How do I get BrowserSync working from inside a container?
-
-To run BrowserSync from within a container, it needs to proxy a PHP site to generate the site. To do this, it needs to know where the URL lives (which, from the outside world, is through the `apache` container).
-
-Note: BrowserSync will only work from within the `php74-fpm` container.
-
-1. `docker exec -it php74-fpm bash` - SSH into the PHP7.4 container
-1. `nano /etc/hosts` - Edit the hosts files
-    - `171.22.0.10 <THIS SITE URL eg. wp.pub.localhost>` - Add the current site's URL, pointing to the `apache` container
-
-Now you can run `npm start` and you'll be able to access the BrowserSync version of the site at `<THIS SITE URL>:3000`
-
-### How do I use Blackfire?
-
-By default, Blackfire is commented out (as it's not used regularly by everyone). To enable it:
-
-*1. Update your environment*
-
-- Update the environment variables (`BLACKFIRE_CLIENT_ID` etc) in `/.env`
-- Add the container - Uncomment the `blackfire` container in `/docker-compose.yml`
-- Add the PHP module - Uncomment the `Blackfire PHP Profiler...` block in `/php/shared-all.sh`
-- Rebuild and restart - `docker-compose down && docker-compose build --pull --no-cache && docker-compose up -d` (this will take a while)
-
-*2. Profile*
-
-- Sign into [blackfire.io](https://blackfire.io)
-- Install the [Chrome Blackfire extension](https://chrome.google.com/webstore/detail/blackfire-profiler/miefikpgahefdbcgoiicnmpbeeomffld?utm_source=chrome-ntp-icon)
-- Navigate to the page/site you'd like to profile and click the 'Profile' button from the Chrome extension
-
----
-
-## Breaking Changes ⚠️
-
-* The MySQL hostname and container name has changed from `db` to `mysql`. This enables us to add other DB's in the future without the naming convention getting confusing (eg. MongoDB, PostgreSQL).
-* PHP 7.1 and Apache server have been separated into their own containers (`php71-fpm` and `apache` respectively).
-* PHP 5 is now PHP 5.6 specifically. The URL has changed to: `<project>.php56.localhost`
-* You can use `<project>.pub.localhost` (Laravel) URL's with any PHP version now. Eg: `<project>.php56.pub.localhost`
-* We recommend you specify a PHP version number in the URL's of your projects rather than rely on the default. It's currently PHP 7.1, but this may change in the future.
+- 🚥 [Connections](docs/connections.md)
+    - [Email](docs/connections.md#Email)
+    - [MySQL](docs/connections.md#MySQL)
+    - [Xdebug](docs/connections.md#Xdebug)
+    - [Redis](docs/connections.md#Redis)
+    - [Memcached](docs/connections.md#Memcached)
+- ❓ [FAQs](docs/faqs.md)
+    - [Crons](docs/faqs.md#how-do-i-setuprun-crons)
+    - [BrowserSync](docs/faqs.md#how-do-i-get-browsersync-working-from-inside-a-container)
+    - [BlackFire](docs/faqs.md#how-do-i-use-blackfire)
