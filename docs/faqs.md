@@ -26,15 +26,26 @@ In some instances a build may fail due to a `Container Name already in use` erro
 
 ## How do I get BrowserSync working from inside a container?
 
-To run BrowserSync from within a container, it needs to proxy a PHP site to generate the site. To do this, it needs to know where the URL lives (which, from the outside world, is through the `apache` container).
+BrowserSync works by proxying a host and auto-refreshing the browser when a file was updated. When run from within a container, it needs to proxy the PHP site through the apache container (to get the same result that you see).
 
-Note: BrowserSync will only work from within the `php74-fpm` container.
+We have 2 options for this.
 
-1. `docker exec -it php74-fpm bash` - SSH into the PHP7.4 container
-1. `nano /etc/hosts` - Edit the hosts files
-    - `171.22.0.10 <THIS SITE URL eg. wp.pub.localhost>` - Add the current site's URL, pointing to the `apache` container
+### 1. Adjust your site's config
 
-Now you can run `npm start` and you'll be able to access the BrowserSync version of the site at `<THIS SITE URL>:3000`
+We have a (wildcard) DNS redirect setup at `*.lde.pvtl.io` which points to the apache container's IP address. This is for convenience, so that our docker container can use that hostname to find the IP. Simply adjust your BrowserSync config to use this hostname:
+
+1. BrowserSync config: Instead of using the hostname `<SITE NAME>.pub.localhost`, use `<SITE NAME>.pub.lde.pvtl.io`
+1. (optional) .env: Adjust your site's hostname (usually in `.env`) to use the same `.lde.pvtl.io` alternative
+    - Primarily relevant in Wordpress sites, because Wordpress will redirect to `WP_HOME`
+
+### 2. Manually Define
+
+Alternatively, you can manually define where your host is (i.e. what is the hosts IP?). In our case, the IP is that of the `apache` container.
+
+1. `docker exec -it php74-fpm bash` - SSH into the container where you're running `yarn watch` from
+1. `nano /etc/hosts` - Edit the hosts file
+    - `192.168.103.1 <THIS SITE URL eg. wp.pub.localhost>` - Add the current site's URL, pointing to the `apache` container
+    - You can find the apache containers IP with `ping -c 1 apache | awk -F '[()]' '{print $2}' | head -n 1`
 
 ---
 
