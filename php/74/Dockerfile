@@ -30,9 +30,13 @@ COPY ./74/Dockerfile ./74/custom_crontab* /root/
 # PHP-FPM and CRON supervisord config
 COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf
 
-# Execute shared commands (eg. install of npm, composer etc)
+# Execute shared commands (eg. install of composer, mail server etc)
 COPY ./shared-all.sh /container-setup.sh
 RUN chmod +x /container-setup.sh && /container-setup.sh
+
+# Execute "default container" commands (eg. install of node, yarn etc)
+COPY ./default-version.sh /container-setup-default.sh
+RUN chmod +x /container-setup-default.sh && /container-setup-default.sh
 
 ENTRYPOINT []
 CMD ["/usr/bin/supervisord"]
