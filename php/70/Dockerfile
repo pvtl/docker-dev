@@ -5,12 +5,9 @@ LABEL maintainer.name="Pivotal Agency" \
 
 ENV PATH /usr/local/go/bin:$PATH
 
-# Execute (PHP7) shared commands (eg. PHP ext, memcached etc)
-COPY ./shared-7x.sh /container-setup-php7.sh
-RUN chmod +x /container-setup-php7.sh && /container-setup-php7.sh
-
-# Configure GD (slighly different than PHP 7.4)
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+# Execute shared commands (eg. install of npm, composer etc)
+COPY ./shared-all.sh /container-setup.sh
+RUN chmod +x /container-setup.sh && /container-setup.sh
 
 # IonCube
 RUN cd /tmp \
@@ -28,10 +25,6 @@ COPY ./70/Dockerfile ./70/custom_crontab* /root/
 
 # PHP-FPM and CRON supervisord config
 COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf
-
-# Execute shared commands (eg. install of npm, composer etc)
-COPY ./shared-all.sh /container-setup.sh
-RUN chmod +x /container-setup.sh && /container-setup.sh
 
 ENTRYPOINT []
 CMD ["/usr/bin/supervisord"]

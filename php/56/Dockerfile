@@ -5,34 +5,9 @@ LABEL maintainer.name="Pivotal Agency" \
 
 ENV PATH /usr/local/go/bin:$PATH
 
-# Required PHP Extensions
-RUN apt-get update && apt-get install -y \
-        cron \
-        git \
-        gnupg \
-        less \
-        libfreetype6-dev \
-        libicu-dev \
-        libjpeg62-turbo-dev \
-        libmemcached-dev \
-        libmcrypt-dev \
-        libpng-dev \
-        libxml2-dev \
-        libxslt-dev \
-        nano \
-        ssh \
-        ssmtp \
-        supervisor \
-        unzip \
-        zip \
-        --no-install-recommends \
-    && yes '' | pecl install -f memcached-2.2.0 redis-4.3.0 xdebug-2.5.5 \
-    && docker-php-ext-enable memcached redis xdebug \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) bcmath calendar gd intl mcrypt mysql mysqli opcache pdo_mysql soap xsl zip \
-    && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Execute shared commands (eg. install PHP modules, composer etc)
+COPY ./shared-all.sh /container-setup.sh
+RUN chmod +x /container-setup.sh && /container-setup.sh
 
 # IonCube
 RUN cd /tmp \
@@ -50,10 +25,6 @@ COPY ./56/Dockerfile ./56/custom_crontab* /root/
 
 # PHP-FPM and CRON supervisord config
 COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf
-
-# Execute shared commands (eg. install of npm, composer etc)
-COPY ./shared-all.sh /container-setup.sh
-RUN chmod +x /container-setup.sh && /container-setup.sh
 
 ENTRYPOINT []
 CMD ["/usr/bin/supervisord"]

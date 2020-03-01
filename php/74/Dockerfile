@@ -5,12 +5,9 @@ LABEL maintainer.name="Pivotal Agency" \
 
 ENV PATH /usr/local/go/bin:$PATH
 
-# Execute (PHP7) shared commands (eg. PHP ext, memcached etc)
-COPY ./shared-7x.sh /container-setup-php7.sh
-RUN chmod +x /container-setup-php7.sh && /container-setup-php7.sh
-
-# Configure GD (slighly different for PHP 7.4)
-RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
+# Execute shared commands (eg. install PHP modules, composer etc)
+COPY ./shared-all.sh /container-setup.sh
+RUN chmod +x /container-setup.sh && /container-setup.sh
 
 # IonCube
 # // AS OF JAN 6TH 2020 - CURRENTLY NOT AVAILABLE FOR PHP 7.4
@@ -29,10 +26,6 @@ COPY ./74/Dockerfile ./74/custom_crontab* /root/
 
 # PHP-FPM and CRON supervisord config
 COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf
-
-# Execute shared commands (eg. install of composer, mail server etc)
-COPY ./shared-all.sh /container-setup.sh
-RUN chmod +x /container-setup.sh && /container-setup.sh
 
 # Execute "default container" commands (eg. install of node, yarn etc)
 COPY ./default-version.sh /container-setup-default.sh
