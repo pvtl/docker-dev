@@ -57,7 +57,7 @@ By default, Blackfire is commented out (as it's not used regularly by everyone).
 
 - Update the environment variables (`BLACKFIRE_CLIENT_ID` etc) in `/.env`
 - Add the container - Uncomment the `blackfire` container in `/docker-compose.yml`
-- Add the PHP module - Uncomment the `Blackfire PHP Profiler...` block in `/php/default-version.sh`
+- Add the PHP module - Uncomment the `Blackfire PHP Profiler...` block in `/php/shared.sh`
 - Rebuild and restart - `docker-compose down && docker-compose build --pull --no-cache && docker-compose up -d` (this will take a while)
 
 *2. Profile*
