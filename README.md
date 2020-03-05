@@ -17,10 +17,12 @@ Specifically, it has the following tech available:
 * Redis 5.x
 * Memcached 1.x
 * Composer (latest)
-* Node.js (13.x) & NPM (latest)
-* Yarn (latest)
 * Mailhog (latest)
-* [Blackfire](https://blackfire.io/) (latest)
+* Node.js (13.x) & NPM (latest) (PHP74 container only)
+* Yarn (latest) (PHP74 container only)
+* PHPCS (with Wordpress code standards added) (PHP74 container only)
+* Wordpress CLI (PHP74 container only)
+* [Blackfire](https://blackfire.io/) (latest) (not enabled - see FAQs)
 
 We have some clever domain mapping available to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
 

@@ -3,7 +3,7 @@ FROM php:7.3-fpm
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
 
-ENV PATH /usr/local/go/bin:$PATH
+ENV PATH /usr/local/go/bin:/root/.composer/vendor/bin:$PATH
 
 # Execute shared commands (eg. install PHP modules, composer etc)
 COPY ./shared.sh /container-setup.sh

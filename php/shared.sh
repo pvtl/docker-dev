@@ -107,6 +107,12 @@ if [ $PHP_VERSION -eq 74 ] ; then
     && mv wp-cli.phar /usr/local/bin/wp
 
 
+  echo "\n Installing PHPCS (PHP v${PHP_VERSION_FLOAT})"
+  echo "========================================================================================== \n"
+  composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs \
+    && phpcs --config-set installed_paths /root/.composer/vendor/wp-coding-standards/wpcs
+
+
   # echo "\n Installing Blackfire (PHP v${PHP_VERSION_FLOAT})"
   # echo "========================================================================================== \n"
   # curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$PHP_VERSION \
