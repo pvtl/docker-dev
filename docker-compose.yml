@@ -40,6 +40,18 @@ services:
   #   networks:
   #     lde-network:
 
+  # HTTPS ---------------------------------------------------
+  https:
+    container_name: https
+    build: ./https
+    ports:
+      - "443:443"
+    restart: ${DOCKER_RESTART}
+    environment:
+      - HOST_IP=192.168.103.100
+    networks:
+      lde-network:
+
   # Mailhog ---------------------------------------------------
   mailhog:
     container_name: mailhog
