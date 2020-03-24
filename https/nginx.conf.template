@@ -1,10 +1,12 @@
+daemon off;
+
 events {
   worker_connections  1024;
 }
 
 http {
   upstream app {
-    server ${HOST_IP};
+    server ${HOST_IP}:${PORT};
   }
 
   server {

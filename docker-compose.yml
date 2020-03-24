@@ -49,6 +49,7 @@ services:
   #   restart: ${DOCKER_RESTART}
   #   environment:
   #     - HOST_IP=192.168.103.100
+  #     - PORT=80
   #   networks:
   #     lde-network:
 
