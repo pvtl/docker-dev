@@ -42,8 +42,8 @@ apt update && apt install -y --no-install-recommends \
         $APT_ZIP \
         $APT_LIBZ_PHP71_UP \
     && yes '' | pecl install -f $PECL_MEMCACHED $PECL_REDIS $PECL_XDEBUG $PECL_MCRYPT_PHP72_UP \
-    && docker-php-ext-install -j$(nproc) bcmath calendar gd $DI_MYSQL_PHP5 $DI_EXIF_PHP7 intl $DI_MCRYPT_PHP71_DOWN mysqli opcache pdo_mysql soap xsl zip \
-    && docker-php-ext-enable mcrypt memcached redis xdebug \
+    && docker-php-ext-install -j$(nproc) bcmath calendar $DI_MYSQL_PHP5 $DI_EXIF_PHP7 intl $DI_MCRYPT_PHP71_DOWN mysqli opcache pdo_mysql soap xsl zip\
+    && docker-php-ext-enable mcrypt memcached redis xdebug\
     && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
@@ -52,9 +52,11 @@ apt update && apt install -y --no-install-recommends \
 echo "\n Configure GD Library (PHP v${PHP_VERSION_FLOAT})"
 echo "========================================================================================== \n"
 if [ $PHP_VERSION -ge 74 ] ; then
-  docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
+  docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
+  && docker-php-ext-install -j$(nproc) gd
 else
-  docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+  docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/  \
+  && docker-php-ext-install -j$(nproc) gd
 fi
 
 
