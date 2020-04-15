@@ -9,6 +9,10 @@ ENV PATH /usr/local/go/bin:/root/.composer/vendor/bin:$PATH
 COPY ./shared.sh /container-setup.sh
 RUN chmod +x /container-setup.sh && /container-setup.sh
 
+# Run the user specified commands
+ARG EXTRA_CMDS="echo 'None to run'"
+RUN eval $EXTRA_CMDS
+
 # Custom PHP.ini Config
 COPY ./conf/custom.ini /usr/local/etc/php/conf.d/999-custom.ini
 

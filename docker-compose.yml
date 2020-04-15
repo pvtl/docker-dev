@@ -10,10 +10,14 @@ services:
   # Apache ---------------------------------------------------
   apache:
     container_name: apache
-    build: ./apache
+    restart: ${DOCKER_RESTART}
+    build:
+      context: ./apache
+      dockerfile: ./Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_APACHE}
     ports:
       - "80:80"
-    restart: ${DOCKER_RESTART}
     volumes:
       - ./apache/sites:/usr/local/apache2/conf/sites:ro
       - ${DOCUMENTROOT}:/var/www/html:delegated
@@ -76,7 +80,11 @@ services:
   mysql:
     container_name: mysql
     restart: ${DOCKER_RESTART}
-    image: "mysql:5.7"
+    build:
+      context: ./mysql
+      dockerfile: ./Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_MYSQL}
     env_file:
       - .env
     ports:
@@ -93,6 +101,8 @@ services:
     build:
       context: ./php
       dockerfile: ./56/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP56}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
@@ -107,6 +117,8 @@ services:
     build:
       context: ./php
       dockerfile: ./70/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP70}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
@@ -121,6 +133,8 @@ services:
     build:
       context: ./php
       dockerfile: ./71/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP71}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
@@ -135,6 +149,8 @@ services:
     build:
       context: ./php
       dockerfile: ./72/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP72}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
@@ -149,6 +165,8 @@ services:
     build:
       context: ./php
       dockerfile: ./73/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP73}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
@@ -163,6 +181,8 @@ services:
     build:
       context: ./php
       dockerfile: ./74/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP74}
     restart: ${DOCKER_RESTART}
     ports:
       - "3000:3000" # Browser Sync
