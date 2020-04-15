@@ -49,6 +49,22 @@ Alternatively, you can manually define where your host is (i.e. what is the host
 
 ---
 
+## How do I use HTTPS/SSL for my local containers?
+
+We have a HTTPS container available, that proxies traffic over https (:443) (with a self signed certificate) to/from your localhost port 80 addresses.
+
+By default this container is commented out (as it's not used regularly by everyone). To enable it:
+
+- Add the container - Uncomment the `https` container in `/docker-compose.yml`
+- Rebuild and restart - `docker-compose build --pull --no-cache https && docker-compose up -d`
+
+Note that Chrome/Edge may require you to enable a feature flag, to access the site with an insecure (self signed) certificate:
+
+- `edge://flags` or `chrome://flags`
+- Enable: `Allow invalid certificates for resources loaded from localhost.`
+
+---
+
 ## How do I use Blackfire?
 
 By default, Blackfire is commented out (as it's not used regularly by everyone). To enable it:

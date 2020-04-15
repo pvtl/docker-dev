@@ -22,6 +22,7 @@ Specifically, it has the following tech available:
 * Yarn (latest) (PHP74 container only)
 * PHPCS (with Wordpress code standards added) (PHP74 container only)
 * Wordpress CLI (PHP74 container only)
+* HTTPS (SSL for localhost (not enabled - see FAQs)
 * [Blackfire](https://blackfire.io/) (latest) (not enabled - see FAQs)
 
 We have some clever domain mapping available to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
