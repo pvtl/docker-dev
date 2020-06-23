@@ -40,7 +40,7 @@ We have some clever domain mapping available to allow you to run code for variou
 
 * Your machine must be running MacOS, Windows 10 _Pro_ or Linux
 * Your CPU must support virtualisation (Intel VT-x or AMD-V)
-* You must have [Docker Compose installed](https://docs.docker.com/compose/install/) and Docker installed & running
+* You must have [Docker Compose](https://docs.docker.com/compose/install/) (version 1.25.0+) and Docker installed & running
 
 ---
 
@@ -74,12 +74,12 @@ sudo nano /etc/hosts
 Open a terminal window, browse to this project's folder and run:
 
 ```bash
-git pull                                        # 1. Pull from Git
-docker-compose down --remove-orphans            # 2. Erase previous containers
-docker-compose pull                             # 3. Get latest docker images
-docker-compose build --pull --no-cache          # 4. Rebuild Dockerfiles from scratch (inc. pull parent images)
-docker-compose up -d                            # 5. Start the new env
-docker system prune --volumes                   # 6. Erase any unused containers, images, volumes etc. to free disk space.
+git pull                                           # 1. Pull from Git
+docker-compose down --remove-orphans               # 2. Erase previous containers
+docker-compose pull                                # 3. Get latest docker images
+docker-compose build --pull --no-cache --parallel  # 4. Rebuild Dockerfiles from scratch (inc. pull parent images)
+docker-compose up -d                               # 5. Start the new env
+docker system prune --volumes                      # 6. Erase any unused containers, images, volumes etc. to free disk space.
 ```
 
 *This will install the latest versions of all tools (eg. PHP, Redis, Node.js etc.)*
