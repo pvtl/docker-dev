@@ -198,7 +198,7 @@ services:
   redis:
     container_name: redis
     restart: ${DOCKER_RESTART}
-    image: "redis:5-alpine"
+    image: "redis:6-alpine"
     ports:
       - "6379:6379"
     networks:
