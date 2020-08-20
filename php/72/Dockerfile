@@ -9,6 +9,10 @@ RUN eval $EXTRA_CMDS
 
 # Custom PHP.ini Config
 COPY ./conf/custom.ini /usr/local/etc/php/conf.d/999-custom.ini
+RUN echo '\n[xdebug]\n\
+xdebug.remote_host = host.docker.internal\n\
+xdebug.remote_enable = 1\n\
+xdebug.remote_autostart = 1' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE
 
 # Copy CRON's
 COPY ./72/Dockerfile ./72/custom_crontab* /root/
