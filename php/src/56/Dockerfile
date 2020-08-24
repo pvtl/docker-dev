@@ -71,7 +71,7 @@ RUN apt clean \
   && rm -rf /var/lib/apt/lists/*
 
 # Custom PHP.ini Config
-COPY ./conf/custom.ini /usr/local/etc/php/conf.d/999-custom.ini
+COPY ./conf/custom.ini /usr/local/etc/php/conf.d/zza-custom.ini
 
 # PHP-FPM and CRON supervisord config
 COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf

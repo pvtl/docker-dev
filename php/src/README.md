@@ -39,6 +39,12 @@ Once that's landed in Docker Hub, you'll be able to build/run your LDE again, wh
 
 This architecture allows us to more quickly and easily build and run LDEs, because the images are pre-built in Docker Hub. Therefore they only require that we download and run.
 
+## Config & PHP.ini
+
+Each version of PHP shares the global config from `php/src/conf/custom.ini`. This config is baked into the Docker images we publish on Docker Hub.
+
+Those using the finished Docker images can override their PHP config in `php/conf/custom.ini`.
+
 ## Commands
 
 *Must be run from `/php/src/`
@@ -54,16 +60,16 @@ This architecture allows us to more quickly and easily build and run LDEs, becau
 ## Build and push all
 
 ```bash
-docker build -f 74/Dockerfile . -t wearepvtl/php-fpm-7.4
+docker build --no-cache -f 74/Dockerfile . -t wearepvtl/php-fpm-7.4
 docker push wearepvtl/php-fpm-7.4
-docker build -f 73/Dockerfile . -t wearepvtl/php-fpm-7.3
+docker build --no-cache -f 73/Dockerfile . -t wearepvtl/php-fpm-7.3
 docker push wearepvtl/php-fpm-7.3
-docker build -f 72/Dockerfile . -t wearepvtl/php-fpm-7.2
+docker build --no-cache -f 72/Dockerfile . -t wearepvtl/php-fpm-7.2
 docker push wearepvtl/php-fpm-7.2
-docker build -f 71/Dockerfile . -t wearepvtl/php-fpm-7.1
+docker build --no-cache -f 71/Dockerfile . -t wearepvtl/php-fpm-7.1
 docker push wearepvtl/php-fpm-7.1
-docker build -f 70/Dockerfile . -t wearepvtl/php-fpm-7.0
+docker build --no-cache -f 70/Dockerfile . -t wearepvtl/php-fpm-7.0
 docker push wearepvtl/php-fpm-7.0
-docker build -f 56/Dockerfile . -t wearepvtl/php-fpm-5.6
+docker build --no-cache -f 56/Dockerfile . -t wearepvtl/php-fpm-5.6
 docker push wearepvtl/php-fpm-5.6
 ```
