@@ -102,6 +102,24 @@ The Docker Engine must be running and commands must be run within this repo's ro
 
 ---
 
+## Dev-In command
+
+A handy command group to exec into your PHP containers, switch to the "www-data" user and then change directory to your current working directory. Run this command group from your project directory.
+
+```bash
+args="cd /var/www/html/${PWD##*/}; su www-data -s /bin/bash" && cd ~/<projects-directory>/docker-dev && docker-compose exec <php-container-name> bash -c "$args"
+```
+
+Additionally, you could save this command group to a script file (.sh), and add an alias to your ~/.bashrc file to execute the script
+
+```bash
+alias devin="sh ~/path/to/script/file/<script-file>.sh"
+```
+
+This allows you to run "devin" from your project folder to execute the command group
+
+---
+
 ## Further Reading
 
 - 🚥 [Connections](docs/connections.md)
