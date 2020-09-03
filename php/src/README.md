@@ -59,17 +59,6 @@ Those using the finished Docker images can override their PHP config in `php/con
 
 ## Build and push all
 
-```bash
-docker build --no-cache -f 74/Dockerfile . -t wearepvtl/php-fpm-7.4
-docker push wearepvtl/php-fpm-7.4
-docker build --no-cache -f 73/Dockerfile . -t wearepvtl/php-fpm-7.3
-docker push wearepvtl/php-fpm-7.3
-docker build --no-cache -f 72/Dockerfile . -t wearepvtl/php-fpm-7.2
-docker push wearepvtl/php-fpm-7.2
-docker build --no-cache -f 71/Dockerfile . -t wearepvtl/php-fpm-7.1
-docker push wearepvtl/php-fpm-7.1
-docker build --no-cache -f 70/Dockerfile . -t wearepvtl/php-fpm-7.0
-docker push wearepvtl/php-fpm-7.0
-docker build --no-cache -f 56/Dockerfile . -t wearepvtl/php-fpm-5.6
-docker push wearepvtl/php-fpm-5.6
-```
+This script will pull fresh copies of the official parent images and rebuild our Pivotal PHP images from scratch.
+
+`php/src/build-n-push.sh`
