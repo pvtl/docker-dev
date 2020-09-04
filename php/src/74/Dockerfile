@@ -36,7 +36,7 @@ RUN apt update && apt install -y --no-install-recommends \
 
 # Configure GD Library
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
-&& docker-php-ext-install -j$(nproc) gd
+  && docker-php-ext-install -j$(nproc) gd
 
 # Install Composer
 RUN curl --silent --show-error https://getcomposer.org/installer | php \
@@ -52,11 +52,15 @@ RUN curl -L -o /usr/bin/mhsendmail https://github.com/mailhog/mhsendmail/release
 RUN curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
   && apt update \
-  && apt install -y --no-install-recommends yarn
+  && apt install -y --no-install-recommends yarn \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Node
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
-  && apt install -y --no-install-recommends nodejs
+  && apt install -y --no-install-recommends nodejs \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install Wordpress CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
@@ -65,7 +69,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 # Install PHPCS
 RUN composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs \
-  && phpcs --config-set installed_paths /root/.composer/vendor/wp-coding-standards/wpcs
+  && phpcs --config-set installed_paths /root/.composer/vendor/wp-coding-standards/wpcs \
+  && composer clear-cache
 
 # Setup Crons
 RUN touch /root/custom_crontab \
