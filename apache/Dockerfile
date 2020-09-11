@@ -19,4 +19,4 @@ RUN eval $EXTRA_CMDS
 
 # Enable Sites
 RUN mkdir /usr/local/apache2/conf/sites/ \
-    && echo "Include conf/sites/pvtl.io.conf" >> /usr/local/apache2/conf/httpd.conf
+    && echo "Include conf/sites/localhost.conf" >> /usr/local/apache2/conf/httpd.conf
