@@ -13,9 +13,8 @@ RUN echo "LoadModule vhost_alias_module modules/mod_vhost_alias.so" >> /usr/loca
     && echo "LoadModule proxy_module modules/mod_proxy.so" >> /usr/local/apache2/conf/httpd.conf \
     && echo "LoadModule proxy_fcgi_module modules/mod_proxy_fcgi.so" >> /usr/local/apache2/conf/httpd.conf
 
-# Enable Sites
-RUN mkdir /usr/local/apache2/conf/sites/ \
-    && echo "Include conf/sites/localhost.conf" >> /usr/local/apache2/conf/httpd.conf
+# Enable all Sites
+RUN echo "Include conf/sites/*" >> /usr/local/apache2/conf/httpd.conf
 
 # Run the user specified commands
 ARG EXTRA_CMDS="echo 'None to run'"
