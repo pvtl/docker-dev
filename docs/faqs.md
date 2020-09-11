@@ -84,6 +84,30 @@ By default, Blackfire is commented out (as it's not used regularly by everyone).
 
 ---
 
+## Mapping a Custom Hostname to a local site
+
+Let's say you want `phpinfo.com` to map to a local site. It's as easy as adding a new conf file to `apache/sites` then rebuilding (`docker-compose build apache`) and starting (`docker-compose up -d`). The file would looking something like this:
+
+```
+DocumentRoot /var/www/html
+DirectoryIndex index.html index.php
+ServerAdmin tech@pvtl.io
+
+<VirtualHost *:*>
+    ServerName phpinfo.com
+    ServerAlias phpinfo.com
+
+    UseCanonicalName Off
+    VirtualDocumentRoot /var/www/html/info
+
+    <FilesMatch "\.php$">
+      SetHandler proxy:fcgi://php74-fpm:9000
+    </FilesMatch>
+</VirtualHost>
+```
+
+---
+
 ## Changing your MySQL Root password
 
 If data already exists in your MySQL data store (eg. you've started the MySQL container in the past), simply changing the `.env` `MYSQL_ROOT_PASSWORD` will not change the password. Instead, you need to follow the following steps:

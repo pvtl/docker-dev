@@ -114,5 +114,6 @@ The Docker Engine must be running and commands must be run within this repo's ro
     - [Crons](docs/faqs.md#how-do-i-setuprun-crons)
     - [BrowserSync](docs/faqs.md#how-do-i-get-browsersync-working-from-inside-a-container)
     - [BlackFire](docs/faqs.md#how-do-i-use-blackfire)
+    - [Mapping a Custom Hostname to a local site](docs/faqs.md#mapping-a-custom-hostname-to-a-local-site)
     - [Changing your MySQL Root password](docs/faqs.md#changing-your-mysql-root-password)
     - [Dev-In command](docs/faqs.md#dev-in-command)
