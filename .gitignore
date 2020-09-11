@@ -1,7 +1,15 @@
-mysql/data/*
 !.gitkeep
 .DS_Store
 .idea
 npm-debug.log
 .env
+
+# MySQL
+mysql/data/*
+
+# PHP
 custom_crontab
+
+# Apache
+apache/sites/*
+!apache/sites/localhost.conf
