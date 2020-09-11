@@ -84,6 +84,24 @@ By default, Blackfire is commented out (as it's not used regularly by everyone).
 
 ---
 
+## Changing your MySQL Root password
+
+If data already exists in your MySQL data store (eg. you've started the MySQL container in the past), simply changing the `.env` `MYSQL_ROOT_PASSWORD` will not change the password. Instead, you need to follow the following steps:
+
+- Update `MYSQL_ROOT_PASSWORD` in `.env`, to your new password
+- Build, start and exec into your MySQL container: `docker-compose exec mysql bash`
+- Login to MySQL: `mysql -u root -p`
+- Execute the following:
+
+```mysql
+use mysql;
+update user set authentication_string=password('YOUR_NEW_PASSWORD_HERE') where user='root';
+flush privileges;
+quit;
+```
+
+---
+
 ## Dev-In command
 
 A handy command group to exec into your PHP containers, switch to the "www-data" user and then change directory to your current working directory. Run this command group from your project directory.
