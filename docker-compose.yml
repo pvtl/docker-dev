@@ -10,6 +10,7 @@ services:
   # Apache ---------------------------------------------------
   apache:
     container_name: apache
+    hostname: lde-apache
     restart: ${DOCKER_RESTART}
     build:
       context: ./apache
@@ -37,6 +38,7 @@ services:
   # Blackfire ---------------------------------------------------
   # blackfire:
   #   container_name: blackfire
+  #   hostname: lde-blackfire
   #   restart: ${DOCKER_RESTART}
   #   image: blackfire/blackfire
   #   env_file:
@@ -47,6 +49,7 @@ services:
   # HTTPS ---------------------------------------------------
   # https:
   #   container_name: https
+  #   hostname: lde-https
   #   build: ./https
   #   ports:
   #     - "443:443"
@@ -60,6 +63,7 @@ services:
   # Mailhog ---------------------------------------------------
   mailhog:
     container_name: mailhog
+    hostname: lde-mailhog
     restart: ${DOCKER_RESTART}
     image: mailhog/mailhog
     ports:
@@ -71,6 +75,7 @@ services:
   # Memcached ---------------------------------------------------
   memcached:
     container_name: memcached
+    hostname: lde-memcached
     restart: ${DOCKER_RESTART}
     image: "memcached:1-alpine"
     networks:
@@ -79,6 +84,7 @@ services:
   # MySQL ---------------------------------------------------
   mysql:
     container_name: mysql
+    hostname: lde-mysql
     restart: ${DOCKER_RESTART}
     build:
       context: ./mysql
@@ -98,6 +104,7 @@ services:
   # PHP 5.6 ---------------------------------------------------
   php56-fpm:
     container_name: php56
+    hostname: lde-php56
     build:
       context: ./php
       dockerfile: ./56/Dockerfile
@@ -114,6 +121,7 @@ services:
   # PHP 7.0 ---------------------------------------------------
   php70-fpm:
     container_name: php70
+    hostname: lde-php70
     build:
       context: ./php
       dockerfile: ./70/Dockerfile
@@ -130,6 +138,7 @@ services:
   # PHP 7.1 ---------------------------------------------------
   php71-fpm:
     container_name: php71
+    hostname: lde-php71
     build:
       context: ./php
       dockerfile: ./71/Dockerfile
@@ -146,6 +155,7 @@ services:
   # PHP 7.2 ---------------------------------------------------
   php72-fpm:
     container_name: php72
+    hostname: lde-php72
     build:
       context: ./php
       dockerfile: ./72/Dockerfile
@@ -162,6 +172,7 @@ services:
   # PHP 7.3 ---------------------------------------------------
   php73-fpm:
     container_name: php73
+    hostname: lde-php73
     build:
       context: ./php
       dockerfile: ./73/Dockerfile
@@ -178,6 +189,7 @@ services:
   # PHP 7.4 ---------------------------------------------------
   php74-fpm:
     container_name: php74
+    hostname: lde-php74
     build:
       context: ./php
       dockerfile: ./74/Dockerfile
@@ -197,6 +209,7 @@ services:
   # Redis ---------------------------------------------------
   redis:
     container_name: redis
+    hostname: lde-redis
     restart: ${DOCKER_RESTART}
     image: "redis:6-alpine"
     ports:
