@@ -76,9 +76,19 @@ RUN composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs \
 RUN touch /root/custom_crontab \
   && /usr/bin/crontab -u www-data /root/custom_crontab
 
+# Install ZSH & config
+RUN apt update && apt install -y --no-install-recommends zsh fonts-powerline powerline \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/* \
+  && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" chsh -s $(which zsh) \
+  && sed -i 's^ZSH_THEME="robbyrussell"^ZSH_THEME="bira"^g' ~/.zshrc \
+  && sed -i 's^# DISABLE_UPDATE_PROMPT="true"^DISABLE_UPDATE_PROMPT="true"^g' ~/.zshrc \
+  && sed -i 's^# DISABLE_AUTO_UPDATE="true"^DISABLE_AUTO_UPDATE="true"^g' ~/.zshrc \
+  && echo 'export EDITOR="nano"' >> ~/.zshrc
+
 # Aliases
-RUN echo "alias artisan='php artisan'" >> ~/.bashrc \
-  && echo "alias magento='php bin/magento'" >> ~/.bashrc
+RUN echo "alias artisan='php artisan'" >> ~/.zshrc \
+  && echo "alias magento='php bin/magento'" >> ~/.zshrc
 
 # Update site's directory permissions
 RUN chown -R www-data /var/www/
