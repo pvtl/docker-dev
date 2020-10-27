@@ -41,7 +41,6 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/i
 # Install Composer
 RUN curl --silent --show-error https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
-  && composer global require hirak/prestissimo \
   && composer clear-cache
 
 # Install MailHog
