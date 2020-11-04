@@ -1,4 +1,4 @@
-FROM mysql:5.7
+FROM mariadb:10.2
 
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
