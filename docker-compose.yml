@@ -29,6 +29,7 @@ services:
       - php72-fpm
       - php73-fpm
       - php74-fpm
+      - php80-fpm
     env_file:
       - .env
     networks:
@@ -199,6 +200,23 @@ services:
     ports:
       - "3000:3000" # Browser Sync
       - "3001:3001" # Browser Sync UI
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    env_file:
+      - .env
+    networks:
+      lde-network:
+
+  # PHP 8.0 ---------------------------------------------------
+  php80-fpm:
+    container_name: php80
+    hostname: php80
+    build:
+      context: ./php
+      dockerfile: ./80/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP80}
+    restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     env_file:

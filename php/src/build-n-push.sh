@@ -4,6 +4,9 @@
 # Required by the relative paths below
 cd $(dirname "$0")
 
+docker build --pull --no-cache -f 80/Dockerfile . -t wearepvtl/php-fpm-8.0
+docker push wearepvtl/php-fpm-8.0
+
 docker build --pull --no-cache -f 74/Dockerfile . -t wearepvtl/php-fpm-7.4
 docker push wearepvtl/php-fpm-7.4
 

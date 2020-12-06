@@ -28,7 +28,7 @@ They are PHP images, customised to include features such as:
 
 ## How do I make updates?
 
-You'll notice in that `/php/7*/Dockerfile`, that the first line says something like: `FROM wearepvtl/php-fpm-7.*`.
+You'll notice in that `/php/*/Dockerfile`, that the first line says something like: `FROM wearepvtl/php-fpm-7.*`.
 This is saying that the LDE we build/run, is using the Pivotal PHP 7.* image.
 
 Therefore, if you need to make a change (eg. add a new dependency), update the `/php/src/7*` image, build and push it to Docker Hub.
