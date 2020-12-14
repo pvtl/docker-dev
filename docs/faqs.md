@@ -1,5 +1,21 @@
 # FAQs ❓
 
+## <xyz>.localhost isn't working
+
+Most browser (eg. Brave, Microsoft Edge, Google Chrome etc) will automatically detect the .localhost TLD and route to localhost (so you won't need to do anything further). However if you're receiving an error, it could be because your browser isn't doing this (routing the host to localhost).
+
+You can manually tell your machine to route the URL to localhost (127.0.0.1) by editing your machine's host file. The below is an example for UNIX based systems.
+
+```bash
+# Open your hosts files (with admin rights)
+sudo nano /etc/hosts
+
+# Append each site you need to access - eg.
+127.0.0.1 info.localhost
+```
+
+---
+
 ## How do I setup/run Crons?
 
 Each version of PHP can have it's own CRON's.
@@ -15,12 +31,6 @@ Your CRON entries should look something like this:
 ```
 
 The CRON's will only run while your docker containers are running.
-
----
-
-## "Container Name already in use" error
-
-In some instances a build may fail due to a `Container Name already in use` error. You can fix this by following the "update" instructions above. This will recreate a fresh environment from scratch.
 
 ---
 
@@ -125,6 +135,12 @@ update user set authentication_string=password('YOUR_NEW_PASSWORD_HERE') where u
 flush privileges;
 quit;
 ```
+
+---
+
+## "Container Name already in use" error
+
+In some instances a build may fail due to a `Container Name already in use` error. You can fix this by following the "update" instructions above. This will recreate a fresh environment from scratch.
 
 ---
 

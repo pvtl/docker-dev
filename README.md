@@ -57,16 +57,6 @@ cp .env.example .env
 docker-compose up -d
 ```
 
-__Then, for each website, simply point the URL to localhost (127.0.0.1):__
-
-```bash
-# Open your hosts files (with admin rights)
-sudo nano /etc/hosts
-
-# Append each site you need to access - eg.
-127.0.0.1 info.localhost
-```
-
 ---
 
 ## Updating 🔄
@@ -111,9 +101,10 @@ The Docker Engine must be running and commands must be run within this repo's ro
     - [Redis](docs/connections.md#Redis)
     - [Memcached](docs/connections.md#Memcached)
 - ❓ [FAQs](docs/faqs.md)
+    - [localhost isn't working](docs/faqs.md)
     - [Crons](docs/faqs.md#how-do-i-setuprun-crons)
     - [BrowserSync](docs/faqs.md#how-do-i-get-browsersync-working-from-inside-a-container)
+    - [HTTPS](docs/faqs.md#how-do-i-use-httpsssl-for-my-local-containers)
     - [BlackFire](docs/faqs.md#how-do-i-use-blackfire)
     - [Mapping a Custom Hostname to a local site](docs/faqs.md#mapping-a-custom-hostname-to-a-local-site)
     - [Changing your MySQL Root password](docs/faqs.md#changing-your-mysql-root-password)
-    - [Dev-In command](docs/faqs.md#dev-in-command)
