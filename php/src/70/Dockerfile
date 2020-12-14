@@ -27,14 +27,14 @@ RUN apt update && apt install -y --no-install-recommends \
         unzip \
         libzip-dev \
     && yes '' | pecl install -f memcached redis xdebug-2.5.5 \
-    && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mcrypt mysqli opcache pdo_mysql soap xsl zip\
-    && docker-php-ext-enable mcrypt memcached redis xdebug\
+    && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mcrypt mysqli opcache pdo_mysql soap xsl zip \
+    && docker-php-ext-enable mcrypt memcached redis xdebug \
     && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE \
     && apt clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure GD Library
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/  \
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 && docker-php-ext-install -j$(nproc) gd
 
 # Install Ioncube
@@ -44,6 +44,7 @@ RUN cd /tmp \
   && mv ioncube/ioncube_loader_lin_$(php -r 'echo PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION;').so /usr/local/lib/php/extensions/* \
   && rm -Rf ioncube.tar.gz ioncube \
   && echo "zend_extension=ioncube_loader_lin_$(php -r 'echo PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION;').so" > /usr/local/etc/php/conf.d/00_docker-php-ext-ioncube_loader_lin_$(php -r 'echo PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION;').ini
+
 # Install Composer
 RUN curl --silent --show-error https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
