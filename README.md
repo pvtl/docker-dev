@@ -99,7 +99,7 @@ The Docker Engine must be running and commands must be run within this repo's ro
 - 🚥 [Connections](docs/connections.md)
     - [Email](docs/connections.md#Email)
     - [MySQL](docs/connections.md#MySQL)
-    - [Xdebug](docs/connections.md#Xdebug)
+    - [XDebug](docs/xdebug.md)
     - [Redis](docs/connections.md#Redis)
     - [Memcached](docs/connections.md#Memcached)
 - ❓ [FAQs](docs/faqs.md)

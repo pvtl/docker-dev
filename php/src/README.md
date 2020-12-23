@@ -18,7 +18,7 @@ They are PHP images, customised to include features such as:
     - Memcached
     - Opcache
     - Redis
-    - Xdebug
+    - XDebug
 - Composer
 - GD Library
 - Mailhog

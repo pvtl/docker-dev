@@ -27,7 +27,7 @@ RUN apt update && apt install -y --no-install-recommends \
         unzip \
         libzip-dev \
         libz-dev \
-    && yes '' | pecl install -f memcached redis xdebug-2.5.5 \
+    && yes '' | pecl install -f memcached redis xdebug-2.9.8 \
     && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mcrypt mysqli opcache pdo_mysql soap xsl zip \
     && docker-php-ext-enable mcrypt memcached redis xdebug \
     && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE \

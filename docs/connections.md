@@ -29,38 +29,6 @@ Alternatively you can add `127.0.0.1 mysql` to your hosts file so that the `mysq
 
 ---
 
-## Xdebug
-
-> **NOTE**: This feature requires Docker 18.03 or later
-
-Xdebug has been installed and configured, but it's disabled by default as it makes everything run much slower!
-
-You can enable Xdebug as-needed by exec'ing into the desired PHP container, moving the Xdebug config file into place, and restarting that container:
-
-```
-docker-compose exec php71-fpm bash
-mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-docker-compose restart php71-fpm
-```
-
-To disable Xdebug again, simply reverse the process:
-
-```
-docker-compose exec php71-fpm bash
-mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE
-docker-compose restart php71-fpm
-```
-
-Xdebug expects the debugging client (eg. PHPStorm) to be running on port `9000` of the Docker host machine.
-
-If you're using PHPStorm follow the [remote debug (docker) setup guide](https://www.jetbrains.com/help/phpstorm/configuring-remote-php-interpreters.html#d36845e650).
-
-The easiest way to trigger a debugging session is to use this [Google Chrome extension](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc). Just enable debug mode in the extension, set a breakpoint in the code and reload the page.
-
-If you're using Postman, cURL or another HTTP client simply send `XDEBUG_SESSION_START=session_name` as a GET or POST parameter.
-
----
-
 ## Redis
 You can connect to the Redis server with:
 
