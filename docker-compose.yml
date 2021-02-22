@@ -116,6 +116,7 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
+    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
 
   # PHP 7.0 ---------------------------------------------------
   php70-fpm:
@@ -131,6 +132,7 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
+    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
 
   # PHP 7.1 ---------------------------------------------------
   php71-fpm:
@@ -146,6 +148,7 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
+    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
 
   # PHP 7.2 ---------------------------------------------------
   php72-fpm:
@@ -161,6 +164,7 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
+    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
 
   # PHP 7.3 ---------------------------------------------------
   php73-fpm:
@@ -176,6 +180,7 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
+    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
 
   # PHP 7.4 ---------------------------------------------------
   php74-fpm:
@@ -194,6 +199,7 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
+    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
 
   # PHP 8.0 ---------------------------------------------------
   php80-fpm:
@@ -209,6 +215,7 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
+    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
 
   # Redis ---------------------------------------------------
   redis:
