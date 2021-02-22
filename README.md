@@ -52,7 +52,7 @@ We have some clever domain mapping available to allow you to run code for variou
 # Clone the repo
 git clone https://github.com/pvtl/docker-dev && cd docker-dev
 
-# Create & update relevant config (eg. point sites to your sites directory)
+# Create & update relevant config (eg. point sites to your sites directory, set user/group ID's)
 cp .env.example .env
 
 # Start the environment and go get a ☕️ (it'll take a while to install e'ry-thing)
