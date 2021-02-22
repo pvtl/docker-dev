@@ -114,8 +114,6 @@ services:
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
-    env_file:
-      - .env
     networks:
       lde-network:
 
@@ -131,8 +129,6 @@ services:
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
-    env_file:
-      - .env
     networks:
       lde-network:
 
@@ -148,8 +144,6 @@ services:
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
-    env_file:
-      - .env
     networks:
       lde-network:
 
@@ -165,8 +159,6 @@ services:
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
-    env_file:
-      - .env
     networks:
       lde-network:
 
@@ -182,8 +174,6 @@ services:
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
-    env_file:
-      - .env
     networks:
       lde-network:
 
@@ -202,8 +192,6 @@ services:
       - "3001:3001" # Browser Sync UI
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
-    env_file:
-      - .env
     networks:
       lde-network:
 
@@ -219,8 +207,6 @@ services:
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
-    env_file:
-      - .env
     networks:
       lde-network:
 
