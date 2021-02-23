@@ -7,9 +7,24 @@ LABEL maintainer.name="Pivotal Agency" \
 ARG CUSTOM_USER_NAME
 ARG CUSTOM_USER_ID
 ARG CUSTOM_GROUP_ID
-RUN groupadd -g ${CUSTOM_GROUP_ID} ${CUSTOM_USER_NAME} && \
-      useradd -m -u ${CUSTOM_USER_ID} -g ${CUSTOM_USER_NAME} -G sudo ${CUSTOM_USER_NAME} && \
-      passwd -d ${CUSTOM_USER_NAME}
+RUN groupadd -g ${CUSTOM_GROUP_ID} ${CUSTOM_USER_NAME} \
+  && useradd -m -u ${CUSTOM_USER_ID} -g ${CUSTOM_USER_NAME} -G sudo -s /usr/bin/zsh ${CUSTOM_USER_NAME} \
+  && passwd -d ${CUSTOM_USER_NAME}
+
+# Install ZSH & config
+RUN ZSH="/home/${CUSTOM_USER_NAME}/.oh-my-zsh" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" chsh -s $(which zsh) ${CUSTOM_USER_NAME} \
+  && mv /root/.zshrc /home/${CUSTOM_USER_NAME}/.zshrc \
+  && chown -R ${CUSTOM_USER_NAME}:${CUSTOM_USER_NAME} /home/${CUSTOM_USER_NAME}/.oh-my-zsh \
+  && sed -i 's^ZSH_THEME="robbyrussell"^ZSH_THEME="bira"^g' /home/${CUSTOM_USER_NAME}/.zshrc \
+  && sed -i 's^# DISABLE_UPDATE_PROMPT="true"^DISABLE_UPDATE_PROMPT="true"^g' /home/${CUSTOM_USER_NAME}/.zshrc \
+  && sed -i 's^# DISABLE_AUTO_UPDATE="true"^DISABLE_AUTO_UPDATE="true"^g' /home/${CUSTOM_USER_NAME}/.zshrc \
+  && echo 'export EDITOR="nano"' >> /home/${CUSTOM_USER_NAME}/.zshrc \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# Aliases
+RUN echo "alias artisan='php artisan'" >> /home/${CUSTOM_USER_NAME}/.zshrc \
+  && echo "alias magento='php bin/magento'" >> /home/${CUSTOM_USER_NAME}/.zshrc
 
 # Install Blackfire
 # RUN curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$(php -r 'echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION;') \

@@ -60,16 +60,8 @@ RUN curl -L -o /usr/bin/mhsendmail https://github.com/mailhog/mhsendmail/release
 RUN touch /root/custom_crontab \
   && /usr/bin/crontab -u www-data /root/custom_crontab
 
-# Aliases
-RUN echo "alias artisan='php artisan'" >> ~/.bashrc \
-  && echo "alias magento='php bin/magento'" >> ~/.bashrc
-
 # Update site's directory permissions
 RUN chown -R www-data /var/www/
-
-# Cleanup
-RUN apt clean \
-  && rm -rf /var/lib/apt/lists/*
 
 # Custom PHP.ini Config
 COPY ./conf/custom.ini /usr/local/etc/php/conf.d/zza-custom.ini
