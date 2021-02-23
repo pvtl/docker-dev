@@ -8,7 +8,8 @@ ARG CUSTOM_USER_NAME
 ARG CUSTOM_USER_ID
 ARG CUSTOM_GROUP_ID
 RUN groupadd -g ${CUSTOM_GROUP_ID} ${CUSTOM_USER_NAME} && \
-      useradd -m -u ${CUSTOM_USER_ID} -g ${CUSTOM_USER_NAME} ${CUSTOM_USER_NAME}
+      useradd -m -u ${CUSTOM_USER_ID} -g ${CUSTOM_USER_NAME} -G sudo ${CUSTOM_USER_NAME} && \
+      passwd -d ${CUSTOM_USER_NAME}
 
 # Install Blackfire
 # RUN curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$(php -r 'echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION;') \

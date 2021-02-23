@@ -23,6 +23,7 @@ RUN apt update && apt install -y --no-install-recommends \
         net-tools \
         ssh \
         ssmtp \
+        sudo \
         supervisor \
         unzip \
         zip \
