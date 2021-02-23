@@ -7,9 +7,13 @@ LABEL maintainer.name="Pivotal Agency" \
 ARG CUSTOM_USER_NAME
 ARG CUSTOM_USER_ID
 ARG CUSTOM_GROUP_ID
-RUN groupadd -g ${CUSTOM_GROUP_ID} ${CUSTOM_USER_NAME} && \
-      useradd -m -u ${CUSTOM_USER_ID} -g ${CUSTOM_USER_NAME} -G sudo ${CUSTOM_USER_NAME} && \
-      passwd -d ${CUSTOM_USER_NAME}
+RUN groupadd -g ${CUSTOM_GROUP_ID} ${CUSTOM_USER_NAME} \
+  && useradd -m -u ${CUSTOM_USER_ID} -g ${CUSTOM_USER_NAME} -G sudo ${CUSTOM_USER_NAME} \
+  && passwd -d ${CUSTOM_USER_NAME}
+
+# Aliases
+RUN echo "alias artisan='php artisan'" >> /home/${CUSTOM_USER_NAME}/.bashrc \
+  && echo "alias magento='php bin/magento'" >> /home/${CUSTOM_USER_NAME}/.bashrc
 
 # Run the user specified commands
 ARG EXTRA_CMDS="echo 'None to run'"
