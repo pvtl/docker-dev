@@ -22,6 +22,7 @@ Specifically, it has the following tech available:
 * Yarn (latest) (PHP74 container only)
 * PHPCS (with Wordpress code standards added) (PHP 7.4 & PHP 8.0 containers only)
 * Wordpress CLI (PHP 7.4 & PHP 8.0 containers only)
+* ZSH (PHP 7.4 & PHP 8.0 containers only)
 * HTTPS (SSL for localhost (not enabled - see FAQs)
 * [Blackfire](https://blackfire.io/) (latest) (not enabled - see FAQs)
 
