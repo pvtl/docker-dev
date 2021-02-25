@@ -112,14 +112,14 @@ services:
       args:
         - EXTRA_CMDS=${EXTRA_CMDS_PHP56}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_USER_ID=${CUSTOM_USER_ID}
-        - CUSTOM_GROUP_ID=${CUSTOM_GROUP_ID}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
-    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
+    user: ${CUSTOM_UID}:${CUSTOM_GID}
 
   # PHP 7.0 ---------------------------------------------------
   php70-fpm:
@@ -131,14 +131,14 @@ services:
       args:
         - EXTRA_CMDS=${EXTRA_CMDS_PHP70}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_USER_ID=${CUSTOM_USER_ID}
-        - CUSTOM_GROUP_ID=${CUSTOM_GROUP_ID}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
-    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
+    user: ${CUSTOM_UID}:${CUSTOM_GID}
 
   # PHP 7.1 ---------------------------------------------------
   php71-fpm:
@@ -150,14 +150,14 @@ services:
       args:
         - EXTRA_CMDS=${EXTRA_CMDS_PHP71}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_USER_ID=${CUSTOM_USER_ID}
-        - CUSTOM_GROUP_ID=${CUSTOM_GROUP_ID}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
-    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
+    user: ${CUSTOM_UID}:${CUSTOM_GID}
 
   # PHP 7.2 ---------------------------------------------------
   php72-fpm:
@@ -169,14 +169,14 @@ services:
       args:
         - EXTRA_CMDS=${EXTRA_CMDS_PHP72}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_USER_ID=${CUSTOM_USER_ID}
-        - CUSTOM_GROUP_ID=${CUSTOM_GROUP_ID}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
-    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
+    user: ${CUSTOM_UID}:${CUSTOM_GID}
 
   # PHP 7.3 ---------------------------------------------------
   php73-fpm:
@@ -188,14 +188,14 @@ services:
       args:
         - EXTRA_CMDS=${EXTRA_CMDS_PHP73}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_USER_ID=${CUSTOM_USER_ID}
-        - CUSTOM_GROUP_ID=${CUSTOM_GROUP_ID}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
-    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
+    user: ${CUSTOM_UID}:${CUSTOM_GID}
 
   # PHP 7.4 ---------------------------------------------------
   php74-fpm:
@@ -207,8 +207,8 @@ services:
       args:
         - EXTRA_CMDS=${EXTRA_CMDS_PHP74}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_USER_ID=${CUSTOM_USER_ID}
-        - CUSTOM_GROUP_ID=${CUSTOM_GROUP_ID}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
     restart: ${DOCKER_RESTART}
     ports:
       - "3000:3000" # Browser Sync
@@ -217,7 +217,7 @@ services:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
-    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
+    user: ${CUSTOM_UID}:${CUSTOM_GID}
 
   # PHP 8.0 ---------------------------------------------------
   php80-fpm:
@@ -229,14 +229,14 @@ services:
       args:
         - EXTRA_CMDS=${EXTRA_CMDS_PHP80}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_USER_ID=${CUSTOM_USER_ID}
-        - CUSTOM_GROUP_ID=${CUSTOM_GROUP_ID}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
-    user: ${CUSTOM_USER_ID}:${CUSTOM_GROUP_ID}
+    user: ${CUSTOM_UID}:${CUSTOM_GID}
 
   # Redis ---------------------------------------------------
   redis:

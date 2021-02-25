@@ -5,10 +5,10 @@ LABEL maintainer.name="Pivotal Agency" \
 
 # Setup user (to stay in-sync with the host system's user)
 ARG CUSTOM_USER_NAME
-ARG CUSTOM_USER_ID
-ARG CUSTOM_GROUP_ID
-RUN groupadd -g ${CUSTOM_GROUP_ID} ${CUSTOM_USER_NAME} \
-  && useradd -m -u ${CUSTOM_USER_ID} -g ${CUSTOM_USER_NAME} -G sudo ${CUSTOM_USER_NAME} \
+ARG CUSTOM_UID
+ARG CUSTOM_GID
+RUN groupadd -g ${CUSTOM_GID} ${CUSTOM_USER_NAME} \
+  && useradd -m -u ${CUSTOM_UID} -g ${CUSTOM_USER_NAME} -G sudo ${CUSTOM_USER_NAME} \
   && passwd -d ${CUSTOM_USER_NAME}
 
 # Aliases
