@@ -27,6 +27,9 @@ You can connect to the MySQL server running in the container using [MySQL Workbe
 
 Alternatively you can add `127.0.0.1 mysql` to your hosts file so that the `mysql` hostname will work either from your host machine or from the docker containers (useful for CLI tools like Laravel's `artisan` command).
 
+QUICK FIX: If you ever break the ownership settings on your Docker MariaDB Data folder, simply exec into the mysql container and run the foloowing command:
+`chown -R root:mysql /var/lib/mysql/*`
+
 ---
 
 ## Redis
