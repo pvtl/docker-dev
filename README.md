@@ -18,14 +18,14 @@ Specifically, it has the following tech available:
 * Memcached 1.x
 * Composer (latest)
 * Mailhog (latest)
-* Node.js (13.x) & NPM (latest) (PHP74 container only)
+* Node.js (14.x) & NPM (latest) (PHP 7.4 & PHP 8.0 containers only)
 * Yarn (latest) (PHP74 container only)
-* PHPCS (with Wordpress code standards added) (PHP74 container only)
-* Wordpress CLI (PHP74 container only)
+* PHPCS (with Wordpress code standards added) (PHP 7.4 & PHP 8.0 containers only)
+* Wordpress CLI (PHP 7.4 & PHP 8.0 containers only)
 * HTTPS (SSL for localhost (not enabled - see FAQs)
 * [Blackfire](https://blackfire.io/) (latest) (not enabled - see FAQs)
 
-We have some clever domain mapping available to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
+We have some clever *domain mapping* available to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
 
 * __http://classic-php.php56.{APACHE_HOSTNAME}__ (eg. http://classic-php.php56.localhost)
     * Will map to `~/Sites/classic-php` and use PHP 5.6
@@ -57,6 +57,10 @@ cp .env.example .env
 
 # Start the environment and go get a ☕️ (it'll take a while to install e'ry-thing)
 docker-compose up -d
+
+# The containers are now running. You can now:
+# - Open a website in your browser using <DIRECTORY NAME>.{APACHE_HOSTNAME} (see domain mapping notes above)
+# - Open a terminal window into one of the containers, via `docker-compose exec <CONTAINER NAME> bash`
 ```
 
 ---
@@ -88,8 +92,8 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
-| `docker-compose exec php74-fpm bash`  | Open a bash terminal in the PHP 7.4 container |
-| `docker-compose logs php74-fpm` | View all logs for PHP-FPM 7.4 |
+| `docker-compose exec php80-fpm zsh`  | Open a zsh terminal in the PHP 8.0 container |
+| `docker-compose logs php80-fpm` | View all logs for PHP-FPM 8.0 |
 | `docker-compose ps` | Show which containers are running |
 
 ---
