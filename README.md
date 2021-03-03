@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/logo.png" alt="LAMP LDE" width="400" />
+  <img src="docs/logo.jpg" alt="LAMP LDE" width="400" />
   <p></p>
   <h1>LAMP Local Development Environment on Docker</h1>
   <p></p>
