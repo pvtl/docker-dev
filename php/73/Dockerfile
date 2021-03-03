@@ -9,7 +9,8 @@ ARG CUSTOM_UID
 ARG CUSTOM_GID
 RUN groupadd -g ${CUSTOM_GID} ${CUSTOM_USER_NAME} \
   && useradd -m -u ${CUSTOM_UID} -g ${CUSTOM_USER_NAME} -G sudo ${CUSTOM_USER_NAME} \
-  && passwd -d ${CUSTOM_USER_NAME}
+  && passwd -d ${CUSTOM_USER_NAME} \
+  && echo "${CUSTOM_USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Aliases
 RUN echo "alias artisan='php artisan'" >> /home/${CUSTOM_USER_NAME}/.bashrc \

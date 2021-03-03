@@ -9,7 +9,8 @@ ARG CUSTOM_UID
 ARG CUSTOM_GID
 RUN groupadd -g ${CUSTOM_GID} ${CUSTOM_USER_NAME} \
   && useradd -m -u ${CUSTOM_UID} -g ${CUSTOM_USER_NAME} -G sudo -s /usr/bin/zsh ${CUSTOM_USER_NAME} \
-  && passwd -d ${CUSTOM_USER_NAME}
+  && passwd -d ${CUSTOM_USER_NAME} \
+  && echo "${CUSTOM_USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Install ZSH & config
 RUN ZSH="/home/${CUSTOM_USER_NAME}/.oh-my-zsh" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" chsh -s $(which zsh) ${CUSTOM_USER_NAME} \
