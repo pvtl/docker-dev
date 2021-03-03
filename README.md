@@ -1,4 +1,19 @@
-# A LAMP Local Development Environment on Docker
+<div align="center">
+  <img src="docs/logo.png" alt="LAMP LDE" width="400" />
+  <p></p>
+  <h1>LAMP Local Development Environment on Docker</h1>
+  <p></p>
+  <p align="center">
+    <a href="#-intro"><b>What is this?</b></a>
+    &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+    <a href="#installation-"><b>Installation</b></a>
+    &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+    <a href="#common-commands-"><b>Usage</b></a>
+    &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+    <a href="#further-reading"><b>Docs</b></a>
+  </p>
+  <br />
+</div>
 
 __An everyday local development environment for PHP Developers.__ At [Pivotal Agency](https://pivotal.agency), we've done a _buuunnnch_ of R&D to find the best local dev tools for our team. This is the result of our hard work. This tool has been put to its paces everyday by our team, we hope it can also help yours.
 
@@ -71,12 +86,18 @@ docker-compose up -d
 Open a terminal window, browse to this project's folder and run:
 
 ```bash
-git pull                                           # 1. Pull from Git
-docker-compose down --remove-orphans               # 2. Erase previous containers
-docker-compose pull                                # 3. Get latest docker images
-docker-compose build --pull --no-cache --parallel  # 4. Rebuild Dockerfiles from scratch (inc. pull parent images)
-docker-compose up -d                               # 5. Start the new env
-docker system prune --volumes                      # 6. Erase any unused containers, images, volumes etc. to free disk space.
+# 1. Pull from Git
+git pull
+# 2. Erase previous containers
+docker-compose down --remove-orphans
+# 3. Get latest docker images
+docker-compose pull
+# 4. Rebuild Dockerfiles from scratch (inc. pull parent images)
+docker-compose build --pull --no-cache --parallel
+# 5. Start the new env
+docker-compose up -d
+# 6. Erase any unused containers, images, volumes etc. to free disk space.
+docker system prune --volumes
 ```
 
 *This will install the latest versions of all tools (eg. PHP, Redis, Node.js etc.)*
