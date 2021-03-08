@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  php74-fpm:
+    container_name: php74
+    hostname: php74
+    build:
+      context: ./php
+      dockerfile: ./74/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP74}
+        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    networks:
+      lde-network:
+    user: ${CUSTOM_UID}:${CUSTOM_GID}

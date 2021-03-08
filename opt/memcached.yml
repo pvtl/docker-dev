@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  memcached:
+    container_name: memcached
+    hostname: memcached
+    restart: ${DOCKER_RESTART}
+    image: "memcached:1-alpine"
+    networks:
+      lde-network:

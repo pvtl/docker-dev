@@ -61,16 +61,11 @@ Alternatively, you can manually define where your host is (i.e. what is the host
 
 ## How do I use HTTPS/SSL for my local containers?
 
-We have a HTTPS container available, that proxies traffic over https (:443) (with a self signed certificate) to/from your localhost port 80 addresses.
+First, make sure you've added the optional HTTPS service to your `.env` config, eg `COMPOSE_FILE=docker-compose.yml:opt/https.yml`
 
-By default this container is commented out (as it's not used regularly by everyone). To enable it:
+Your browser may require you to enable a feature flag, to access the site with an insecure (self signed) certificate:
 
-- Add the container - Uncomment the `https` service in `/docker-compose.yml`
-- Rebuild and restart - `docker-compose build --pull --no-cache https && docker-compose up -d`
-
-Note that Chrome/Edge may require you to enable a feature flag, to access the site with an insecure (self signed) certificate:
-
-- `edge://flags` or `chrome://flags`
+- `edge://flags` or `chrome://flags` or `brave://flags`...
 - Enable: `Allow invalid certificates for resources loaded from localhost.`
 
 ---
@@ -141,14 +136,3 @@ quit;
 ## "Container Name already in use" error
 
 In some instances a build may fail due to a `Container Name already in use` error. You can fix this by following the "update" instructions above. This will recreate a fresh environment from scratch.
-
----
-
-## How do I access PHPMyAdmin for MySQL DB Administration?
-
-We have a PHPMyAdmin container available from [http://localhost:8080](http://localhost:8080).
-
-By default this container is commented out (as many choose to use Desktop Applications such as [TablePlus](https://www.tableplus.io/), [SQLPro](http://www.sequelpro.com/), [MySQL Workbench](https://mysqlworkbench.org/)). To enable it:
-
-- Add the container - Uncomment the `phpmyadmin` service in `/docker-compose.yml`
-- Rebuild and restart - `docker-compose build --pull --no-cache phpmyadmin && docker-compose up -d`
