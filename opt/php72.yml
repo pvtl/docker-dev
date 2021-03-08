@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  php72-fpm:
+    container_name: php72
+    hostname: php72
+    build:
+      context: ./php
+      dockerfile: ./72/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP72}
+        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    networks:
+      lde-network:
+    user: ${CUSTOM_UID}:${CUSTOM_GID}

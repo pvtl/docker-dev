@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  https:
+    container_name: https
+    hostname: https
+    build: ./https
+    ports:
+      - "443:443"
+    restart: ${DOCKER_RESTART}
+    environment:
+      - HOST_IP=192.168.103.100
+      - PORT=80
+    networks:
+      lde-network:

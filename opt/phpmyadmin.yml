@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  phpmyadmin:
+    container_name: phpmyadmin
+    hostname: phpmyadmin
+    restart: ${DOCKER_RESTART}
+    image: "phpmyadmin"
+    environment:
+      - PMA_HOST=mysql
+    links:
+      - mysql
+    ports:
+      - "8080:80"
+    networks:
+      lde-network:

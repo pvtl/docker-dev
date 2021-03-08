@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  blackfire:
+    container_name: blackfire
+    hostname: blackfire
+    restart: ${DOCKER_RESTART}
+    image: blackfire/blackfire
+    env_file:
+      - .env
+    networks:
+      lde-network:
