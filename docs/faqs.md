@@ -65,7 +65,7 @@ We have a HTTPS container available, that proxies traffic over https (:443) (wit
 
 By default this container is commented out (as it's not used regularly by everyone). To enable it:
 
-- Add the container - Uncomment the `https` container in `/docker-compose.yml`
+- Add the container - Uncomment the `https` service in `/docker-compose.yml`
 - Rebuild and restart - `docker-compose build --pull --no-cache https && docker-compose up -d`
 
 Note that Chrome/Edge may require you to enable a feature flag, to access the site with an insecure (self signed) certificate:
@@ -144,18 +144,11 @@ In some instances a build may fail due to a `Container Name already in use` erro
 
 ---
 
-## Dev-In command
+## How do I access PHPMyAdmin for MySQL DB Administration?
 
-A handy command group to exec into your PHP containers, switch to the "www-data" user and then change directory to your current working directory. Run this command group from your project directory.
+We have a PHPMyAdmin container available from [http://localhost:8080](http://localhost:8080).
 
-```bash
-args="cd /var/www/html/${PWD##*/}; su www-data -s /bin/bash" && cd ~/<projects-directory>/docker-dev && docker-compose exec <php-container-name> bash -c "$args"
-```
+By default this container is commented out (as many choose to use Desktop Applications such as [TablePlus](https://www.tableplus.io/), [SQLPro](http://www.sequelpro.com/), [MySQL Workbench](https://mysqlworkbench.org/)). To enable it:
 
-Additionally, you could save this command group to a script file (.sh), and add an alias to your ~/.bashrc file to execute the script
-
-```bash
-alias devin="sh ~/path/to/script/file/<script-file>.sh"
-```
-
-This allows you to run "devin" from your project folder to execute the command group
+- Add the container - Uncomment the `phpmyadmin` service in `/docker-compose.yml`
+- Rebuild and restart - `docker-compose build --pull --no-cache phpmyadmin && docker-compose up -d`

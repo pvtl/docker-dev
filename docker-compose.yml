@@ -238,6 +238,21 @@ services:
       lde-network:
     user: ${CUSTOM_UID}:${CUSTOM_GID}
 
+  # PHPMyAdmin ---------------------------------------------------
+  # phpmyadmin:
+  #   container_name: phpmyadmin
+  #   hostname: phpmyadmin
+  #   restart: ${DOCKER_RESTART}
+  #   image: "phpmyadmin"
+  #   environment:
+  #     - PMA_HOST=mysql
+  #   links:
+  #     - mysql
+  #   ports:
+  #     - "8080:80"
+  #   networks:
+  #     lde-network:
+
   # Redis ---------------------------------------------------
   redis:
     container_name: redis

@@ -136,3 +136,4 @@ The Docker Engine must be running and commands must be run within this repo's ro
     - [BlackFire](docs/faqs.md#how-do-i-use-blackfire)
     - [Mapping a Custom Hostname to a local site](docs/faqs.md#mapping-a-custom-hostname-to-a-local-site)
     - [Changing your MySQL Root password](docs/faqs.md#changing-your-mysql-root-password)
+    - [Using PHPMyAdmin](docs/faqs.md#how-do-I-access-phpmyadmin-for-mysql-db-administration)
