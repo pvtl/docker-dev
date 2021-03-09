@@ -136,3 +136,27 @@ quit;
 ## "Container Name already in use" error
 
 In some instances a build may fail due to a `Container Name already in use` error. You can fix this by following the "update" instructions above. This will recreate a fresh environment from scratch.
+
+---
+
+## Adding custom PHP configuration
+
+Simply add a `/php/conf/custom.ini` file and rebuild `docker-compose up -d --build`.
+This will take effect in all of your PHP containers.
+
+---
+
+## Using Redis as a session handler
+
+Did you know that PHP sessions will block concurrent requests from the same user, until the first request is finished? You can improve your session save handler performance by switching to Redis.
+
+1. Add the Redis service - i.e. add `opt/redis.yml` to `COMPOSE_FILE` in `.env`
+2. Add a `/php/conf/custom.ini` with
+
+```
+[PHP]
+session.save_handler = redis
+session.save_path = "tcp://redis:6379"
+```
+
+3. Rebuild `docker-compose up -d --build`

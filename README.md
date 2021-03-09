@@ -143,3 +143,5 @@ The Docker Engine must be running and commands must be run within this repo's ro
     - [BlackFire](docs/faqs.md#how-do-i-use-blackfire)
     - [Mapping a Custom Hostname to a local site](docs/faqs.md#mapping-a-custom-hostname-to-a-local-site)
     - [Changing your MySQL Root password](docs/faqs.md#changing-your-mysql-root-password)
+    - [Adding custom PHP configuration](docs/faqs.md#adding-custom-php-configuration)
+    - [Using Redis as a session handler](docs/faqs.md#using-redis-as-a-session-handler)

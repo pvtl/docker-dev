@@ -36,7 +36,7 @@ ARG EXTRA_CMDS="echo 'None to run'"
 RUN eval $EXTRA_CMDS
 
 # Custom PHP.ini Config
-COPY ./conf/custom.ini /usr/local/etc/php/conf.d/zzb-custom.ini
+COPY ./conf/.gitkeep ./conf/custom.ini* /usr/local/etc/php/conf.d/zzb-custom.ini
 
 # Copy CRON's
 COPY ./74/Dockerfile ./74/custom_crontab* /root/

@@ -15,3 +15,4 @@ apache/sites/*
 !apache/sites/localhost
 !apache/sites/pub.localhost
 !apache/sites/localhost.conf
+php/conf/custom.ini
