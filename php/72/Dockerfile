@@ -1,4 +1,4 @@
-FROM wearepvtl/php-fpm-7.2
+FROM wearepvtl/php-fpm-7.2:2
 
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
