@@ -116,7 +116,7 @@ ServerAdmin tech@pvtl.io
 </VirtualHost>
 ```
 
-_Note that apache will load the conf files in alphabetical order. Because our zzzlocalhost.conf has a "catch all", any of our custom conf files, must be named alphabetically before zzzlocalhost.conf (that's why we prefixed the name with zzz)_
+_Note that apache will load the conf files in alphabetical order. Because our localhost.conf has a "catch all", any of our custom conf files, must be named alphabetically before localhost.conf_
 
 ---
 
