@@ -29,11 +29,11 @@ It includes all the required dependencies for everyday PHP development with comm
 
 - PHP 8.0
     - Composer (latest)
-    - Node.js (14.x) & NPM (latest) (PHP 7.4 & PHP 8.0 containers only)
-    - Yarn (latest) (PHP74 container only)
-    - PHPCS (with Wordpress code standards added) (PHP 7.4 & PHP 8.0 containers only)
-    - Wordpress CLI (PHP 7.4 & PHP 8.0 containers only)
-    - ZSH (PHP 7.4 & PHP 8.0 containers only)
+    - Node.js (14.x) & NPM (latest)*
+    - Yarn (latest)*
+    - PHPCS (with Wordpress code standards added)*
+    - Wordpress CLI*
+    - ZSH*
 - Mailhog (latest)
 - MariaDB 10.2
 
@@ -44,6 +44,8 @@ It includes all the required dependencies for everyday PHP development with comm
 - Redis 6.x
 - HTTPS (SSL for localhost)
 - [Blackfire](https://blackfire.io/) (latest)
+
+* Available in latest 2x PHP containers
 
 The environment features clever *domain mapping* to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
 
