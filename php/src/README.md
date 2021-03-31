@@ -28,10 +28,22 @@ They are PHP images, customised to include features such as:
 
 ## How do I make updates?
 
+**1) Make the updates**
+
 You'll notice in that `/php/*/Dockerfile`, that the first line says something like: `FROM wearepvtl/php-fpm-7.*`.
 This is saying that the LDE we build/run, is using the Pivotal PHP 7.* image.
 
 Therefore, if you need to make a change (eg. add a new dependency), update the `/php/src/7*` image, build and push it to Docker Hub.
+
+**2) Distribute to Docker Hub**
+
+There are 2 ways to distribute the image/s to Docker Hub:
+
+1. Automatically: Git tag a commit in the SemVer (eg. 2.5.3) format and Docker Hub will build and tag the new version to the major version
+    - eg. Git Tag `2.5.3` will build to Docker Tag `2` (which could then be used as `FROM wearepvtl/php-fpm-8.0:2` in a PHP 8.0 image example)
+2. Use the `/php/src/build-n-push.sh` script to manually build locally and push to Docker Hub
+
+**3) Make use of the new image**
 
 Once that's landed in Docker Hub, you'll be able to build/run your LDE again, which will pull the latest PHP 7.* image (the one you just updated).
 

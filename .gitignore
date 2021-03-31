@@ -12,4 +12,7 @@ custom_crontab
 
 # Apache
 apache/sites/*
-!apache/sites/zzzlocalhost.conf
+!apache/sites/localhost
+!apache/sites/pub.localhost
+!apache/sites/localhost.conf
+php/conf/custom.ini

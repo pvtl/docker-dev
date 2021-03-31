@@ -61,16 +61,11 @@ Alternatively, you can manually define where your host is (i.e. what is the host
 
 ## How do I use HTTPS/SSL for my local containers?
 
-We have a HTTPS container available, that proxies traffic over https (:443) (with a self signed certificate) to/from your localhost port 80 addresses.
+First, make sure you've added the optional HTTPS service to your `.env` config, eg `COMPOSE_FILE=docker-compose.yml:opt/https.yml`
 
-By default this container is commented out (as it's not used regularly by everyone). To enable it:
+Your browser may require you to enable a feature flag, to access the site with an insecure (self signed) certificate:
 
-- Add the container - Uncomment the `https` service in `/docker-compose.yml`
-- Rebuild and restart - `docker-compose build --pull --no-cache https && docker-compose up -d`
-
-Note that Chrome/Edge may require you to enable a feature flag, to access the site with an insecure (self signed) certificate:
-
-- `edge://flags` or `chrome://flags`
+- `edge://flags` or `chrome://flags` or `brave://flags`...
 - Enable: `Allow invalid certificates for resources loaded from localhost.`
 
 ---
@@ -116,7 +111,7 @@ ServerAdmin tech@pvtl.io
 </VirtualHost>
 ```
 
-_Note that apache will load the conf files in alphabetical order. Because our zzzlocalhost.conf has a "catch all", any of our custom conf files, must be named alphabetically before zzzlocalhost.conf (that's why we prefixed the name with zzz)_
+_Note that apache will load the conf files in alphabetical order. Because our localhost.conf has a "catch all", any of our custom conf files, must be named alphabetically before localhost.conf_
 
 ---
 
@@ -144,11 +139,24 @@ In some instances a build may fail due to a `Container Name already in use` erro
 
 ---
 
-## How do I access PHPMyAdmin for MySQL DB Administration?
+## Adding custom PHP configuration
 
-We have a PHPMyAdmin container available from [http://localhost:8080](http://localhost:8080).
+Simply add a `/php/conf/custom.ini` file and rebuild `docker-compose up -d --build`.
+This will take effect in all of your PHP containers.
 
-By default this container is commented out (as many choose to use Desktop Applications such as [TablePlus](https://www.tableplus.io/), [SQLPro](http://www.sequelpro.com/), [MySQL Workbench](https://mysqlworkbench.org/)). To enable it:
+---
 
-- Add the container - Uncomment the `phpmyadmin` service in `/docker-compose.yml`
-- Rebuild and restart - `docker-compose build --pull --no-cache phpmyadmin && docker-compose up -d`
+## Using Redis as a session handler
+
+Did you know that PHP sessions will block concurrent requests from the same user, until the first request is finished? You can improve your session save handler performance by switching to Redis.
+
+1. Add the Redis service - i.e. add `opt/redis.yml` to `COMPOSE_FILE` in `.env`
+2. Add a `/php/conf/custom.ini` with
+
+```
+[PHP]
+session.save_handler = redis
+session.save_path = "tcp://redis:6379"
+```
+
+3. Rebuild `docker-compose up -d --build`

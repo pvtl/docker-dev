@@ -22,44 +22,11 @@ services:
     volumes:
       - ./apache/sites:/usr/local/apache2/conf/sites:ro
       - ${DOCUMENTROOT}:/var/www/html:delegated
-    links:
-      - php56-fpm
-      - php70-fpm
-      - php71-fpm
-      - php72-fpm
-      - php73-fpm
-      - php74-fpm
-      - php80-fpm
     env_file:
       - .env
     networks:
       lde-network:
         ipv4_address: 192.168.103.100
-
-  # Blackfire ---------------------------------------------------
-  # blackfire:
-  #   container_name: blackfire
-  #   hostname: blackfire
-  #   restart: ${DOCKER_RESTART}
-  #   image: blackfire/blackfire
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     lde-network:
-
-  # HTTPS ---------------------------------------------------
-  # https:
-  #   container_name: https
-  #   hostname: https
-  #   build: ./https
-  #   ports:
-  #     - "443:443"
-  #   restart: ${DOCKER_RESTART}
-  #   environment:
-  #     - HOST_IP=192.168.103.100
-  #     - PORT=80
-  #   networks:
-  #     lde-network:
 
   # Mailhog ---------------------------------------------------
   mailhog:
@@ -70,15 +37,6 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
-    networks:
-      lde-network:
-
-  # Memcached ---------------------------------------------------
-  memcached:
-    container_name: memcached
-    hostname: memcached
-    restart: ${DOCKER_RESTART}
-    image: "memcached:1-alpine"
     networks:
       lde-network:
 
@@ -102,123 +60,6 @@ services:
     networks:
       lde-network:
 
-  # PHP 5.6 ---------------------------------------------------
-  php56-fpm:
-    container_name: php56
-    hostname: php56
-    build:
-      context: ./php
-      dockerfile: ./56/Dockerfile
-      args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP56}
-        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_UID=${CUSTOM_UID}
-        - CUSTOM_GID=${CUSTOM_GID}
-    restart: ${DOCKER_RESTART}
-    volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
-    networks:
-      lde-network:
-    user: ${CUSTOM_UID}:${CUSTOM_GID}
-
-  # PHP 7.0 ---------------------------------------------------
-  php70-fpm:
-    container_name: php70
-    hostname: php70
-    build:
-      context: ./php
-      dockerfile: ./70/Dockerfile
-      args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP70}
-        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_UID=${CUSTOM_UID}
-        - CUSTOM_GID=${CUSTOM_GID}
-    restart: ${DOCKER_RESTART}
-    volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
-    networks:
-      lde-network:
-    user: ${CUSTOM_UID}:${CUSTOM_GID}
-
-  # PHP 7.1 ---------------------------------------------------
-  php71-fpm:
-    container_name: php71
-    hostname: php71
-    build:
-      context: ./php
-      dockerfile: ./71/Dockerfile
-      args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP71}
-        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_UID=${CUSTOM_UID}
-        - CUSTOM_GID=${CUSTOM_GID}
-    restart: ${DOCKER_RESTART}
-    volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
-    networks:
-      lde-network:
-    user: ${CUSTOM_UID}:${CUSTOM_GID}
-
-  # PHP 7.2 ---------------------------------------------------
-  php72-fpm:
-    container_name: php72
-    hostname: php72
-    build:
-      context: ./php
-      dockerfile: ./72/Dockerfile
-      args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP72}
-        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_UID=${CUSTOM_UID}
-        - CUSTOM_GID=${CUSTOM_GID}
-    restart: ${DOCKER_RESTART}
-    volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
-    networks:
-      lde-network:
-    user: ${CUSTOM_UID}:${CUSTOM_GID}
-
-  # PHP 7.3 ---------------------------------------------------
-  php73-fpm:
-    container_name: php73
-    hostname: php73
-    build:
-      context: ./php
-      dockerfile: ./73/Dockerfile
-      args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP73}
-        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_UID=${CUSTOM_UID}
-        - CUSTOM_GID=${CUSTOM_GID}
-    restart: ${DOCKER_RESTART}
-    volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
-    networks:
-      lde-network:
-    user: ${CUSTOM_UID}:${CUSTOM_GID}
-
-  # PHP 7.4 ---------------------------------------------------
-  php74-fpm:
-    container_name: php74
-    hostname: php74
-    build:
-      context: ./php
-      dockerfile: ./74/Dockerfile
-      args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP74}
-        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
-        - CUSTOM_UID=${CUSTOM_UID}
-        - CUSTOM_GID=${CUSTOM_GID}
-    restart: ${DOCKER_RESTART}
-    ports:
-      - "3000:3000" # Browser Sync
-      - "3001:3001" # Browser Sync UI
-    volumes:
-      - ${DOCUMENTROOT}:/var/www/html:delegated
-    networks:
-      lde-network:
-    user: ${CUSTOM_UID}:${CUSTOM_GID}
-
   # PHP 8.0 ---------------------------------------------------
   php80-fpm:
     container_name: php80
@@ -231,35 +72,12 @@ services:
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
         - CUSTOM_UID=${CUSTOM_UID}
         - CUSTOM_GID=${CUSTOM_GID}
+    ports:
+      - "3000:3000" # Browser Sync
+      - "3001:3001" # Browser Sync UI
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
     networks:
       lde-network:
     user: ${CUSTOM_UID}:${CUSTOM_GID}
-
-  # PHPMyAdmin ---------------------------------------------------
-  # phpmyadmin:
-  #   container_name: phpmyadmin
-  #   hostname: phpmyadmin
-  #   restart: ${DOCKER_RESTART}
-  #   image: "phpmyadmin"
-  #   environment:
-  #     - PMA_HOST=mysql
-  #   links:
-  #     - mysql
-  #   ports:
-  #     - "8080:80"
-  #   networks:
-  #     lde-network:
-
-  # Redis ---------------------------------------------------
-  redis:
-    container_name: redis
-    hostname: redis
-    restart: ${DOCKER_RESTART}
-    image: "redis:6-alpine"
-    ports:
-      - "6379:6379"
-    networks:
-      lde-network:

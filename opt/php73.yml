@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  php73-fpm:
+    container_name: php73
+    hostname: php73
+    build:
+      context: ./php
+      dockerfile: ./73/Dockerfile
+      args:
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP73}
+        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    networks:
+      lde-network:
+    user: ${CUSTOM_UID}:${CUSTOM_GID}

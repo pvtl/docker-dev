@@ -23,25 +23,31 @@ __An everyday local development environment for PHP Developers.__ At [Pivotal Ag
 
 This is a set of Docker images to spin up a LAMP stack (Linux, Apache, MySQL and PHP) for developing locally. It's perfect for local development because you can very simply add new sites to specified directory and they're magically accessible as a subdomain of your chosen hostname (eg. eg. `~/Sites/info` maps to `http://info.localhost/`).
 
-It includes all the required dependencies for everyday PHP development with common tools like Laravel, Wordpress and Magento (1 & 2).
+It includes all the required dependencies for everyday PHP development with common tools like Laravel, Wordpress and Magento (1 & 2). Specifically:
 
-Specifically, it has the following tech available:
+*Default:*
 
-* PHP 5.6, 7.0, 7.1, 7.2, 7.3, 7.4 and 8.0
-* MariaDB 10.2
-* Redis 6.x
-* Memcached 1.x
-* Composer (latest)
-* Mailhog (latest)
-* Node.js (14.x) & NPM (latest) (PHP 7.4 & PHP 8.0 containers only)
-* Yarn (latest) (PHP74 container only)
-* PHPCS (with Wordpress code standards added) (PHP 7.4 & PHP 8.0 containers only)
-* Wordpress CLI (PHP 7.4 & PHP 8.0 containers only)
-* ZSH (PHP 7.4 & PHP 8.0 containers only)
-* HTTPS (SSL for localhost (not enabled - see FAQs)
-* [Blackfire](https://blackfire.io/) (latest) (not enabled - see FAQs)
+- PHP 8.0
+    - Composer (latest)
+    - Node.js (14.x) & NPM (latest)*
+    - Yarn (latest)*
+    - PHPCS (with Wordpress code standards added)*
+    - Wordpress CLI*
+    - ZSH*
+- Mailhog (latest)
+- MariaDB 10.2
 
-We have some clever *domain mapping* available to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
+*Optional:*
+
+- PHP 5.6, 7.0, 7.1, 7.2, 7.3 and 7.4
+- Memcached 1.x
+- Redis 6.x
+- HTTPS (SSL for localhost)
+- [Blackfire](https://blackfire.io/) (latest)
+
+* Available in latest 2x PHP containers
+
+The environment features clever *domain mapping* to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
 
 * __http://classic-php.php56.{APACHE_HOSTNAME}__ (eg. http://classic-php.php56.localhost)
     * Will map to `~/Sites/classic-php` and use PHP 5.6
@@ -68,10 +74,13 @@ We have some clever *domain mapping* available to allow you to run code for vari
 # Clone the repo
 git clone https://github.com/pvtl/docker-dev && cd docker-dev
 
-# Create & update relevant config (eg. point sites to your sites directory, set user/group ID's)
+# Create & update relevant config - For example:
+#  - Point sites to your sites directory
+#  - Set user/group ID's
+#  - Add optional services (eg. extra PHP versions, PHPMyAdmin, Memcached etc)
 cp .env.example .env
 
-# Start the environment and go get a ☕️ (it'll take a while to install e'ry-thing)
+# Start the environment
 docker-compose up -d
 
 # The containers are now running. You can now:
@@ -100,7 +109,7 @@ docker-compose up -d
 docker system prune --volumes
 ```
 
-*This will install the latest versions of all tools (eg. PHP, Redis, Node.js etc.)*
+*This will also install the latest versions of all tools (eg. PHP, Redis, Node.js etc.)*
 
 ---
 
@@ -136,4 +145,5 @@ The Docker Engine must be running and commands must be run within this repo's ro
     - [BlackFire](docs/faqs.md#how-do-i-use-blackfire)
     - [Mapping a Custom Hostname to a local site](docs/faqs.md#mapping-a-custom-hostname-to-a-local-site)
     - [Changing your MySQL Root password](docs/faqs.md#changing-your-mysql-root-password)
-    - [Using PHPMyAdmin](docs/faqs.md#how-do-I-access-phpmyadmin-for-mysql-db-administration)
+    - [Adding custom PHP configuration](docs/faqs.md#adding-custom-php-configuration)
+    - [Using Redis as a session handler](docs/faqs.md#using-redis-as-a-session-handler)
