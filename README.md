@@ -27,6 +27,7 @@ It includes all the required dependencies for everyday PHP development with comm
 
 *Default:*
 
+- Apache
 - PHP 8.0
     - Composer (latest)
     - Node.js (14.x) & NPM (latest)*
