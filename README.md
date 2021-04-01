@@ -45,7 +45,7 @@ It includes all the required dependencies for everyday PHP development with comm
 - HTTPS (SSL for localhost)
 - [Blackfire](https://blackfire.io/) (latest)
 
-* Available in latest 2x PHP containers
+<p><i>* Available in latest 2x PHP containers</i></p>
 
 The environment features clever *domain mapping* to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
 
