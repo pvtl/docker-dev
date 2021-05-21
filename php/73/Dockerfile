@@ -23,11 +23,14 @@ RUN eval $EXTRA_CMDS
 # Custom PHP.ini Config
 COPY ./conf/.gitkeep ./conf/custom.ini* /usr/local/etc/php/conf.d/zzb-custom.ini
 
-# Copy CRON's
-COPY ./73/Dockerfile ./73/custom_crontab* /root/
+# Update permissions for supervisor and cron
+RUN chown ${CUSTOM_USER_NAME}:${CUSTOM_USER_NAME} /etc/supervisor/supervisord.pid \
+  && chmod gu+rw /var/run \
+  && chmod gu+s /usr/sbin/cron
 
-# Update permissions
-RUN chown ${CUSTOM_USER_NAME}:${CUSTOM_USER_NAME} /etc/supervisor/supervisord.pid
+# Copy and enable CRON/s
+COPY ./73/Dockerfile ./73/custom_crontab* /root/
+RUN /usr/bin/crontab -u ${CUSTOM_USER_NAME} /root/custom_crontab
 
 ENTRYPOINT []
 CMD ["/usr/bin/supervisord"]
