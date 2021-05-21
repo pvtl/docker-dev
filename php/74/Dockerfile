@@ -42,5 +42,8 @@ COPY ./conf/.gitkeep ./conf/custom.ini* /usr/local/etc/php/conf.d/zzb-custom.ini
 # Copy CRON's
 COPY ./74/Dockerfile ./74/custom_crontab* /root/
 
+# Update permissions
+RUN chown ${CUSTOM_USER_NAME}:${CUSTOM_USER_NAME} /etc/supervisor/supervisord.pid
+
 ENTRYPOINT []
 CMD ["/usr/bin/supervisord"]

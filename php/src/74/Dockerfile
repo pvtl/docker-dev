@@ -95,6 +95,7 @@ COPY ./conf/custom.ini /usr/local/etc/php/conf.d/zza-custom.ini
 
 # PHP-FPM and CRON supervisord config
 COPY ./conf/supervisord.conf /etc/supervisor/supervisord.conf
+RUN touch /etc/supervisor/supervisord.pid
 
 ENTRYPOINT []
 CMD ["/usr/bin/supervisord"]
