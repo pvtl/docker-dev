@@ -77,8 +77,8 @@ By default, Blackfire is commented out (as it's not used regularly by everyone).
 *1. Update your environment*
 
 - Update the environment variables (`BLACKFIRE_CLIENT_ID` etc) in `/.env`
-- Add the container - Uncomment the `blackfire` container in `/docker-compose.yml`
-- Add the PHP module - Uncomment the `Blackfire PHP Profiler...` block in `/php/shared.sh`
+- Add `opt/blackfire.yml` to the `COMPOSE_FILE` list in your .env file (using ":" as list separators). This enables the Blackfire agent container.
+- Uncomment the `Install Blackfire` lines in `php/xx/Dockerfile` (where "xx" is the version of PHP you're enabling Blackfire for). This enables the Blackfire extension for PHP.
 - Rebuild and restart - `docker-compose down && docker-compose build --pull --no-cache && docker-compose up -d` (this will take a while)
 
 *2. Profile*
