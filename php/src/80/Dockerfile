@@ -6,40 +6,41 @@ LABEL maintainer.name="Pivotal Agency" \
 ENV PATH /usr/local/go/bin:/root/.composer/vendor/bin:$PATH
 
 RUN apt update && apt install -y --no-install-recommends \
-        cron \
-        git \
-        gnupg \
-        iputils-ping \
-        less \
-        libfreetype6-dev \
-        libicu-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        libmemcached-dev \
-        libpng-dev \
-        libxml2-dev \
-        libxslt-dev \
-        nano \
-        net-tools \
-        ssh \
-        msmtp \
-        sudo \
-        supervisor \
-        unzip \
-        libzip-dev \
-        libz-dev \
-        zsh \
-        fonts-powerline \
-        powerline \
-    && yes '' | pecl install -f memcached redis xdebug mcrypt \
-    && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli opcache pdo_mysql soap xsl zip\
-    && docker-php-ext-enable mcrypt memcached redis xdebug\
-    && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE \
-    && apt clean \
-    && rm -rf /var/lib/apt/lists/*
+    cron \
+    git \
+    gnupg \
+    iputils-ping \
+    less \
+    libfreetype6-dev \
+    libicu-dev \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libmemcached-dev \
+    libpng-dev \
+    libwebp-dev \
+    libxml2-dev \
+    libxslt-dev \
+    nano \
+    net-tools \
+    ssh \
+    msmtp \
+    sudo \
+    supervisor \
+    unzip \
+    libzip-dev \
+    libz-dev \
+    zsh \
+    fonts-powerline \
+    powerline \
+  && yes '' | pecl install -f memcached redis xdebug mcrypt \
+  && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli opcache pdo_mysql soap xsl zip\
+  && docker-php-ext-enable mcrypt memcached redis xdebug\
+  && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Configure GD Library
-RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
   && docker-php-ext-install -j$(nproc) gd
 
 # Install Composer

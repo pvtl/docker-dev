@@ -12,7 +12,7 @@ if [[ -z "$TAG" ]]; then
 fi
 
 if [[ ${TAG} != "latest" ]] ; then
-  echo -e "\n  ➤  Would you additionally like to push to `latest` branch? [y/n]"
+  echo -e "\n  ➤  Would you additionally like to push to 'latest' branch? [y/n]"
   read -p "== " LATEST
 fi
 [ "$LATEST" != "${LATEST#[Yy]}" ] && LATEST=1 || LATEST=0
