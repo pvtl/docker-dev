@@ -8,6 +8,9 @@ services:
     image: "phpmyadmin"
     environment:
       - PMA_HOST=mysql
+      - UPLOAD_LIMIT=128M
+      - MEMORY_LIMIT=512M
+      - MAX_EXECUTION_TIME=1000
     links:
       - mysql
     ports:
