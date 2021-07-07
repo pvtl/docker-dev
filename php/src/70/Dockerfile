@@ -56,6 +56,20 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php \
 RUN curl -L -o /usr/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
   && chmod +x /usr/bin/mhsendmail
 
+# Install Yarn
+RUN curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
+  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+  && apt update \
+  && apt install -y --no-install-recommends yarn \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# Install Node
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
+  && apt install -y --no-install-recommends nodejs \
+  && apt clean \
+  && rm -rf /var/lib/apt/lists/*  
+
 # Setup Crons
 RUN touch /root/custom_crontab \
   && /usr/bin/crontab -u www-data /root/custom_crontab
