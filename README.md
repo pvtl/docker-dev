@@ -148,3 +148,4 @@ The Docker Engine must be running and commands must be run within this repo's ro
     - [Changing your MySQL Root password](docs/faqs.md#changing-your-mysql-root-password)
     - [Adding custom PHP configuration](docs/faqs.md#adding-custom-php-configuration)
     - [Using Redis as a session handler](docs/faqs.md#using-redis-as-a-session-handler)
+    - [How do I change the 'default' PHP container?](docs/faqs.md#how-do-i-change-the-default-php-container)

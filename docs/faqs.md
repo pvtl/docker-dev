@@ -21,8 +21,8 @@ sudo nano /etc/hosts
 Each version of PHP can have it's own CRON's.
 
 1. Simply create a file called `custom_crontab` in the PHP directory of your choice (eg. `/php/74/custom_crontab`). Add your CRON's to this script.
-1. Rebuild that PHP container: `docker-compose build php74-fpm`
-1. And start it up: `docker-compose up -d`
+1. Rebuild that PHP container: `docker compose build php74-fpm`
+1. And start it up: `docker compose up -d`
 
 Your CRON entries should look something like this:
 
@@ -61,7 +61,7 @@ Alternatively, you can manually define where your host is (i.e. what is the host
 
 ## How do I use HTTPS/SSL for my local containers?
 
-First, make sure you've added the optional HTTPS service to your `.env` config, eg `COMPOSE_FILE=docker-compose.yml:opt/https.yml`
+First, make sure you've added the optional HTTPS service to your `.env` config, eg `COMPOSE_FILE=docker compose.yml:opt/https.yml`
 
 Your browser may require you to enable a feature flag, to access the site with an insecure (self signed) certificate:
 
@@ -79,7 +79,7 @@ By default, Blackfire is commented out (as it's not used regularly by everyone).
 - Update the environment variables (`BLACKFIRE_CLIENT_ID` etc) in `/.env`
 - Add `opt/blackfire.yml` to the `COMPOSE_FILE` list in your .env file (using ":" as list separators). This enables the Blackfire agent container.
 - Uncomment the `Install Blackfire` lines in `php/xx/Dockerfile` (where "xx" is the version of PHP you're enabling Blackfire for). This enables the Blackfire extension for PHP.
-- Rebuild and restart - `docker-compose down && docker-compose build --pull --no-cache && docker-compose up -d` (this will take a while)
+- Rebuild and restart - `docker compose down && docker compose build --pull --no-cache && docker compose up -d` (this will take a while)
 
 *2. Profile*
 
@@ -91,7 +91,7 @@ By default, Blackfire is commented out (as it's not used regularly by everyone).
 
 ## Mapping a Custom Hostname to a local site
 
-Let's say you want `phpinfo.com` to map to a local site. It's as easy as adding a new conf file to `apache/sites` then rebuilding (`docker-compose build apache`) and starting (`docker-compose up -d`). The file would looking something like this:
+Let's say you want `phpinfo.com` to map to a local site. It's as easy as adding a new conf file to `apache/sites` then rebuilding (`docker compose build apache`) and starting (`docker compose up -d`). The file would looking something like this:
 
 ```
 DocumentRoot /var/www/html
@@ -120,7 +120,7 @@ _Note that apache will load the conf files in alphabetical order. Because our lo
 If data already exists in your MySQL data store (eg. you've started the MySQL container in the past), simply changing the `.env` `MYSQL_ROOT_PASSWORD` will not change the password. Instead, you need to follow the following steps:
 
 - Update `MYSQL_ROOT_PASSWORD` in `.env`, to your new password
-- Build, start and exec into your MySQL container: `docker-compose exec mysql bash`
+- Build, start and exec into your MySQL container: `docker compose exec mysql bash`
 - Login to MySQL: `mysql -u root -p`
 - Execute the following:
 
@@ -141,7 +141,7 @@ In some instances a build may fail due to a `Container Name already in use` erro
 
 ## Adding custom PHP configuration
 
-Simply add a `/php/conf/custom.ini` file and rebuild `docker-compose up -d --build`.
+Simply add a `/php/conf/custom.ini` file and rebuild `docker compose up -d --build`.
 This will take effect in all of your PHP containers.
 
 ---
@@ -159,4 +159,19 @@ session.save_handler = redis
 session.save_path = "tcp://redis:6379"
 ```
 
-3. Rebuild `docker-compose up -d --build`
+3. Rebuild `docker compose up -d --build`
+
+---
+
+## How do I change the 'default' PHP container?
+
+Let's say that you primarily use PHP 7.4, and want all websites to use PHP 7.4 (instead of the latest version of PHP) for URLs like `<directory-name>.localhost` and `<directory-name>.pub.localhost`:
+
+1. Ensure that the PHP74 image is included in your `/.env`
+    - i.e. ensure that `opt/php74` is included in `COMPOSE_FILE`
+1. Cut (copy and remove) the `ServerAlias *.pub.*` line from `/apache/sites/pub.localhost/php<LATEST_VERSION>.conf`
+    - Paste that line into `/apache/sites/pub.localhost/php74.conf`
+1. Cut (copy and remove) the `ServerAlias *.*` line from `/apache/sites/localhost/php<LATEST_VERSION>.conf`
+    - - Paste that line into `/apache/sites/localhost/php74.conf`
+1. Rebuild apache `docker compose build apache`
+1. Bring it back up `docker compose up -d`
