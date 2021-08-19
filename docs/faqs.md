@@ -170,8 +170,8 @@ Let's say that you primarily use PHP 7.4, and want all websites to use PHP 7.4 (
 1. Ensure that the PHP74 image is included in your `/.env`
     - i.e. ensure that `opt/php74` is included in `COMPOSE_FILE`
 1. Cut (copy and remove) the `ServerAlias *.pub.*` line from `/apache/sites/pub.localhost/php<LATEST_VERSION>.conf`
-    - Paste that line into `/apache/sites/pub.localhost/php74.conf`
+    - Paste that line into `/apache/sites/pub.localhost/php74.conf` (after the first `ServerAlias ..` line)
 1. Cut (copy and remove) the `ServerAlias *.*` line from `/apache/sites/localhost/php<LATEST_VERSION>.conf`
-    - - Paste that line into `/apache/sites/localhost/php74.conf`
+    - - Paste that line into `/apache/sites/localhost/php74.conf` (after the first `ServerAlias ..` line)
 1. Rebuild apache `docker compose build apache`
 1. Bring it back up `docker compose up -d`
