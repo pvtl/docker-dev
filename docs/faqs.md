@@ -52,10 +52,24 @@ We have a (wildcard) DNS redirect setup at `*.lde.pvtl.io` which points to the a
 
 Alternatively, you can manually define where your host is (i.e. what is the hosts IP?). In our case, the IP is that of the `apache` container.
 
-1. `docker exec -it php74-fpm bash` - SSH into the container where you're running `yarn watch` from
-1. `nano /etc/hosts` - Edit the hosts file
-    - `192.168.103.1 <THIS SITE URL eg. wp.pub.localhost>` - Add the current site's URL, pointing to the `apache` container
-    - You can find the apache containers IP with `ping -c 1 apache | awk -F '[()]' '{print $2}' | head -n 1`
+1. `docker exec -it php80-fpm bash` - SSH into the PHP container where you're running `yarn watch` from
+1. Find the `apache` containers IP address with `ping -c 1 apache | awk -F '[()]' '{print $2}' | head -n 1`
+1. `nano /etc/hosts` - Edit the hosts file, and add `<Apache IP address> <The destination site hostname>` on a new line. eg:
+  - `192.168.103.100 wp.pub.localhost`
+
+---
+
+## CURL requests from an LDE site to another LDE site
+
+For instances where you'd like to make a CURL request (or a server-side request) from a site hosted in your LDE, to another site hosted in your LDE (or even to itself), your environment needs to be configured to know where to look.
+
+We need to simply add a host file record of the site we're requesting, pointing to our `apache` container.
+
+1. `docker exec -it php80-fpm bash` - SSH into the PHP container that's running the site
+1. Find the `apache` containers IP address with `ping -c 1 apache | awk -F '[()]' '{print $2}' | head -n 1`
+1. `nano /etc/hosts` - Edit the hosts file, and add `<Apache IP address> <The destination site hostname>` on a new line. eg:
+  - `192.168.103.100 wp.pub.localhost`
+
 
 ---
 
