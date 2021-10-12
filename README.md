@@ -142,6 +142,7 @@ The Docker Engine must be running and commands must be run within this repo's ro
     - [localhost isn't working](docs/faqs.md)
     - [Crons](docs/faqs.md#how-do-i-setuprun-crons)
     - [BrowserSync](docs/faqs.md#how-do-i-get-browsersync-working-from-inside-a-container)
+    - [CURL requests from/to LDE sites](docs/faqs.md#curl-requests-from-an-lde-site-to-another-lde-site)
     - [HTTPS](docs/faqs.md#how-do-i-use-httpsssl-for-my-local-containers)
     - [BlackFire](docs/faqs.md#how-do-i-use-blackfire)
     - [Mapping a Custom Hostname to a local site](docs/faqs.md#mapping-a-custom-hostname-to-a-local-site)
