@@ -2,9 +2,19 @@
 
 This folder contains the PHP (only) Docker images that are pushed to Docker Hub.
 
-## What are these?
+The images are built for AMD64 (Intel) and ARM64 (Apple Silicon) CPU architectures.
 
-They are PHP images, customised to include features such as:
+
+## Why?
+
+Building the base PHP images takes a lot of time. Multiply that for each version of PHP you need. So it doesn't make sense that each end-user should need to do this.
+
+We're publishing pre-built images on the Docker Hub so users can simply pull and go. Users can still easily layer on any modifications as needed.
+
+
+## What's in these images?
+
+We use the [official PHP images](https://hub.docker.com/_/php) and add:
 
 - Helpful OS tools such as:
     - Git
@@ -26,51 +36,43 @@ They are PHP images, customised to include features such as:
 - PHPCS (PHP Latest)
 - Wordpress CLI (PHP Latest)
 
+
 ## How do I make updates?
 
-**1) Make the updates**
+**1) Edit the dockerfile**
 
-You'll notice in that `/php/*/Dockerfile`, that the first line says something like: `FROM wearepvtl/php-fpm-7.*`.
-This is saying that the LDE we build/run, is using the Pivotal PHP 7.* image.
+Each PHP version has it's own dockerfile (eg. `/php/80/Dockerfile` for PHP 8.0).
 
-Therefore, if you need to make a change (eg. add a new dependency), update the `/php/src/7*` image, build and push it to Docker Hub.
+Simply edit it and make the changes you need.
 
 **2) Distribute to Docker Hub**
 
-There are 2 ways to distribute the image/s to Docker Hub:
+Run the `/php/src/build-n-push.sh` script to manually build and push to Docker Hub. Automated builds aren't available at the moment.
 
-1. Automatically: Git tag a commit in the SemVer (eg. 2.5.3) format and Docker Hub will build and tag the new version to the major version
-    - eg. Git Tag `2.5.3` will build to Docker Tag `2` (which could then be used as `FROM wearepvtl/php-fpm-8.0:2` in a PHP 8.0 image example)
-2. Use the `/php/src/build-n-push.sh` script to manually build locally and push to Docker Hub
+Behind the scenes this script is building our PHP images for multiple platforms (AMD64 and ARM64).
+
+This script assumes the build process is being run on an ARM64 (Apple Silicon) CPU, and that a remote AMD64 (Intel) Docker instance is available to run the AMD64 build. You may need to adjust the script if you're running it on an AMD64 (Intel) device.
 
 **3) Make use of the new image**
 
-Once that's landed in Docker Hub, you'll be able to build/run your LDE again, which will pull the latest PHP 7.* image (the one you just updated).
+Once the images have landed in Docker Hub you'll be able to build/run a fresh version of your LDE (see instructions in the main README).
 
-## Why?
-
-This architecture allows us to more quickly and easily build and run LDEs, because the images are pre-built in Docker Hub. Therefore they only require that we download and run.
 
 ## Config & PHP.ini
 
 Each version of PHP shares the global config from `php/src/conf/custom.ini`. This config is baked into the Docker images we publish on Docker Hub.
 
-Those using the finished Docker images can override their PHP config in `php/conf/custom.ini`.
+Those using the published Docker images can override their PHP config in `php/conf/custom.ini`.
+
 
 ## Commands
 
-*Must be run from `/php/src/`
+> Must be run inside the `/php/src/` folder
 
 | Command | Description |
 | --- | --- |
-| `docker build -f 74/Dockerfile . -t wearepvtl/php-fpm-7.4` | Builds the PHP 7.4 image |
+| `docker build -f 80/Dockerfile . -t wearepvtl/php-fpm-8.0` | Builds the PHP 8.0 image |
 | `docker login --username=yourhubusername` | Login to Docker Hub |
-| `docker push wearepvtl/php-fpm-7.4` | Pushes the PHP 7.4 image to Docker Hub |
-| `docker run wearepvtl/php-fpm-7.4` | Opens the PHP 7.4 Container |
+| `docker push wearepvtl/php-fpm-8.0` | Pushes the PHP 8.0 image to Docker Hub |
+| `docker run wearepvtl/php-fpm-8.0` | Opens the PHP 8.0 Container |
 | `docker image prune -a` | Delete all images to start from scratch |
-
-## Build and push all
-
-This script will pull fresh copies of the official parent images and rebuild our Pivotal PHP images from scratch.
-
-`php/src/build-n-push.sh`
