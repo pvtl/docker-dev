@@ -52,24 +52,23 @@ The environment features clever *domain mapping* to allow you to run code for va
 
 * __http://classic-php.php56.{APACHE_HOSTNAME}__ (eg. http://classic-php.php56.localhost)
     * Will map to `~/Sites/classic-php` and use PHP 5.6
-* __http://laravel.php70.pub.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/laravel/public` and use PHP 7.0
-* __http://php-project.php80.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/php-project` and use PHP 8.0
+* __http://laravel.php74.pub.{APACHE_HOSTNAME}__
+    * Will map to `~/Sites/laravel/public` and use PHP 7.4
 * __http://another-project.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 7.4)
+    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 8.0)
 
 ---
 
 ## Prerequisites ⚠️
 
-* Your machine must be running MacOS, Windows 10 _Pro_ or Linux
-* Your CPU must support virtualisation (Intel VT-x or AMD-V)
-* You must have [Docker Compose](https://docs.docker.com/compose/install/) (version 1.25.0+) and Docker installed & running
+You'll first need to install Docker Desktop (or Docker on Linux).
+
 
 ---
 
 ## Installation 🚀
+
+> On Windows, we strongly recommend running these commands inside a WSL2 container for best performance
 
 ```bash
 # Clone the repo
