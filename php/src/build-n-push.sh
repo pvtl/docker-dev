@@ -24,6 +24,13 @@ docker buildx create --name pvtl --platform linux/amd64 --append ssh://pvtl@192.
 
 
 # Let's start building!
+docker buildx build --pull -f 81/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-8.1:latest --push .
+
+if [[ ${TAG} != "latest" ]] ; then
+  docker tag wearepvtl/php-fpm-8.1 wearepvtl/php-fpm-8.1:${TAG}
+  docker push wearepvtl/php-fpm-8.1:${TAG}
+fi
+
 docker buildx build --pull -f 80/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-8.0:latest --push .
 
 if [[ ${TAG} != "latest" ]] ; then
