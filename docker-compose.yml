@@ -60,15 +60,15 @@ services:
     networks:
       lde-network:
 
-  # PHP 8.0 ---------------------------------------------------
-  php80-fpm:
-    container_name: php80
-    hostname: php80
+  # PHP 8.1 ---------------------------------------------------
+  php81-fpm:
+    container_name: php81
+    hostname: php81
     build:
       context: ./php
-      dockerfile: ./80/Dockerfile
+      dockerfile: ./81/Dockerfile
       args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP80}
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP81}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
         - CUSTOM_UID=${CUSTOM_UID}
         - CUSTOM_GID=${CUSTOM_GID}

@@ -1,14 +1,14 @@
 version: '3'
 
 services:
-  php81-fpm:
-    container_name: php81
-    hostname: php81
+  php80-fpm:
+    container_name: php80
+    hostname: php80
     build:
       context: ./php
-      dockerfile: ./81/Dockerfile
+      dockerfile: ./80/Dockerfile
       args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP81}
+        - EXTRA_CMDS=${EXTRA_CMDS_PHP80}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
         - CUSTOM_UID=${CUSTOM_UID}
         - CUSTOM_GID=${CUSTOM_GID}
