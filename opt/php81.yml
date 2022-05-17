@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  php80-fpm:
+  php81-fpm:
     container_name: php81
     hostname: php81
     build:
