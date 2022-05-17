@@ -33,8 +33,8 @@ RUN apt update && apt install -y --no-install-recommends \
     fonts-powerline \
     powerline \
   && yes '' | pecl install -f memcached redis xdebug mcrypt \
-  && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli opcache pdo_mysql soap xsl zip\
-  && docker-php-ext-enable mcrypt memcached redis xdebug\
+  && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli opcache pdo_mysql soap xsl zip \
+  && docker-php-ext-enable mcrypt memcached redis xdebug \
   && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE \
   && apt clean \
   && rm -rf /var/lib/apt/lists/*
@@ -82,10 +82,6 @@ RUN touch /root/custom_crontab \
 
 # Update site's directory permissions
 RUN chown -R www-data /var/www/
-
-# Cleanup
-RUN apt clean \
-  && rm -rf /var/lib/apt/lists/*
 
 # Custom PHP.ini Config
 COPY ./conf/custom.ini /usr/local/etc/php/conf.d/zza-custom.ini
