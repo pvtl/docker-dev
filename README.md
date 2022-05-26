@@ -28,7 +28,7 @@ It includes all the required dependencies for everyday PHP development with comm
 *Default:*
 
 - Apache
-- PHP 8.0
+- PHP 8.1
     - Composer (latest)
     - Node.js (16.x) & NPM (latest)*
     - Yarn (latest)*
@@ -56,6 +56,8 @@ The environment features clever *domain mapping* to allow you to run code for va
     * Will map to `~/Sites/laravel/public` and use PHP 7.4
 * __http://another-project.{APACHE_HOSTNAME}__
     * Will map to `~/Sites/another-project` and use the default version of PHP (currently 8.0)
+
+Optional services (eg. PHP 5.6, PHP 7.4) can be added in the `.env` file by appending them to the `COMPOSE_FILE` option. See `.env.example` for an example of the syntax.
 
 ---
 
