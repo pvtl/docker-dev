@@ -39,21 +39,28 @@ We use the [official PHP images](https://hub.docker.com/_/php) and add:
 
 ## How do I make updates?
 
-**1) Edit the dockerfile**
+### Step 1: Edit the dockerfile
 
-Each PHP version has it's own dockerfile (eg. `/php/80/Dockerfile` for PHP 8.0).
+Each PHP version has it's own dockerfile (eg. `php/80/Dockerfile` for PHP 8.0).
 
 Simply edit it and make the changes you need.
 
-**2) Distribute to Docker Hub**
+### Step 2: Distribute to Docker Hub
 
-Run the `/php/src/build-n-push.sh` script to manually build and push to Docker Hub. Automated builds aren't available at the moment.
+Automated builds aren't available at the moment, so you'll need to manually build and push to Docker Hub.
+
+Before you start, make sure you can use `docker` on your CLI, and that you're logged into the Docker registry (Run: `docker login`).
+
+1. Run `php/src/build-n-push.sh`
+1. Hit <kbd>Enter</kbd> to select the default tag (ie. "latest") and wait for the build to finish
 
 Behind the scenes this script is building our PHP images for multiple platforms (AMD64 and ARM64).
 
-This script assumes the build process is being run on an ARM64 (Apple Silicon) CPU, and that a remote AMD64 (Intel) Docker instance is available to run the AMD64 build. You may need to adjust the script if you're running it on an AMD64 (Intel) device.
+This script assumes the build process is being run on an ARM64 (Apple Silicon) CPU, and that a remote AMD64 (Intel) Docker instance is available via SSH to run the AMD64 build. You may need to adjust the script if you're running it on an AMD64 (Intel) device.
 
-**3) Make use of the new image**
+Older unsupported versions of PHP have been commented out, but you can temporarily enable them again if needed.
+
+### Step 3: Make use of the new image
 
 Once the images have landed in Docker Hub you'll be able to build/run a fresh version of your LDE (see instructions in the main README).
 
@@ -67,7 +74,7 @@ Those using the published Docker images can override their PHP config in `php/co
 
 ## Commands
 
-> Must be run inside the `/php/src/` folder
+> Must be run inside the `php/src/` folder
 
 | Command | Description |
 | --- | --- |
