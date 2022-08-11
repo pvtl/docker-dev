@@ -45,40 +45,40 @@ if [[ ${TAG} != "latest" ]] ; then
   docker push wearepvtl/php-fpm-7.4:${TAG}
 fi
 
-docker buildx build --pull -f 73/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.3:latest --push .
+# docker buildx build --pull -f 73/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.3:latest --push .
 
-if [[ ${TAG} != "latest" ]] ; then
-  docker tag wearepvtl/php-fpm-7.3 wearepvtl/php-fpm-7.3:${TAG}
-  docker push wearepvtl/php-fpm-7.3:${TAG}
-fi
+# if [[ ${TAG} != "latest" ]] ; then
+#   docker tag wearepvtl/php-fpm-7.3 wearepvtl/php-fpm-7.3:${TAG}
+#   docker push wearepvtl/php-fpm-7.3:${TAG}
+# fi
 
-docker buildx build --pull -f 72/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.2:latest --push .
+# docker buildx build --pull -f 72/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.2:latest --push .
 
-if [[ ${TAG} != "latest" ]] ; then
-  docker tag wearepvtl/php-fpm-7.2 wearepvtl/php-fpm-7.2:${TAG}
-  docker push wearepvtl/php-fpm-7.2:${TAG}
-fi
+# if [[ ${TAG} != "latest" ]] ; then
+#   docker tag wearepvtl/php-fpm-7.2 wearepvtl/php-fpm-7.2:${TAG}
+#   docker push wearepvtl/php-fpm-7.2:${TAG}
+# fi
 
-docker buildx build --pull -f 71/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.1:latest --push .
+# docker buildx build --pull -f 71/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.1:latest --push .
 
-if [[ ${TAG} != "latest" ]] ; then
-  docker tag wearepvtl/php-fpm-7.1 wearepvtl/php-fpm-7.1:${TAG}
-  docker push wearepvtl/php-fpm-7.1:${TAG}
-fi
+# if [[ ${TAG} != "latest" ]] ; then
+#   docker tag wearepvtl/php-fpm-7.1 wearepvtl/php-fpm-7.1:${TAG}
+#   docker push wearepvtl/php-fpm-7.1:${TAG}
+# fi
 
-docker buildx build --pull -f 70/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.0:latest --push .
+# docker buildx build --pull -f 70/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.0:latest --push .
 
-if [[ ${TAG} != "latest" ]] ; then
-  docker tag wearepvtl/php-fpm-7.0 wearepvtl/php-fpm-7.0:${TAG}
-  docker push wearepvtl/php-fpm-7.0:${TAG}
-fi
+# if [[ ${TAG} != "latest" ]] ; then
+#   docker tag wearepvtl/php-fpm-7.0 wearepvtl/php-fpm-7.0:${TAG}
+#   docker push wearepvtl/php-fpm-7.0:${TAG}
+# fi
 
-docker buildx build --pull -f 56/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-5.6:latest --push .
+# docker buildx build --pull -f 56/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-5.6:latest --push .
 
-if [[ ${TAG} != "latest" ]] ; then
-  docker tag wearepvtl/php-fpm-5.6 wearepvtl/php-fpm-5.6:${TAG}
-  docker push wearepvtl/php-fpm-5.6:${TAG}
-fi
+# if [[ ${TAG} != "latest" ]] ; then
+#   docker tag wearepvtl/php-fpm-5.6 wearepvtl/php-fpm-5.6:${TAG}
+#   docker push wearepvtl/php-fpm-5.6:${TAG}
+# fi
 
 # Tear down build servers
 docker buildx rm pvtl
