@@ -135,6 +135,8 @@ The Docker Engine must be running and commands must be run within this repo's ro
 
 While the above commands work, they're a bit tedious to type out on a daily basis. If you're using macOS, Linux or WSL you can set up Bash or ZSH aliases to make life easier.
 
+Edit either `~/.bashrc` or  `~/.zshrc` and paste this code block in at the bottom of the file:
+
 ```
 # Usage: "devup" or "devdown"
 # Just update the path to point to the actual location of your docker-dev folder
