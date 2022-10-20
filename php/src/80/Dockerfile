@@ -60,12 +60,6 @@ RUN curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
   && apt clean \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Node
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - \
-  && apt install -y --no-install-recommends nodejs \
-  && apt clean \
-  && rm -rf /var/lib/apt/lists/*
-
 # Install Wordpress CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
   && chmod +x wp-cli.phar \
