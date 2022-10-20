@@ -61,7 +61,7 @@ RUN curl -sS 'https://dl.yarnpkg.com/debian/pubkey.gpg' | apt-key add - \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Node
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - \
   && apt install -y --no-install-recommends nodejs \
   && apt clean \
   && rm -rf /var/lib/apt/lists/*
