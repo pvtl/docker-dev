@@ -75,9 +75,7 @@ We need to simply add a host file record of the site we're requesting, pointing 
 
 ## How do I use HTTPS/SSL for my local containers?
 
-First, make sure you've added the optional HTTPS service to your `.env` config, eg `COMPOSE_FILE=docker compose.yml:opt/https.yml`
-
-Your browser may require you to enable a feature flag, to access the site with an insecure (self signed) certificate:
+HTTPS (port 443) is enabled by default, however Apache is using a self-signed certficate so your browser may require you to enable a feature flag:
 
 - `edge://flags` or `chrome://flags` or `brave://flags`...
 - Enable: `Allow invalid certificates for resources loaded from localhost.`
