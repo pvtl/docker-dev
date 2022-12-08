@@ -45,12 +45,12 @@ if [[ ${TAG} != "latest" ]] ; then
   docker push wearepvtl/php-fpm-8.0:${TAG}
 fi
 
-docker buildx build --pull -f 74/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.4:latest --push .
+# docker buildx build --pull -f 74/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.4:latest --push .
 
-if [[ ${TAG} != "latest" ]] ; then
-  docker tag wearepvtl/php-fpm-7.4 wearepvtl/php-fpm-7.4:${TAG}
-  docker push wearepvtl/php-fpm-7.4:${TAG}
-fi
+# if [[ ${TAG} != "latest" ]] ; then
+#   docker tag wearepvtl/php-fpm-7.4 wearepvtl/php-fpm-7.4:${TAG}
+#   docker push wearepvtl/php-fpm-7.4:${TAG}
+# fi
 
 # docker buildx build --pull -f 73/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-7.3:latest --push .
 
