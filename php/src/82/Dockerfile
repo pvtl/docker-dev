@@ -1,4 +1,4 @@
-FROM php:8.2-rc-fpm
+FROM php:8.2-fpm
 
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
