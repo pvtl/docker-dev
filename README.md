@@ -171,3 +171,5 @@ devin() {
     - [Adding custom PHP configuration](docs/faqs.md#adding-custom-php-configuration)
     - [Using Redis as a session handler](docs/faqs.md#using-redis-as-a-session-handler)
     - [How do I change the 'default' PHP container?](docs/faqs.md#how-do-i-change-the-default-php-container)
+    - [Custom domains / Testing OAuth Logins](docs/custom-domains.md)
+
