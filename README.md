@@ -42,7 +42,7 @@ It includes all the required dependencies for everyday PHP development with comm
 
 - PHP 5.6, 7.0, 7.1, 7.2, 7.3 and 7.4
 - Memcached 1.x
-- Redis 6.x
+- Redis 7.x
 - [Blackfire](https://blackfire.io/) (latest)
 
 <p><i>* Available in latest 2x PHP containers</i></p>
