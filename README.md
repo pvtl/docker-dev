@@ -31,7 +31,7 @@ It includes all the required dependencies for everyday PHP development with comm
 - PHP 8.1
     - Composer (latest)
     - Node.js (16.x) & NPM (latest)*
-    - Yarn (latest)*
+    - Yarn (latest of 1.x)*
     - PHPCS (with Wordpress code standards added)*
     - Wordpress CLI*
     - ZSH*
@@ -40,7 +40,7 @@ It includes all the required dependencies for everyday PHP development with comm
 
 *Optional:*
 
-- PHP 5.6, 7.0, 7.1, 7.2, 7.3 and 7.4
+- PHP 5.6, 7.0, 7.1, 7.2, 7.3, 7.4 and 8.0
 - Memcached 1.x
 - Redis 7.x
 - [Blackfire](https://blackfire.io/) (latest)
