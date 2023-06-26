@@ -138,9 +138,9 @@ Edit either `~/.bashrc` or  `~/.zshrc` and paste this code block in at the botto
 
 ```
 # Usage: "devup" or "devdown"
-# Just update the path to point to the actual location of your docker-dev folder
-alias devup='(cd /home/manuel/docker-dev && docker compose start)'
-alias devdown='(cd /home/manuel/docker-dev && docker compose stop)'
+# Update the path to point to the actual location of your docker-dev folder
+alias devup='(cd /home/USER/docker-dev && docker compose start)'
+alias devdown='(cd /home/USER/docker-dev && docker compose stop)'
 
 # Usage: "devin 81"
 # Simply change the numbers for your preferred PHP version (assuming it's installed/enabled)
