@@ -85,11 +85,13 @@ cp .env.example .env
 
 # Start the environment
 docker-compose up -d
-
-# The containers are now running. You can now:
-# - Open a website in your browser using <FOLDER>.{APACHE_HOSTNAME} (see domain mapping notes above)
-# - Open a terminal window into one of the containers, via `docker-compose exec <CONTAINER NAME> bash`
 ```
+
+You can test if your Docker Dev environment is working correctly using a simple PHP Info file.
+
+1. Create the folder and file: /home/USERNAME/projects/test/index.php
+1. Edit the file and paste “<?php phpinfo();”
+1. In your browser, open http://test.localhost. You should see the PHP Info page.
 
 ---
 
