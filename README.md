@@ -15,7 +15,7 @@
   <br />
 </div>
 
-__An everyday local development environment for PHP Developers.__ At [Pivotal Agency](https://pivotal.agency), we've done a _buuunnnch_ of R&D to find the best local dev tools for our team. This is the result of our hard work. This tool has been put to its paces everyday by our team, we hope it can also help yours.
+__An everyday local development environment for PHP Developers.__ At [Pivotal Agency](https://www.pivotalagency.com.au/), we've done a _buuunnnch_ of R&D to find the best local dev tools for our team. This is the result of our hard work. This tool has been put to its paces everyday by our team, we hope it can also help yours.
 
 ---
 
@@ -71,27 +71,36 @@ You'll first need to install Docker Desktop (or Docker on Linux).
 
 ## Installation 🚀
 
-> On Windows, we strongly recommend running these commands inside a WSL2 container for best performance
+> Windows Users: The Docker Dev containers perform best while running inside WSL2. We'll assume you will run these commands in a WSL2 terminal (eg. Ubuntu).
 
-```bash
-# Clone the repo
-git clone https://github.com/pvtl/docker-dev && cd docker-dev
+1. Open a terminal window
+2. Create a new folder for your projects
+```
+mkdir ~/projects
+cd ~/projects
+```
+**Note**: The `~/` alias points to your home folder (eg. `/home/USERNAME/`)
 
-# Create & update relevant config - For example:
-#  - Point `DOCUMENTROOT` to your projects folder
-#  - (optional) Set user/group ID's
-#  - (optional) Add services (eg. extra PHP versions, PHPMyAdmin, Memcached etc)
-cp .env.example .env
-
-# Start the environment
+3. Clone this repo into your projects folder
+```
+git clone git@github.com:pvtl/docker-dev.git
+cd docker-dev
+```
+4. Copy `.env.example` to `.env` and set the `DOCUMENTROOT` to your projects folder (eg. `/home/USERNAME/projects/`)
+5. Build and start the Docker containers:
+```
 docker-compose up -d
 ```
 
-You can test if your Docker Dev environment is working correctly using a simple PHP Info file.
+For ease of use we recommend you also set up the [Daily Shortcuts](https://github.com/pvtl/docker-dev/#daily-shortcuts-%EF%B8%8F).
 
-1. Create the folder and file: /home/USERNAME/projects/test/index.php
-1. Edit the file and paste “<?php phpinfo();”
-1. In your browser, open http://test.localhost. You should see the PHP Info page.
+You can test if your Docker Dev environment is working correctly using a simple PHP info file.
+
+1. Create the folder and file: `/home/USERNAME/projects/test/index.php`
+1. Edit the file and paste `<?php phpinfo();`
+1. In your browser, open http://test.localhost. You should see the PHP info page.
+
+
 
 ---
 
@@ -100,37 +109,26 @@ You can test if your Docker Dev environment is working correctly using a simple 
 Open a terminal window, browse to this project's folder and run:
 
 ```bash
-# 1. Pull from Git
+# 1. Fetch our latest updates
 git pull
-# 2. Erase previous containers
+
+# 2. Erase previous containers. Your project files and DB's will be left as-is.
 docker-compose down --remove-orphans
+
 # 3. Get latest docker images
 docker-compose pull
+
 # 4. Rebuild Dockerfiles from scratch (inc. pull parent images)
 docker-compose build --pull --no-cache --parallel
-# 5. Start the new env
+
+# 5. Start the updated environment
 docker-compose up -d
+
 # 6. Erase any unused containers, images, volumes etc. to free disk space.
 docker system prune --volumes
 ```
 
 *This will also install the latest versions of all tools (eg. PHP, Redis, Node.js etc.)*
-
----
-
-## Common Commands 🔥
-
-The Docker Engine must be running and commands must be run within this repo's root.
-
-| Command | Description |
-|---|---|
-| `docker-compose start` | Start all containers |
-| `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
-| `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
-| `docker-compose down`  | Tear down all containers (MySQL data and project folders are kept) |
-| `docker-compose exec php80-fpm zsh`  | Open a zsh terminal in the PHP 8.0 container |
-| `docker-compose logs php80-fpm` | View all logs for PHP-FPM 8.0 |
-| `docker-compose ps` | Show which containers are running |
 
 ---
 
@@ -155,6 +153,24 @@ devin() {
   docker exec -it php$1 bash
 }
 ```
+
+---
+
+## Common Commands 🔥
+
+Docker must be running and these commands must be run from the Docker Dev folder (eg. `/home/USERNAME/projects/docker-dev`).
+
+Most of these actions can also be done in the Docker Desktop app.
+
+| Command | Description |
+|---|---|
+| `docker-compose start` | Start all containers |
+| `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
+| `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
+| `docker-compose down`  | Tear down all containers (MySQL data and project folders are kept) |
+| `docker-compose exec php80-fpm zsh`  | Open a zsh terminal in the PHP 8.0 container |
+| `docker-compose logs php80-fpm` | View all logs for PHP-FPM 8.0 |
+| `docker-compose ps` | Show which containers are running |
 
 ---
 
