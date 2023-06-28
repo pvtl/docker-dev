@@ -21,16 +21,16 @@ __An everyday local development environment for PHP Developers.__ At [Pivotal Ag
 
 ## Intro 👋
 
-This is a set of Docker images to spin up a LAMP stack (Linux, Apache, MySQL and PHP) for developing locally. It's perfect for local development because you can very simply add new sites to specified directory and they're magically accessible as a subdomain of your chosen hostname (eg. eg. `~/Sites/info` maps to `http://info.localhost/`).
+This is a set of Docker images to spin up a LAMP stack (Linux, Apache, MySQL and PHP) for developing locally. It's perfect for local development because you can very simply add new sites to specified directory and they're magically accessible as a subdomain of your chosen hostname (eg. eg. `~/projects/example` maps to `http://example.localhost/`).
 
 It includes all the required dependencies for everyday PHP development with common tools like Laravel, Wordpress and Magento (1 & 2). Specifically:
 
-*Default:*
+**Default Services**
 
 - Apache (including HTTPS)
 - PHP 8.1
     - Composer (latest)
-    - Node.js (16.x) & NPM (latest)*
+    - Node.js (latest LTS) & NPM (latest)*
     - Yarn (latest)*
     - PHPCS (with Wordpress code standards added)*
     - Wordpress CLI*
@@ -38,25 +38,27 @@ It includes all the required dependencies for everyday PHP development with comm
 - Mailhog (latest)
 - MariaDB 10.3
 
-*Optional:*
+<p><i>* Available in latest 2x PHP containers</i></p>
 
-- PHP 5.6, 7.0, 7.1, 7.2, 7.3 and 7.4
+**Optional Services**
+
+- PHP 5.6, all 7.x and all 8.x
 - Memcached 1.x
 - Redis 7.x
 - [Blackfire](https://blackfire.io/) (latest)
 
-<p><i>* Available in latest 2x PHP containers</i></p>
+These optional services (eg. PHP 5.6, PHP 7.4) can be added in the `.env` file by appending them to the `COMPOSE_FILE` option. See `.env.example` for an example of the syntax.
 
-The environment features clever *domain mapping* to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<website>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
+**Domain Mapping**
 
-* __http://classic-php.php56.{APACHE_HOSTNAME}__ (eg. http://classic-php.php56.localhost)
-    * Will map to `~/Sites/classic-php` and use PHP 5.6
-* __http://laravel.php74.pub.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/laravel/public` and use PHP 7.4
-* __http://another-project.{APACHE_HOSTNAME}__
-    * Will map to `~/Sites/another-project` and use the default version of PHP (currently 8.0)
+The environment features clever *domain mapping* to allow you to run code for various platforms. Sites are accessible from the following URLs (by default it's `http://<folder>.localhost`, however `APACHE_HOSTNAME` can modified in `.env` to point to a different hostname):
 
-Optional services (eg. PHP 5.6, PHP 7.4) can be added in the `.env` file by appending them to the `COMPOSE_FILE` option. See `.env.example` for an example of the syntax.
+* __http://classic-php.php56.localhost__
+    * Will map to `~/projects/classic-php` and use PHP 5.6
+* __http://laravel.php74.pub.localhost__
+    * Will map to `~/projects/laravel/public` and use PHP 7.4
+* __http://another-project.localhost__
+    * Will map to `~/projects/another-project` and use the default version of PHP
 
 ---
 
@@ -76,16 +78,16 @@ You'll first need to install Docker Desktop (or Docker on Linux).
 git clone https://github.com/pvtl/docker-dev && cd docker-dev
 
 # Create & update relevant config - For example:
-#  - Point sites to your sites directory
-#  - Set user/group ID's
-#  - Add optional services (eg. extra PHP versions, PHPMyAdmin, Memcached etc)
+#  - Point `DOCUMENTROOT` to your projects folder
+#  - (optional) Set user/group ID's
+#  - (optional) Add services (eg. extra PHP versions, PHPMyAdmin, Memcached etc)
 cp .env.example .env
 
 # Start the environment
 docker-compose up -d
 
 # The containers are now running. You can now:
-# - Open a website in your browser using <DIRECTORY NAME>.{APACHE_HOSTNAME} (see domain mapping notes above)
+# - Open a website in your browser using <FOLDER>.{APACHE_HOSTNAME} (see domain mapping notes above)
 # - Open a terminal window into one of the containers, via `docker-compose exec <CONTAINER NAME> bash`
 ```
 
@@ -123,7 +125,7 @@ The Docker Engine must be running and commands must be run within this repo's ro
 | `docker-compose start` | Start all containers |
 | `docker-compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker-compose up -d --build --no-cache` | Recreate all containers from scratch |
-| `docker-compose down`  | Tear down all containers (MySQL data and Project files are kept) |
+| `docker-compose down`  | Tear down all containers (MySQL data and project folders are kept) |
 | `docker-compose exec php80-fpm zsh`  | Open a zsh terminal in the PHP 8.0 container |
 | `docker-compose logs php80-fpm` | View all logs for PHP-FPM 8.0 |
 | `docker-compose ps` | Show which containers are running |
@@ -159,9 +161,9 @@ devin() {
 - 🚥 [Connections](docs/connections.md)
     - [Email](docs/connections.md#Email)
     - [MySQL](docs/connections.md#MySQL)
-    - [XDebug](docs/xdebug.md)
     - [Redis](docs/connections.md#Redis)
     - [Memcached](docs/connections.md#Memcached)
+    - [XDebug](docs/xdebug.md)
 - ❓ [FAQs](docs/faqs.md)
     - [localhost isn't working](docs/faqs.md)
     - [Crons](docs/faqs.md#how-do-i-setuprun-crons)
