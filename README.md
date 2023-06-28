@@ -132,17 +132,20 @@ The Docker Engine must be running and commands must be run within this repo's ro
 
 ## Daily Shortcuts ⚡️
 
-While the above commands work, they're a bit tedious to type out on a daily basis. If you're using macOS, Linux or WSL you can set up Bash or ZSH aliases to make life easier.
+While the above commands work, they're a bit tedious to type out on a daily basis. You can set up terminal aliases to make life easier.
 
-Edit either `~/.bashrc` or  `~/.zshrc` and paste this code block in at the bottom of the file:
+If you use ZSH, edit `~/.zshrc`. Otherwise edit `~/.bashrc`. Create the file if it doesn't exist.
+
+1. Paste the code (below) at the bottom of the file. Adjust your folder path to suit.
+1. Close and re-open your terminal to apply the changes
+1. Try running `devup` or `devdown`
 
 ```
 # Usage: "devup" or "devdown"
-# Just update the path to point to the actual location of your docker-dev folder
-alias devup='(cd /home/manuel/docker-dev && docker compose start)'
-alias devdown='(cd /home/manuel/docker-dev && docker compose stop)'
+alias devup='(cd /home/USERNAME/projects/docker-dev && docker compose start)'
+alias devdown='(cd /home/USERNAME/projects/docker-dev && docker compose stop)'
 
-# Usage: "devin 81"
+# Usage (for PHP 8.1): "devin 81"
 # Simply change the numbers for your preferred PHP version (assuming it's installed/enabled)
 devin() {
   docker exec -it php$1 bash
