@@ -122,7 +122,7 @@ docker-compose pull
 docker-compose build --pull --no-cache --parallel
 
 # 5. Start the updated environment
-docker-compose up -d
+docker-compose up -d --remove-orphans
 
 # 6. Erase any unused containers, images, volumes etc. to free disk space.
 docker system prune --volumes
