@@ -1,16 +1,14 @@
 # Connections 🚥
 
 ## Email
-By default all email sent from PHP is "caught" by [Mailhog](https://github.com/mailhog/MailHog). This allows you to review the emails being sent without the system actually delivering them to real email addresses.
+By default all email sent from PHP is "caught" by [Mailpit](https://github.com/axllent/mailpit). This allows you to review the emails being sent without the system actually delivering them to real email addresses.
 
 You can view anything which has been sent and caught via [http://localhost:8025/](http://localhost:8025/).
 
 | Parameter | Value |
 |-------------|---|
-| Host | `mailhog` |
+| Host | `mailpit` |
 | Port | `1025` |
-| Username | `testuser` |
-| Password | `testpwd` |
 
 ---
 

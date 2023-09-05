@@ -35,7 +35,7 @@ It includes all the required dependencies for everyday PHP development with comm
     - PHPCS (with Wordpress code standards added)*
     - Wordpress CLI*
     - ZSH*
-- Mailhog (latest)
+- Mailpit (latest)
 - MariaDB 10.3
 
 <p><i>* Available in latest 2x PHP containers</i></p>
