@@ -23,7 +23,6 @@ RUN apt update && apt install -y --no-install-recommends \
     nano \
     net-tools \
     ssh \
-    msmtp \
     sudo \
     supervisor \
     unzip \
@@ -55,6 +54,10 @@ RUN cd /tmp \
 RUN curl --silent --show-error https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && composer clear-cache
+
+# Install Mailpit
+# (so we can use it's "sendmail" binary)
+COPY --from=axllent/mailpit:latest /mailpit /usr/bin/mailpit
 
 # Install Wordpress CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \

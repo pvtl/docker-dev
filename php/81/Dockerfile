@@ -22,10 +22,6 @@ RUN ZSH="/home/${CUSTOM_USER_NAME}/.oh-my-zsh" sh -c "$(curl -fsSL https://raw.g
   && echo 'export EDITOR="nano"' >> /home/${CUSTOM_USER_NAME}/.zshrc \
   && su - ${CUSTOM_USER_NAME} -c "git config --global oh-my-zsh.hide-info 1"
 
-# Aliases
-RUN echo "alias artisan='php artisan'" >> /home/${CUSTOM_USER_NAME}/.zshrc \
-  && echo "alias magento='php bin/magento'" >> /home/${CUSTOM_USER_NAME}/.zshrc
-
 # Install Blackfire
 RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
   && architecture=$(uname -m) \
@@ -35,6 +31,10 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
   && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
   && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8307\n" > $PHP_INI_DIR/conf.d/blackfire.ini \
   && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
+
+# Aliases
+RUN echo "alias artisan='php artisan'" >> /home/${CUSTOM_USER_NAME}/.zshrc \
+  && echo "alias magento='php bin/magento'" >> /home/${CUSTOM_USER_NAME}/.zshrc
 
 # Run the user specified commands
 ARG EXTRA_CMDS="echo 'None to run'"
