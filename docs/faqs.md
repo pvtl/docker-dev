@@ -179,7 +179,7 @@ session.save_path = "tcp://redis:6379"
 
 Let's say that you primarily use PHP 7.4, and want all websites to use PHP 7.4 (instead of the latest version of PHP) for URLs like `<directory-name>.localhost` and `<directory-name>.pub.localhost`:
 
-1. Ensure that the PHP74 image is included in your `/.env`
+1. Ensure the PHP74 image is included in your `/.env`
     - i.e. ensure that `opt/php74` is included in `COMPOSE_FILE`
 1. Cut (copy and remove) the `ServerAlias *.pub.*` line from `/apache/sites/pub.localhost/php<LATEST_VERSION>.conf`
     - Paste that line into `/apache/sites/pub.localhost/php74.conf` (after the first `ServerAlias ..` line)
