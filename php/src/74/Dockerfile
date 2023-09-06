@@ -59,11 +59,6 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php \
 # (so we can use it's "sendmail" binary)
 COPY --from=axllent/mailpit:latest /mailpit /usr/bin/mailpit
 
-# Install Wordpress CLI
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-  && chmod +x wp-cli.phar \
-  && mv wp-cli.phar /usr/local/bin/wp
-
 # Install PHPCS
 RUN composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs \
   && phpcs --config-set installed_paths /root/.composer/vendor/wp-coding-standards/wpcs \

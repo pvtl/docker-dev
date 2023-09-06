@@ -52,25 +52,6 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php \
 # (so we can use it's "sendmail" binary)
 COPY --from=axllent/mailpit:latest /mailpit /usr/bin/mailpit
 
-# Yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null \
-  && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list >/dev/null \
-  && apt update \
-  && apt install -y --no-install-recommends yarn \
-  && apt clean \
-  && rm -rf /var/lib/apt/lists/*
-
-# Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - \
-  && apt install -y --no-install-recommends nodejs \
-  && apt clean \
-  && rm -rf /var/lib/apt/lists/*
-
-# Wordpress CLI
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-  && chmod +x wp-cli.phar \
-  && mv wp-cli.phar /usr/local/bin/wp
-
 # PHPCS
 RUN composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs \
   && phpcs --config-set installed_paths /root/.composer/vendor/wp-coding-standards/wpcs \

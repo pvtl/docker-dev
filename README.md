@@ -28,7 +28,7 @@ It includes all the required dependencies for everyday PHP development with comm
 **Default Services**
 
 - Apache (including HTTPS)
-- PHP 8.1
+- PHP 8.2
     - Composer (latest)
     - Node.js (latest LTS) & NPM (latest)*
     - Yarn (latest of 1.x)*
