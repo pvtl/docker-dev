@@ -6,6 +6,7 @@ LABEL maintainer.name="Pivotal Agency" \
 ENV PATH /usr/local/go/bin:/root/.composer/vendor/bin:$PATH
 
 RUN apt update && apt install -y --no-install-recommends \
+    ca-certificates \
     cron \
     fonts-powerline \
     git \
@@ -61,7 +62,10 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee
   && rm -rf /var/lib/apt/lists/*
 
 # Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - \
+RUN curl -sS https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor | sudo tee /usr/share/keyrings/nodesource.gpg >/dev/null \
+  && NODE_MAJOR=20 \
+  && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list >/dev/null \
+  && apt update \
   && apt install -y --no-install-recommends nodejs \
   && apt clean \
   && rm -rf /var/lib/apt/lists/*
