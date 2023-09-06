@@ -29,12 +29,12 @@ services:
       lde-network:
         ipv4_address: 192.168.103.100
 
-  # Mailhog ---------------------------------------------------
-  mailhog:
-    container_name: mailhog
-    hostname: mailhog
+  # Mailpit ---------------------------------------------------
+  mailpit:
+    container_name: mailpit
+    hostname: mailpit
     restart: ${DOCKER_RESTART}
-    image: mailhog/mailhog
+    image: axllent/mailpit
     ports:
       - "1025:1025"
       - "8025:8025"

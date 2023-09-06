@@ -23,7 +23,6 @@ RUN apt update && apt install -y --no-install-recommends \
     nano \
     net-tools \
     ssh \
-    msmtp \
     sudo \
     supervisor \
     unzip \
@@ -53,9 +52,9 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && composer clear-cache
 
-# Install MailHog
-RUN curl -L -o /usr/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
-  && chmod +x /usr/bin/mhsendmail
+# Install Mailpit
+# (so we can use it's "sendmail" binary)
+COPY --from=axllent/mailpit:latest /mailpit /usr/bin/mailpit
 
 # Setup Crons
 RUN touch /root/custom_crontab \

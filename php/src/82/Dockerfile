@@ -24,7 +24,6 @@ RUN apt update && apt install -y --no-install-recommends \
     libxslt-dev \
     libz-dev \
     libzip-dev \
-    msmtp \
     nano \
     net-tools \
     powerline \
@@ -49,9 +48,9 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php \
   && mv composer.phar /usr/local/bin/composer \
   && composer clear-cache
 
-# MailHog
-RUN curl -L -o /usr/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64 \
-  && chmod +x /usr/bin/mhsendmail
+# Install Mailpit
+# (so we can use it's "sendmail" binary)
+COPY --from=axllent/mailpit:latest /mailpit /usr/bin/mailpit
 
 # Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null \
