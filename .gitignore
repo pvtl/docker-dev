@@ -12,6 +12,7 @@ mysql/data/*
 
 # PHP
 custom_crontab
+custom_scripts
 
 # Apache
 apache/sites/*
