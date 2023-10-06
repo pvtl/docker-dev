@@ -184,6 +184,7 @@ Most of these actions can also be done in the Docker Desktop app.
     - [XDebug](docs/xdebug.md)
 - ❓ [FAQs](docs/faqs.md)
     - [localhost isn't working](docs/faqs.md)
+    - [Running additional commands inside the container during build](docs/faqs.md#how-do-i-run-additional-commands-inside-the-container-during-build)
     - [Crons](docs/faqs.md#how-do-i-setuprun-crons)
     - [BrowserSync](docs/faqs.md#how-do-i-get-browsersync-working-from-inside-a-container)
     - [CURL requests from/to LDE sites](docs/faqs.md#curl-requests-from-an-lde-site-to-another-lde-site)

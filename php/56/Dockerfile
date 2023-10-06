@@ -32,7 +32,9 @@ RUN chown ${CUSTOM_USER_NAME}:${CUSTOM_USER_NAME} /etc/supervisor/supervisord.pi
 # Copy and enable CRON/s
 COPY ./56/Dockerfile ./56/custom_crontab* ./56/custom_scripts* /root/
 RUN /usr/bin/crontab -u ${CUSTOM_USER_NAME} /root/custom_crontab
-RUN bash /root/custom_scripts
+RUN chmod +x /root/custom_scripts
+ARG RUN_CUSTOM_SCRIPT_CMD="bash -c '/root/custom_scripts'"
+RUN if [ -f /root/custom_scripts ]; then $RUN_CUSTOM_SCRIPT_CMD; fi
 
 ENTRYPOINT []
 CMD ["/usr/bin/supervisord"]
