@@ -15,8 +15,6 @@ services:
     build:
       context: ./apache
       dockerfile: ./Dockerfile
-      args:
-        - EXTRA_CMDS=${EXTRA_CMDS_APACHE}
     ports:
       - "80:80"
       - "443:443"
@@ -49,8 +47,6 @@ services:
     build:
       context: ./mysql
       dockerfile: ./Dockerfile
-      args:
-        - EXTRA_CMDS=${EXTRA_CMDS_MYSQL}
     env_file:
       - .env
     ports:
@@ -69,7 +65,6 @@ services:
       context: ./php
       dockerfile: ./82/Dockerfile
       args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP82}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
         - CUSTOM_UID=${CUSTOM_UID}
         - CUSTOM_GID=${CUSTOM_GID}

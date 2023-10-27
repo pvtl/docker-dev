@@ -8,7 +8,6 @@ services:
       context: ./php
       dockerfile: ./70/Dockerfile
       args:
-        - EXTRA_CMDS=${EXTRA_CMDS_PHP70}
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
         - CUSTOM_UID=${CUSTOM_UID}
         - CUSTOM_GID=${CUSTOM_GID}
