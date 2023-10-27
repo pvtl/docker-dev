@@ -29,7 +29,7 @@ RUN chown ${CUSTOM_USER_NAME}:${CUSTOM_USER_NAME} /etc/supervisor/supervisord.pi
   && chmod gu+s /usr/sbin/cron
 
 # Copy custom scripts and crons
-COPY ./72/custom_crontab* ./72/custom_scripts* /root/
+COPY ./72/Dockerfile ./72/custom_crontab* ./72/custom_scripts* /root/
 RUN /usr/bin/crontab -u ${CUSTOM_USER_NAME} /root/custom_crontab
 RUN if [ -f /root/custom_scripts ]; then chmod +x /root/custom_scripts; fi
 RUN if [ -f /root/custom_scripts ]; then bash -c '/root/custom_scripts'; fi
