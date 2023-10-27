@@ -3,6 +3,7 @@
 .idea
 npm-debug.log
 .env
+.vscode
 
 # Custom Container
 opt/custom/*
