@@ -34,6 +34,28 @@ The CRON's will only run while your docker containers are running.
 
 ---
 
+## How do I run additional commands inside the container during build?
+
+Each version of PHP can have its own additional commands that are run when the container is being built.
+
+These commands are run as the `root` user, and you can run almost any shell command you'd like.
+
+1. Simply create a file called `custom_scripts` in the PHP directory of your choice (eg. `/php/82/custom_scripts`). Add a shebang (`#!/bin/zsh`) followed by your shell commands.
+1. Rebuild that PHP container: `docker compose build php82-fpm`
+1. And start it up: `docker compose up -d`
+
+Here is an example to add a new alias to your shell's RC file:
+
+```
+#!/bin/zsh
+
+echo "alias codecheck ='php -d memory_limit=-1 ./vendor/bin/phpcs -s .'" | sudo tee -a /home/${CUSTOM_USER_NAME}/.zshrc
+```
+
+NOTE: All Dockerfile arguments are available to use in your commands
+
+---
+
 ## How do I get BrowserSync working from inside a container?
 
 BrowserSync works by proxying a host and auto-refreshing the browser when a file was updated. When run from within a container, it needs to proxy the PHP site through the apache container (to get the same result that you see).

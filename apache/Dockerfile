@@ -2,7 +2,7 @@
 FROM alpine:3
 WORKDIR /tmp/
 RUN apk add --no-cache openssl
-RUN openssl req -new -x509 -sha256 -newkey rsa:2048 -days 365 -nodes -out /tmp/server.crt -keyout /tmp/server.key -subj "/C=AU/ST=ALD/L=Brisbane/O=PVTL/OU=dev/CN=localhost"
+RUN openssl req -new -x509 -sha256 -newkey rsa:2048 -days 365 -nodes -out /tmp/server.crt -keyout /tmp/server.key -subj "/C=AU/ST=QLD/L=Brisbane/O=PVTL/OU=dev/CN=localhost"
 
 
 # Build Apache container
@@ -36,6 +36,7 @@ RUN sed -i \
 # Enable all sites
 RUN echo "Include conf/sites/*.conf" >> /usr/local/apache2/conf/httpd.conf
 
-# Run the user specified commands
-ARG EXTRA_CMDS="echo 'None to run'"
-RUN eval $EXTRA_CMDS
+# Copy and run custom scripts
+COPY ./apache/custom_scripts* /root/
+RUN if [ -f /root/custom_scripts ]; then chmod +x /root/custom_scripts; fi
+RUN if [ -f /root/custom_scripts ]; then bash -c '/root/custom_scripts'; fi
