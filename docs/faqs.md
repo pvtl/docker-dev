@@ -38,13 +38,13 @@ The CRON's will only run while your docker containers are running.
 
 Each version of PHP can have its own additional commands that are run when the container is being built.
 
-These commands are run as the `dev` user, and you can run almost any SHELL command you'd like.
+These commands are run as the `root` user, and you can run almost any shell command you'd like.
 
-1. Simply create a file called `custom_scripts` in the PHP directory of your choice (eg. `/php/74/custom_scripts`). Add a SHEBANG and your SHELL commands to this script.
-1. Rebuild that PHP container: `docker compose build php74-fpm`
+1. Simply create a file called `custom_scripts` in the PHP directory of your choice (eg. `/php/82/custom_scripts`). Add a shebang (`#!/bin/zsh`) followed by your shell commands.
+1. Rebuild that PHP container: `docker compose build php82-fpm`
 1. And start it up: `docker compose up -d`
 
-Here's an example to add a new alias to your SHELL RC file:
+Here is an example to add a new alias to your shell's RC file:
 
 ```
 #!/bin/zsh
