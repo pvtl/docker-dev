@@ -11,5 +11,5 @@ Obviously this is only useful for testing OAuth on your local device. It's not s
     1. Edit `ServerName` and type in the actual hostname you want to use. Eg. `ServerName acme-corp.com`
     2. Delete the `ServerAlias` lines
     3. Edit the `VirtualDocumentRoot` lines and swap `%1` for your project's folder name (eg. `acme-corp`). You should end up with a fully formed absolute folder path like `VirtualDocumentRoot /var/www/html/acme-corp/public`
-6. Reload the Apache container: `docker-compose restart apache` (run this while inside the docker-dev project folder)
+6. Reload the Apache container: `docker compose restart apache` (run this while inside the docker-dev project folder)
 7. Edit your hosts file and point your domain to 127.0.0.1
