@@ -61,11 +61,6 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee
   && apt clean \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Node.js using "Node Version Manager"
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
-  && . ~/.bashrc \
-  && nvm install 20
-
 # Wordpress CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
   && chmod +x wp-cli.phar \

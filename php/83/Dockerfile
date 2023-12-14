@@ -3,6 +3,8 @@ FROM wearepvtl/php-fpm-8.3:latest
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
 
+# Running these commands as the "root" user
+
 # Setup user (to stay in-sync with the host system's user)
 ARG CUSTOM_USER_NAME
 ARG CUSTOM_UID
@@ -14,7 +16,8 @@ RUN groupadd -g ${CUSTOM_GID} ${CUSTOM_USER_NAME} \
 
 # Install ZSH & config
 RUN ZSH="/home/${CUSTOM_USER_NAME}/.oh-my-zsh" sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" chsh -s $(which zsh) ${CUSTOM_USER_NAME} \
-  && mv /root/.zshrc /home/${CUSTOM_USER_NAME}/.zshrc \
+  && cp /root/.zshrc /home/${CUSTOM_USER_NAME}/.zshrc \
+  && chown -R ${CUSTOM_USER_NAME}:${CUSTOM_USER_NAME} /home/${CUSTOM_USER_NAME}/.zshrc \
   && chown -R ${CUSTOM_USER_NAME}:${CUSTOM_USER_NAME} /home/${CUSTOM_USER_NAME}/.oh-my-zsh \
   && sed -i 's^ZSH_THEME="robbyrussell"^ZSH_THEME="bira"^g' /home/${CUSTOM_USER_NAME}/.zshrc \
   && sed -i 's^# DISABLE_UPDATE_PROMPT="true"^DISABLE_UPDATE_PROMPT="true"^g' /home/${CUSTOM_USER_NAME}/.zshrc \
@@ -53,6 +56,17 @@ COPY ./83/Dockerfile ./83/custom_crontab* ./83/custom_scripts* /root/
 RUN /usr/bin/crontab -u ${CUSTOM_USER_NAME} /root/custom_crontab
 RUN if [ -f /root/custom_scripts ]; then chmod +x /root/custom_scripts; fi
 RUN if [ -f /root/custom_scripts ]; then zsh -c '/root/custom_scripts'; fi
+
+# Now we're switching to the custom user
+USER ${CUSTOM_UID}:${CUSTOM_GID}
+SHELL ["/bin/zsh", "-c"]
+
+# Install Node.js using "Node Version Manager"
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \
+  && export NVM_DIR="$HOME/.nvm" \
+  && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
+  && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" \
+  && nvm install 20
 
 ENTRYPOINT []
 CMD ["/usr/bin/supervisord"]
