@@ -5,20 +5,15 @@
 cd $(dirname "$0")
 
 
-# Decide on tagging
-echo -e "\n  ➤  Which tag would you like to push to? [default: latest]"
-read -p "== " TAG
-
-if [[ -z "$TAG" ]]; then
-  TAG="latest"
-fi
+# Tag all images (for the Docker Hub) as "latest"
+TAG="latest"
 
 
 # Setup build servers
 #   - arm64 is built locally on Apple Silicon
 #   - amd64 is built remotely on the dev server on x64/Intel hardware
 # (If your local machine is x64/Intel hardware then you can reverse these)
-docker buildx rm pvtl # Start from a clean slate
+docker buildx rm pvtl 2>/dev/null # Start from a clean slate
 docker buildx create --name pvtl --use
 docker buildx create --name pvtl --platform linux/amd64 --append ssh://pvtl@192.168.0.5 # Leverage the dev server
 
