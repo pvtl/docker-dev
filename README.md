@@ -176,7 +176,7 @@ alias devdown='(cd /home/USERNAME/Projects/docker-dev && docker compose stop)'
 # Usage (for PHP 8.2): "devin 82"
 # Simply change the numbers for your preferred PHP version (assuming it's installed/enabled)
 devin() {
-  docker exec -it php$1 bash
+  docker exec -it php$1 zsh
 }
 ```
 
