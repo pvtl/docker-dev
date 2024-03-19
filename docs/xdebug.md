@@ -2,6 +2,8 @@
 
 XDebug is available for all versions of PHP, but it's disabled by default as it makes everything run much slower.
 
+> Note: As of March 2024, XDebug seems to be incompatible with Blackfire and causes segmentation faults. If you need XDdebug, you'll need to disable Blackfire (or vice versa). Just append `.DISABLE` to the extension's .ini filename and restart the PHP-FPM container.
+
 
 ## How it works
 
