@@ -15,7 +15,7 @@ Name the version you want in the URL.
 eg. `https://<folder>.php82.localhost` will use PHP 8.2.
 
 
-# Why is `<xyz tool>` missing?
+## Why is `<xyz tool>` missing?
 
 Only the latest version of PHP has these tools installed:
 
