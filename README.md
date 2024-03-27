@@ -27,7 +27,7 @@ It includes all the required dependencies for everyday PHP development with comm
 **Default Services**
 
 - Apache (including HTTPS)
-- PHP 8.2
+- PHP 8.3
     - Composer (latest)
     - Node.js (latest LTS) & NPM (latest)*
     - Yarn (latest of 1.x)*
@@ -66,7 +66,7 @@ Here is the the simplest form of domain mapping:
 
 Please note that PHP is upgraded yearly. If you want to use a specific version of PHP, you can specify it in the URL:
 
-* `https://<folder>.php82.localhost` will use PHP 8.2
+* `https://<folder>.php83.localhost` will use PHP 8.3
 
 Or, if you want the code loaded from the "public" folder:
 
@@ -74,7 +74,7 @@ Or, if you want the code loaded from the "public" folder:
 
 Lastly, you can combine the two:
 
-* `https://<folder>.php82.pub.localhost` will use PHP 8.2 and load the code from `~/Projects/<folder>/public/`
+* `https://<folder>.php83.pub.localhost` will use PHP 8.3 and load the code from `~/Projects/<folder>/public/`
 
 Some frameworks use a different public folder name (eg. [Wordpress Bedrock](https://roots.io/bedrock/) uses "web"). In these instances we recommend adding a symlink to the public folder:
 
@@ -153,8 +153,8 @@ Most of these actions can also be done in the Docker Desktop app.
 | `docker compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker compose down --remove-orphans`  | Tear down all containers (MySQL data and project folders are kept) |
-| `docker compose exec php82-fpm zsh`  | Open a zsh terminal in the PHP 8.2 container |
-| `docker compose logs php82-fpm` | View all logs for PHP-FPM 8.2 |
+| `docker compose exec php83-fpm zsh`  | Open a zsh terminal in the PHP 8.3 container |
+| `docker compose logs php83-fpm` | View all logs for PHP-FPM 8.3 |
 | `docker compose ps` | Show which containers are running |
 
 
@@ -173,7 +173,7 @@ If you use ZSH, edit `~/.zshrc`. Otherwise edit `~/.bashrc` (or create the file 
 alias devup='(cd /home/USERNAME/Projects/docker-dev && docker compose start)'
 alias devdown='(cd /home/USERNAME/Projects/docker-dev && docker compose stop)'
 
-# Usage (for PHP 8.2): "devin 82"
+# Usage (for PHP 8.3): "devin 83"
 # Simply change the numbers for your preferred PHP version (assuming it's installed/enabled)
 devin() {
   docker exec -it php$1 zsh

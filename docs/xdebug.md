@@ -16,17 +16,17 @@ PHP 5.6, 7.0 and 7.1 use older versions of XDebug 2.x, while PHP 7.2 and above u
 You can enable XDebug as needed by exec'ing into the desired PHP container, moving the XDebug config file into place, and restarting that container:
 
 ```
-docker compose exec php82-fpm bash
+docker compose exec php83-fpm bash
 sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-docker compose restart php82-fpm
+docker compose restart php83-fpm
 ```
 
 When you have finished using XDebug, simply reverse the process to disable it again:
 
 ```
-docker compose exec php82-fpm bash
+docker compose exec php83-fpm bash
 sudo mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE
-docker compose restart php82-fpm
+docker compose restart php83-fpm
 ```
 
 

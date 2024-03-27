@@ -12,7 +12,7 @@ See the `/php` and `/php/src` folders for more details.
 ## How do I use a specific version?
 Name the version you want in the URL.
 
-eg. `https://<folder>.php82.localhost` will use PHP 8.2.
+eg. `https://<folder>.php83.localhost` will use PHP 8.3.
 
 
 ## Why is `<xyz tool>` missing?
@@ -36,9 +36,9 @@ If you want to install your own tools then see "How can I customise my container
 
 Each version of PHP can have it's own scheduled CRON jobs.
 
-1. Create a file called `custom_crontab` in the PHP folder of your choice (eg. `php/82/custom_crontab`).
+1. Create a file called `custom_crontab` in the PHP folder of your choice (eg. `php/83/custom_crontab`).
 1. Add your scheduled commands into `custom_crontab`
-1. Rebuild that PHP image (eg. for PHP 8.2): `docker compose build php82-fpm`
+1. Rebuild that PHP image (eg. for PHP 8.3): `docker compose build php83-fpm`
 1. Use the new image: `docker compose up -d`
 
 Your CRON entries should look something like this:
@@ -77,7 +77,7 @@ You can work around this issue by editing the hosts file inside the PHP containe
 
 Note, we always use the IP address of the `apache` container since it handles all HTTP requests.
 
-1. Exec into the PHP container (the source of the HTTP request): `docker compose exec php82-fpm bash`
+1. Exec into the PHP container (the source of the HTTP request): `docker compose exec php83-fpm bash`
 1. Find the IP address of the `apache` container: `ping -c 1 apache | awk -F '[()]' '{print $2}' | head -n 1`
 1. Edit the hosts file: `nano /etc/hosts`
 1. Append to the end `192.168.103.100   wp.pub.localhost` (adjust the destination hostname to suit)

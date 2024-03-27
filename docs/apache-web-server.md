@@ -12,7 +12,7 @@ Most browsers (eg. Google Chrome, Microsoft Edge) will automatically detect the 
 We recommend manually adding those domains to your [hosts file](docs/general-faq.md#How-can-I-edit-my-hosts-file). eg:
 
 ```bash
-127.0.0.1   mysite.php82.pub.localhost
+127.0.0.1   mysite.php83.pub.localhost
 ```
 
 

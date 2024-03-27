@@ -6,6 +6,7 @@ LABEL maintainer.name="Pivotal Agency" \
 ENV PATH /usr/local/go/bin:/root/.composer/vendor/bin:$PATH
 
 RUN apt update && apt install -y --no-install-recommends \
+    ca-certificates \
     cron \
     fonts-powerline \
     git \
