@@ -43,10 +43,10 @@ It includes all the required dependencies for everyday PHP development with comm
 
 - PHP 5.6, all 7.x and all 8.x
 - Memcached 1.x
-- Redis 7.x
+- Redis 7.2.x (BSD License)
 - [Blackfire](https://blackfire.io/) (latest)
 
-These optional services (eg. PHP 5.6, PHP 7.4) can be added in the `.env` file by appending them to the `COMPOSE_FILE` option. See `.env` for an example.
+These optional services (eg. PHP 7.4) can be added in the `.env` file by appending them to the `COMPOSE_FILE` option. See `.env` for an example.
 
 
 ## Prerequisites ⚠️
