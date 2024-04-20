@@ -1,4 +1,3 @@
-version: '3'
 networks:
   # Default Network ------------------------------------------
   lde-network:

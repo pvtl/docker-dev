@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   php74-fpm:
     container_name: php74

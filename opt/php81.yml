@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   php81-fpm:
     container_name: php81

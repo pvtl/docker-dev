@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   php83-fpm:
     container_name: php83

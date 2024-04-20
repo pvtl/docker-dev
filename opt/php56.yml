@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   php56-fpm:
     container_name: php56

@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   php71-fpm:
     container_name: php71

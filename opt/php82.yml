@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   php82-fpm:
     container_name: php82
