@@ -131,16 +131,19 @@ git pull
 # 2. Erase previous containers
 docker compose down --remove-orphans
 
-# 3. Get latest images from Docker Hub
+# 3. Erase unused Docker builder resources
+docker builder prune
+
+# 4. Get latest images from Docker Hub
 docker compose pull
 
-# 4. Rebuild Dockerfiles from scratch (inc. pull any parent images)
+# 5. Rebuild Dockerfiles from scratch (inc. pull any parent images)
 docker compose build --pull --no-cache --parallel
 
-# 5. Start the updated environment
+# 6. Start the updated environment
 docker compose up -d --remove-orphans
 
-# 6. Erase any unused containers, images, volumes etc. to free disk space.
+# 7. Erase any unused containers, images, volumes etc. to free disk space.
 docker system prune --volumes
 ```
 
