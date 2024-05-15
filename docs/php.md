@@ -10,9 +10,20 @@ See the `/php` and `/php/src` folders for more details.
 
 
 ## How do I use a specific version?
-Name the version you want in the URL.
+If you're happy with the default version of PHP (8.3) then you simply:
 
-eg. `https://<folder>.php83.localhost` will use PHP 8.3.
+- Use `https://<folder>.localhost` in your browser
+- Use `devin 83` to jump into the 8.3 container and run PHP commands (eg. composer, artisan)
+
+There are two extra steps if you want a different version of PHP. Let's assume you want PHP 7.4:
+
+1. Add the PHP version to the `COMPOSE_FILE` list in `.env`
+  - eg. `COMPOSE_FILE=docker-compose.yml:opt/php74.yml`
+1. Update your Docker containers: `docker compose up -d --remove-orphans`
+
+Now use `https://<folder>.php74.localhost` in your browser or `devin 74` in your terminal.
+
+You can enable as many versions of PHP as you like, but note that starting or updating the containers will take a little longer.
 
 
 ## Why is `<xyz tool>` missing?
@@ -122,4 +133,4 @@ But perhaps you want to use PHP 7.4 for all URLs which do not specify a PHP vers
 1. Cut the `ServerAlias *.*` line from `apache/sites/localhost/php<LATEST_VERSION>.conf`
 1. Paste into `apache/sites/localhost/php74.conf` (after the first `ServerAlias ..` line)
 1. Rebuild Apache `docker compose build apache`
-1. Bring it back up `docker compose up -d`
+1. Bring it back up `docker compose up -d --remove-orphans`

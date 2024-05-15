@@ -46,7 +46,7 @@ It includes all the required dependencies for everyday PHP development with comm
 - Redis 7.2.x (BSD License)
 - [Blackfire](https://blackfire.io/) (latest)
 
-These optional services (eg. PHP 7.4) can be added in the `.env` file by appending them to the `COMPOSE_FILE` option. See `.env` for an example.
+These optional services (eg. PHP 7.4) can be enabled by adding them to the `COMPOSE_FILE` list in `.env`. See the `.env` file for examples. Make sure you run `docker compose up -d --remove-orphans` after making changes to the `.env` file.
 
 
 ## Prerequisites ⚠️
@@ -86,7 +86,7 @@ ln -s web public
 
 ## Installation 🚀
 
-> Windows Users: The Docker Dev containers perform best while running inside WSL2. We'll assume you will run these commands in a WSL2 terminal (eg. Ubuntu LTS).
+> Windows Users: The Docker Dev containers perform best while running inside WSL2. We'll assume your Project folder will be stored inside WSL2, and that you will run these commands in a WSL2 terminal (eg. Ubuntu LTS).
 
 1. Open a terminal window
 2. Create a new folder for your projects
@@ -101,30 +101,34 @@ cd ~/Projects
 git clone git@github.com:pvtl/docker-dev.git
 cd docker-dev
 ```
-4. Copy `.env.example` to `.env` and set the `DOCUMENTROOT` to your projects folder (eg. `~/Projects/`)
+4. Copy `.env.example` to `.env` and set `DOCUMENTROOT` to your projects folder (eg. `~/Projects/`)
 5. Build and start the Docker containers:
 ```
 docker compose up -d
 ```
 
-For ease of use we recommend you also set up the [Daily Shortcuts](https://github.com/pvtl/docker-dev/#daily-shortcuts-%EF%B8%8F).
+For ease of use we recommend you set up the [Daily Shortcuts](https://github.com/pvtl/docker-dev/#daily-shortcuts-%EF%B8%8F).
 
-You can test if your Docker Dev environment is working correctly using a simple PHP info file.
+Confirm your Docker Dev environment is working correctly using a simple PHP Info file.
 
 1. Create the folder and file: `~/Projects/test/index.php`
 1. Edit the file and paste `<?php phpinfo();`
-1. In your browser, open https://test.localhost. You should see the PHP info page.
+1. In your browser, open https://test.localhost. You should see the PHP Info page.
 
 
 ## Updating 🔄
 
-To install the latest versions of all tools (eg. PHP, Redis, Node.js etc.), open a terminal window, browse to the `docker-dev` folder and run:
+> Don't worry, your project files and databases live outside of Docker and will be KEPT AS-IS if you follow this update process.
+
+We regularly update this Github project and Docker images with the latest versions of PHP, Apache, MySQL etc.
+
+To install those latest updates, open a terminal window, browse to the `docker-dev` folder and run:
 
 ```bash
 # 1. Fetch our latest updates
 git pull
 
-# 2. Erase previous containers. Your project files and DB's will be left as-is.
+# 2. Erase previous containers
 docker compose down --remove-orphans
 
 # 3. Get latest images from Docker Hub
@@ -141,32 +145,16 @@ docker system prune --volumes
 ```
 
 
-## Common Commands 🔥
-
-Docker must be running and these commands must be run from the Docker Dev folder (eg. `~/Projects/docker-dev`).
-
-Most of these actions can also be done in the Docker Desktop app.
-
-| Command | Description |
-|---|---|
-| `docker compose start` | Start all containers |
-| `docker compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
-| `docker compose up -d --build --no-cache` | Recreate all containers from scratch |
-| `docker compose down --remove-orphans`  | Tear down all containers (MySQL data and project folders are kept) |
-| `docker compose exec php83-fpm zsh`  | Open a zsh terminal in the PHP 8.3 container |
-| `docker compose logs php83-fpm` | View all logs for PHP-FPM 8.3 |
-| `docker compose ps` | Show which containers are running |
-
-
 ## Daily Shortcuts ⚡️
 
-While the above commands work, they're a bit tedious to type out on a daily basis. You can set up terminal aliases to make life easier.
+To make your life easier, we recommend setting up aliases in your terminal. You can then start and stop your Docker Dev environment, or jump into a PHP container, with a single command.
 
-If you use ZSH, edit `~/.zshrc`. Otherwise edit `~/.bashrc` (or create the file if it doesn't exist).
+If you use ZSH, edit `~/.zshrc`. Otherwise edit `~/.bashrc`. You may need to create the file if it doesn't exist.
 
-1. Paste the code (below) at the bottom of the file. Adjust your folder path to suit.
+1. Paste the code (below) at the bottom of the file
+1. Adjust your folder path to suit
 1. Close and re-open your terminal to apply the changes
-1. Try running `devup` or `devdown`
+1. Try running `devup`, `devdown` or `devin 83`
 
 ```
 # Usage: "devup" or "devdown"
@@ -184,6 +172,23 @@ devin() {
     fi
 }
 ```
+
+
+## Other Actions 🔥
+
+For those who use Windows or macOS and prefer desktop apps, most of these actions can be done in Docker Desktop. Read on if you prefer using the CLI.
+
+Docker must be running and these commands must be run while inside the Docker Dev folder (eg. `cd ~/Projects/docker-dev`).
+
+| Command | Description |
+|---|---|
+| `docker compose start` | Start all containers |
+| `docker compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
+| `docker compose up -d --build --no-cache` | Recreate all containers from scratch |
+| `docker compose down --remove-orphans`  | Tear down all containers (MySQL data and project folders are kept) |
+| `docker compose exec php83-fpm zsh`  | Open a zsh terminal in the PHP 8.3 container |
+| `docker compose logs php83-fpm` | View all logs for PHP-FPM 8.3 |
+| `docker compose ps` | Show which containers are running |
 
 
 ## Helpful Info 🤓
