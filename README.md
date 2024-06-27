@@ -203,5 +203,6 @@ Docker must be running and these commands must be run while inside the Docker De
     - [XDebug](docs/xdebug.md)
 - [MariaDB / MySQL Database](docs/mariadb-database.md)
 - [Mailpit (Email Testing)](docs/mailpit-smtp.md)
+- [Node.js](docs/nodejs.md)
 - [Redis](docs/redis.md)
 - [Memcached](docs/memcached.md)
