@@ -102,6 +102,30 @@ Note, we always use the IP address of the `apache` container since it handles al
 Your config changes will take effect in all PHP containers.
 
 
+## Installing PHP extensions
+
+A great selection of extensions are pre-installed, but you can add your own too.
+
+We are using the [official PHP Docker images](https://hub.docker.com/_/php) and they include a script which assists with installing and enabling PHP extensions.
+
+Here's how you could install the "sockets" extension:
+
+```bash
+devin 83
+sudo -E docker-php-ext-install sockets
+```
+
+Or here is how you can install a PECL extension:
+
+```bash
+devin 83
+sudo -E pecl install -f swoole-5.1.3
+sudo -E docker-php-ext-enable swoole
+```
+
+Note, your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
+
+
 ## Using Redis as a session handler
 
 Did you know that PHP sessions will block concurrent requests (for the same session) until the first request is finished? This is done to prevent race conditions when writing to the session file.
