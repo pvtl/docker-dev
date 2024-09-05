@@ -3,7 +3,7 @@ FROM php:8.1-fpm-bullseye
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
 
-ENV PATH /usr/local/go/bin:/root/.composer/vendor/bin:$PATH
+ENV PATH=/usr/local/go/bin:/root/.composer/vendor/bin:$PATH
 
 RUN apt update && apt install -y --no-install-recommends \
     ca-certificates \
