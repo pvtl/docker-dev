@@ -53,11 +53,6 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php \
 # (so we can use it's "sendmail" binary)
 COPY --from=axllent/mailpit:latest /mailpit /usr/bin/mailpit
 
-# PHPCS
-RUN composer global require --dev squizlabs/php_codesniffer wp-coding-standards/wpcs \
-  && phpcs --config-set installed_paths /root/.composer/vendor/wp-coding-standards/wpcs \
-  && composer clear-cache
-
 # Setup crons
 RUN touch /root/custom_crontab \
   && /usr/bin/crontab -u www-data /root/custom_crontab

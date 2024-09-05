@@ -66,11 +66,6 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
   && chmod +x wp-cli.phar \
   && mv wp-cli.phar /usr/local/bin/wp
 
-# PHPCS
-RUN composer global require --dev squizlabs/php_codesniffer wp-coding-standards/wpcs \
-  && phpcs --config-set installed_paths /root/.composer/vendor/wp-coding-standards/wpcs \
-  && composer clear-cache
-
 # Setup crons
 RUN touch /root/custom_crontab \
   && /usr/bin/crontab -u www-data /root/custom_crontab
