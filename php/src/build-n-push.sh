@@ -18,6 +18,15 @@ docker buildx create --name pvtl --use
 docker buildx create --name pvtl --platform linux/amd64 --append ssh://pvtl@192.168.0.5 # Leverage the dev server
 
 
+# PHP 8.4 (2024)
+docker buildx build --no-cache --pull -f 84/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-8.4:latest --push .
+
+if [[ ${TAG} != "latest" ]] ; then
+  docker tag wearepvtl/php-fpm-8.4 wearepvtl/php-fpm-8.4:${TAG}
+  docker push wearepvtl/php-fpm-8.4:${TAG}
+fi
+
+
 # PHP 8.3 (2023)
 docker buildx build --no-cache --pull -f 83/Dockerfile --platform linux/arm64,linux/amd64 -t wearepvtl/php-fpm-8.3:latest --push .
 

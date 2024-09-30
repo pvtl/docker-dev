@@ -1,0 +1,17 @@
+services:
+  php84-fpm:
+    container_name: php84
+    hostname: php84
+    build:
+      context: ./php
+      dockerfile: ./84/Dockerfile
+      args:
+        - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
+        - CUSTOM_UID=${CUSTOM_UID}
+        - CUSTOM_GID=${CUSTOM_GID}
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ${DOCUMENTROOT}:/var/www/html:delegated
+    networks:
+      lde-network:
+    user: ${CUSTOM_UID}:${CUSTOM_GID}
