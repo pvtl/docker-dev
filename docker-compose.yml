@@ -48,11 +48,13 @@ services:
       dockerfile: ./Dockerfile
     env_file:
       - .env
+    environment:
+      - MARIADB_AUTO_UPGRADE=true
     ports:
       - "3306:3306"
     volumes:
       - ./mysql/data:/var/lib/mysql
-    command: mysqld --sql_mode=""
+    command: mariadbd --sql_mode=""
     networks:
       lde-network:
 
