@@ -126,20 +126,20 @@ sudo -E docker-php-ext-enable swoole
 Note, your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
 
 
-## Using Redis as a session handler
+## Using Valkey as a session handler
 
 Did you know that PHP sessions will block concurrent requests (for the same session) until the first request is finished? This is done to prevent race conditions when writing to the session file.
 
 You can improve your concurrency performance (at the risk of race conditions) by using Redis as your session handler.
 
-1. Enable the Redis service by adding `opt/redis.yml` to the `COMPOSE_FILE` list in `.env`
+1. Enable the Valkey service by adding `opt/valkey.yml` to the `COMPOSE_FILE` list in `.env`
 2. Create a `php/conf/custom.ini` file (if it doesn't already exist)
 3. Append the following lines
 
 ```
 [PHP]
-session.save_handler = redis
-session.save_path = "tcp://redis:6379"
+session.save_handler = valkey
+session.save_path = "tcp://valkey:6379"
 ```
 
 4. Rebuild `docker compose up -d --build`

@@ -1,0 +1,12 @@
+services:
+  valkey:
+    container_name: valkey
+    hostname: valkey
+    restart: ${DOCKER_RESTART}
+    image: "valkey/valkey:8-alpine"
+    ports:
+      - "6379:6379"
+    networks:
+      lde-network:
+        aliases:
+          - redis
