@@ -5,11 +5,13 @@ npm-debug.log
 .env
 .vscode
 
-# Custom Container
+# Custom Containers
 opt/custom/*
 
-# MySQL
+# Persistent Data
 mysql/data/*
+data/meilisearch/*
+data/typesense/*
 
 # PHP
 custom_crontab

@@ -1,0 +1,14 @@
+services:
+  meilisearch:
+    container_name: meilisearch
+    hostname: meilisearch
+    restart: ${DOCKER_RESTART}
+    image: getmeili/meilisearch:v1
+    ports:
+      - 7700:7700
+    volumes:
+      - ./data/meilisearch:/meili_data
+    environment:
+      MEILI_MASTER_KEY: meilisearch_admin_key
+    networks:
+      lde-network:

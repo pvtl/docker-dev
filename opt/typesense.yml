@@ -1,0 +1,15 @@
+services:
+  typesense:
+    container_name: typesense
+    hostname: typesense
+    restart: ${DOCKER_RESTART}
+    image: typesense/typesense:29.0
+    ports:
+      - 8108:8108
+    volumes:
+      - ./data/typesense:/data
+    environment:
+      TYPESENSE_DATA_DIR: /data
+      TYPESENSE_API_KEY: typesense_admin_key
+    networks:
+      lde-network:

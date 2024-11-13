@@ -44,7 +44,9 @@ It includes all the required dependencies for everyday PHP development with comm
 - PHP 5.6, all 7.x and all 8.x
 - Memcached 1.x
 - Valkey 8.x (the open source fork of Redis)
-- [Blackfire](https://blackfire.io/) (latest)
+- Meilisearch 1.x
+- Typesense 29.0
+- [Blackfire (Agent)](https://blackfire.io/) (latest)
 
 These optional services (eg. PHP 7.4) can be enabled by adding them to the `COMPOSE_FILE` list in `.env`. See the `.env` file for examples. Make sure you run `docker compose up -d --remove-orphans` after making changes to the `.env` file.
 
@@ -205,5 +207,7 @@ Docker must be running and these commands must be run inside the project root fo
 - [MariaDB / MySQL Database](docs/mariadb-database.md)
 - [Mailpit (Email Testing)](docs/mailpit-smtp.md)
 - [Node.js](docs/nodejs.md)
-- [Valkey (the open source fork of Redis)](docs/valkey.md)
+- [Valkey / Redis](docs/valkey.md)
 - [Memcached](docs/memcached.md)
+- [Meilisearch](docs/meilisearch.md)
+- [Typesense](docs/typesense.md)
