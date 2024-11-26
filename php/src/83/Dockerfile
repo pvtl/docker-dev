@@ -37,7 +37,7 @@ RUN apt update && apt install -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
 # PHP Extensions
-RUN yes '' | pecl install -f memcached-3.2.0 redis-6.0.2 xdebug-3.3.2 mcrypt-1.0.6 \
+RUN yes '' | pecl install -f memcached-3.3.0 redis-6.1.0 xdebug-3.4.0beta1 mcrypt-1.0.6 \
   && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli opcache pdo_mysql soap xsl zip \
   && docker-php-ext-enable mcrypt memcached redis xdebug \
   && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLE \

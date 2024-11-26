@@ -37,7 +37,7 @@ RUN apt update && apt install -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
 # PHP Extensions
-RUN yes '' | pecl install -f memcached-3.2.0 redis-6.1.0RC2 \
+RUN yes '' | pecl install -f memcached-3.3.0 redis-6.1.0 xdebug-3.4.0beta1 \
   && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli opcache pdo_mysql soap xsl zip \
   && docker-php-ext-enable memcached redis \
   && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
