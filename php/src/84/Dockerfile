@@ -1,4 +1,4 @@
-FROM php:8.4-rc-fpm-bullseye
+FROM php:8.4-fpm-bullseye
 
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
