@@ -37,7 +37,8 @@ RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
 
 # Aliases
 RUN echo "alias artisan='php artisan'" >> /home/${CUSTOM_USER_NAME}/.zshrc \
-  && echo "alias magento='php bin/magento'" >> /home/${CUSTOM_USER_NAME}/.zshrc
+  && echo "alias magento='php bin/magento'" >> /home/${CUSTOM_USER_NAME}/.zshrc \
+  && echo "alias debug='/usr/local/bin/change_provider.sh'" >> /home/${CUSTOM_USER_NAME}/.zshrc
 
 # Run the user specified commands
 ARG EXTRA_CMDS="echo 'None to run'"
