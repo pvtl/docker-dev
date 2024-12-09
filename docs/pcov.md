@@ -9,7 +9,7 @@ We only support PHP 8.1+ for PCOV. The extension is disabled by default.
 
 It works by hooking into the PHP executor to record which lines of code are executed during runtime. PCOV is designed to be significantly faster than Xdebug for collecting line coverage information, with minimal impact on code execution speed.
 
-Check the documentation for your testing framework to see how you can use PCOV. With [Pest](https://pestphp.com/docs/test-coverage), you can run `pest --coverage`.
+Check the documentation for your testing framework to see how you can use PCOV. For example, with Laravel and [Pest](https://pestphp.com/docs/test-coverage), you can run `php artisan test --coverage`.
 
 
 ## Enabling PCOV
