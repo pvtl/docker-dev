@@ -87,28 +87,28 @@ done
 # If no arguments provided, run interactive mode
 echo "Which PHP debugging tool would you like to use?"
 echo ""
-echo "1. None (disable all)"
-echo "2. Xdebug"
-echo "3. PCOV"
-echo "4. Blackfire"
+echo "0. None (disable all)"
+echo "1. Xdebug"
+echo "2. PCOV"
+echo "3. Blackfire"
 
 # Read user input
-read -p "Enter your choice [1-4]: " choice
+read -p "Enter your choice [0-3]: " choice
 
 case $choice in
-    1)
+    0)
         # Disable all
         disable_all
         ;;
-    2)
+    1)
         # Enable Xdebug only
         enable_provider xdebug
         ;;
-    3)
+    2)
         # Enable PCOV only
         enable_provider pcov
         ;;
-    4)
+    3)
         # Enable Blackfire only
         enable_provider blackfire
         ;;
