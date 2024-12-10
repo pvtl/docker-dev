@@ -69,26 +69,6 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php \
 # (so we can use it's "sendmail" compatible binary)
 COPY --from=axllent/mailpit:latest /mailpit /usr/bin/mailpit
 
-# Node.js using "Node Version Manager"
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash \
-  && export NVM_DIR="$HOME/.nvm" \
-  && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
-  && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" \
-  && nvm install 22
-
-# Yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null \
-  && echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list >/dev/null \
-  && apt update \
-  && apt install -y --no-install-recommends yarn \
-  && apt clean \
-  && rm -rf /var/lib/apt/lists/*
-
-# Wordpress CLI
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-  && chmod +x wp-cli.phar \
-  && mv wp-cli.phar /usr/local/bin/wp
-
 # Update site's directory permissions
 RUN chown -R www-data /var/www/
 
