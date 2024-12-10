@@ -89,10 +89,6 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
   && chmod +x wp-cli.phar \
   && mv wp-cli.phar /usr/local/bin/wp
 
-# CRON's
-RUN touch /root/custom_crontab \
-  && /usr/bin/crontab -u www-data /root/custom_crontab
-
 # Update site's directory permissions
 RUN chown -R www-data /var/www/
 

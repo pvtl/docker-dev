@@ -56,10 +56,6 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php \
 # (so we can use it's "sendmail" binary)
 COPY --from=axllent/mailpit:latest /mailpit /usr/bin/mailpit
 
-# Setup Crons
-RUN touch /root/custom_crontab \
-  && /usr/bin/crontab -u www-data /root/custom_crontab
-
 # Update site's directory permissions
 RUN chown -R www-data /var/www/
 

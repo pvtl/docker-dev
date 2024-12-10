@@ -57,10 +57,6 @@ RUN composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs \
   && phpcs --config-set installed_paths /root/.composer/vendor/wp-coding-standards/wpcs \
   && composer clear-cache
 
-# Setup crons
-RUN touch /root/custom_crontab \
-  && /usr/bin/crontab -u www-data /root/custom_crontab
-
 # Update site's directory permissions
 RUN chown -R www-data /var/www/
 
