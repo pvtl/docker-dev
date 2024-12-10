@@ -1,33 +1,48 @@
 # Blackfire
 
-Blackfire is a PHP profiler that helps you find bottlenecks in your code. It's a paid service, but you can get a free trial at [blackfire.io](https://blackfire.io).
+Blackfire is a PHP profiler that helps you analyse the performance of your code. It's a paid service, but you can get a free trial at [blackfire.io](https://blackfire.io).
+
+We only support PHP 8.1+ for Blackfire. The extension is disabled by default.
 
 
-## How does Blackfire work?
+## How it works
 
 Blackfire works by profiling your code as it runs.
 
 A PHP extension must be installed into your PHP container. While the code is running, the PHP extension sends the profiling data to the (local) Blackfire agent container. The agent container processes the data and uploads it to the Blackfire.io website (where you can view the results).
 
 
-## How do I use Blackfire?
-
-By default, Blackfire is commented out (not everyone uses it). To enable:
-
-### Enable Blackfire
+## Enabling Blackfire
 
 1. Edit your `.env` file
     - Fill in all Blackfire environment variables
     - Enable the agent container by adding `opt/blackfire.yml` to the `COMPOSE_FILE` list
-1. Enable the Blackfire extension for PHP by uncommenting the `Install Blackfire` lines in `php/xx/Dockerfile` (where "xx" is the version of PHP you're enabling Blackfire for)
-1. Rebuild and restart your containers:
+1. Enable the Blackfire extension for PHP:
 
-```bash
-docker compose build --pull --no-cache
-docker compose up -d
+```
+# Choose the PHP version you want
+devin 83
+debug --enable blackfire
+exit
+docker-compose restart
 ```
 
-### Run a profile
+## Disabling Blackfire
+
+Similar to above. Simply run "debug --disable-all":
+
+```
+# Choose the PHP version you want
+devin 83
+debug --disable-all
+exit
+docker-compose restart
+```
+
+
+## How do I use Blackfire?
+
+Make sure you've enabled the Blackfire extension for PHP as per the instructions above. You can confirm it's enabled by using `phpinfo()` in your browser.
 
 1. Sign into [blackfire.io](https://blackfire.io)
 1. Install the Blackfire extension in your browser. Here's one for [Google Chrome](https://chrome.google.com/webstore/detail/blackfire-profiler/miefikpgahefdbcgoiicnmpbeeomffld?utm_source=chrome-ntp-icon)

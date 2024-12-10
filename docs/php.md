@@ -113,6 +113,8 @@ Here's how you could install the "sockets" extension:
 ```bash
 devin 83
 sudo -E docker-php-ext-install sockets
+exit
+docker-compose restart
 ```
 
 Or here is how you can install a PECL extension:
@@ -121,6 +123,8 @@ Or here is how you can install a PECL extension:
 devin 83
 sudo -E pecl install -f swoole-5.1.3
 sudo -E docker-php-ext-enable swoole
+exit
+docker-compose restart
 ```
 
 Note, your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
@@ -130,7 +134,7 @@ Note, your extensions will need to be re-installed after you rebuild or upgrade 
 
 Did you know that PHP sessions will block concurrent requests (for the same session) until the first request is finished? This is done to prevent race conditions when writing to the session file.
 
-You can improve your concurrency performance (at the risk of race conditions) by using Redis as your session handler.
+You can improve your concurrency performance (at the risk of race conditions) by using Valkey as your session handler.
 
 1. Enable the Valkey service by adding `opt/valkey.yml` to the `COMPOSE_FILE` list in `.env`
 2. Create a `php/conf/custom.ini` file (if it doesn't already exist)

@@ -27,8 +27,10 @@ We use the [official PHP images](https://hub.docker.com/_/php) and add:
     - Mcrypt
     - Memcached
     - Opcache
-    - Redis
-    - XDebug
+    - Valkey/Redis
+    - Xdebug
+    - PCOV
+    - Blackfire
 - Composer
 - GD Library
 - Mailpit
