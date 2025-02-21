@@ -104,6 +104,8 @@ Your config changes will take effect in all PHP containers.
 
 ## Installing PHP extensions
 
+> Need to connect to Microsoft SQL Server? Read the next FAQ.
+
 A great selection of extensions are pre-installed, but you can add your own too.
 
 We are using the [official PHP Docker images](https://hub.docker.com/_/php) and they include a script which assists with installing and enabling PHP extensions.
@@ -127,7 +129,47 @@ exit
 docker-compose restart
 ```
 
-Note, your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
+> Your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
+
+
+## Connecting to Microsoft SQL Server
+
+The Docker Dev containers currently use Debian 11 (Bullseye) under the hood. These instructions are specific to that version of Debian.
+
+### Step 1: Switch to the root user
+```bash
+sudo su
+```
+
+### Step 2: Install dependencies from the Microsoft APT repository
+```bash
+curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc \
+  && curl https://packages.microsoft.com/config/debian/11/prod.list | tee /etc/apt/sources.list.d/mssql-release.list \
+  && apt update \
+  && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql18 mssql-tools18
+```
+
+### Step 3: Install PECL extensions
+```bash
+pecl install sqlsrv pdo_sqlsrv
+```
+
+### Step 4: Exit the root user
+```bash
+exit
+```
+
+### Step 5: Enable extensions
+```bash
+sudo -E docker-php-ext-enable sqlsrv pdo_sqlsrv
+```
+
+### Step 6: Confirm the extensions are installed
+```bash
+php -m | grep sqlsrv
+```
+
+> Your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
 
 
 ## Using Valkey as a session handler
