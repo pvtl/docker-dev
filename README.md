@@ -27,7 +27,7 @@ It includes all the required dependencies for everyday PHP development with comm
 **Default Services**
 
 - Apache (including HTTPS)
-- PHP 8.3
+- PHP 8.4
     - Composer (latest)
     - Node.js (latest LTS) & NPM (latest)*
     - Yarn (latest of 1.x)*
@@ -66,7 +66,7 @@ Here is the the simplest form of domain mapping:
 
 Please note that PHP is upgraded yearly. If you want to use a specific version of PHP, you can specify it in the URL:
 
-* `https://<folder>.php83.localhost` will use PHP 8.3
+* `https://<folder>.php84.localhost` will use PHP 8.4
 
 Or, if you want the code loaded from the "public" folder:
 
@@ -74,7 +74,7 @@ Or, if you want the code loaded from the "public" folder:
 
 Lastly, you can combine the two:
 
-* `https://<folder>.php83.pub.localhost` will use PHP 8.3 and load the code from `~/Projects/<folder>/public/`
+* `https://<folder>.php84.pub.localhost` will use PHP 8.4 and load the code from `~/Projects/<folder>/public/`
 
 Some frameworks use a different public folder name (eg. [Wordpress Bedrock](https://roots.io/bedrock/) uses "web"). In these instances we recommend adding a symlink to the public folder:
 
@@ -157,14 +157,14 @@ If you use ZSH, edit `~/.zshrc`. Otherwise edit `~/.bashrc`. You may need to cre
 1. Paste the code (below) at the bottom of the file
 1. Adjust your folder path to suit
 1. Close and re-open your terminal to apply the changes
-1. Try running `devup`, `devdown` or `devin 83`
+1. Try running `devup`, `devdown` or `devin 84`
 
 ```
 # Usage: "devup" or "devdown"
 alias devup='(cd /home/USERNAME/Projects/docker-dev && docker compose start)'
 alias devdown='(cd /home/USERNAME/Projects/docker-dev && docker compose stop)'
 
-# Usage (for PHP 8.3): "devin 83"
+# Usage (for PHP 8.4): "devin 84"
 # Simply change the numbers for your preferred PHP version (assuming it's installed/enabled)
 devin() {
     # Use zsh for PHP 8 and above
@@ -189,8 +189,8 @@ Docker must be running and these commands must be run while inside the Docker De
 | `docker compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
 | `docker compose up -d --build --no-cache` | Recreate all containers from scratch |
 | `docker compose down --remove-orphans`  | Tear down all containers (MySQL data and project folders are kept) |
-| `docker compose exec php83-fpm zsh`  | Open a zsh terminal in the PHP 8.3 container |
-| `docker compose logs php83-fpm` | View all logs for PHP-FPM 8.3 |
+| `docker compose exec php84-fpm zsh`  | Open a zsh terminal in the PHP 8.4 container |
+| `docker compose logs php84-fpm` | View all logs for PHP-FPM 8.4 |
 | `docker compose ps` | Show which containers are running |
 
 

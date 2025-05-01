@@ -21,7 +21,7 @@ A PHP extension must be installed into your PHP container. While the code is run
 
 ```
 # Choose the PHP version you want
-devin 83
+devin 84
 debug --enable blackfire
 exit
 docker-compose restart
@@ -33,7 +33,7 @@ Similar to above. Simply run "debug --disable-all":
 
 ```
 # Choose the PHP version you want
-devin 83
+devin 84
 debug --disable-all
 exit
 docker-compose restart

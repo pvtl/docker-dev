@@ -42,7 +42,7 @@ We use the [official PHP images](https://hub.docker.com/_/php) and add:
 
 ### Step 1: Edit the dockerfile
 
-Each PHP version has it's own dockerfile (eg. `php/83/Dockerfile` for PHP 8.3).
+Each PHP version has it's own dockerfile (eg. `php/84/Dockerfile` for PHP 8.4).
 
 Simply edit it and make the changes you need.
 
@@ -79,8 +79,8 @@ Those using the published Docker images can override their PHP config in `php/co
 
 | Command | Description |
 | --- | --- |
-| `docker build -f 83/Dockerfile . -t wearepvtl/php-fpm-8.3` | Builds the PHP 8.3 image |
+| `docker build -f 84/Dockerfile . -t wearepvtl/php-fpm-8.4` | Builds the PHP 8.4 image |
 | `docker login --username=yourhubusername` | Login to Docker Hub |
-| `docker push wearepvtl/php-fpm-8.3` | Pushes the PHP 8.3 image to Docker Hub |
-| `docker run wearepvtl/php-fpm-8.3` | Opens the PHP 8.3 Container |
+| `docker push wearepvtl/php-fpm-8.4` | Pushes the PHP 8.4 image to Docker Hub |
+| `docker run wearepvtl/php-fpm-8.4` | Opens the PHP 8.4 Container |
 | `docker image prune -a` | Delete all images to start from scratch |

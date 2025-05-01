@@ -12,7 +12,7 @@ If your PHP-based website requires an older PHP, that's ok. Keep running it in t
 Make sure you are inside the newest PHP container. For example:
 
 ```bash
-devin 83
+devin 84
 ```
 
 Then check the version of Node.js:
@@ -23,9 +23,9 @@ node -v
 
 If you get an error like `bash: node: command not found`, you're using the wrong command shell. This might also be because you're using outdated aliases.
 
-Follow the "Daily Shortcuts" section again in the README to update your aliases. Then run `devin 83` again and check the Node.js version.
+Follow the "Daily Shortcuts" section again in the README to update your aliases. Then run `devin 84` again and check the Node.js version.
 
-If you're manually running `docker exec -it php83 bash`, you'll need to update the command to `docker exec -it php83 zsh` (ie. use ZSH instead of BASH).
+If you're manually running `docker exec -it php84 bash`, you'll need to update the command to `docker exec -it php84 zsh` (ie. use ZSH instead of BASH).
 
 
 
@@ -78,7 +78,7 @@ Please note the latest version may be newer than the current LTS version, so be 
 ## How do I run NPM scripts?
 
 ```bash
-devin 83
+devin 84
 cd example-site
 npm run dev
 ```

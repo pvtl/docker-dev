@@ -4,16 +4,16 @@ We use the [official PHP Docker images](https://hub.docker.com/_/php) and add a 
 
 
 ## Which versions are available?
-We offer 5.6, all 7.x and all 8.x.
+We offer 5.6, all 7.x and all 8.x. The default version is PHP 8.4.
 
 See the `/php` and `/php/src` folders for more details.
 
 
 ## How do I use a specific version?
-If you're happy with the default version of PHP (8.3) then you simply:
+If you're happy with the default version of PHP 8.4 then you simply:
 
 - Use `https://<folder>.localhost` in your browser
-- Use `devin 83` to jump into the 8.3 container and run PHP commands (eg. composer, artisan)
+- Use `devin 84` to jump into the 8.4 container and run PHP commands (eg. composer, artisan)
 
 There are two extra steps if you want a different version of PHP. Let's assume you want PHP 7.4:
 
@@ -47,9 +47,9 @@ If you want to install your own tools then see "How can I customise my container
 
 Each version of PHP can have it's own scheduled CRON jobs.
 
-1. Create a file called `custom_crontab` in the PHP folder of your choice (eg. `php/83/custom_crontab`).
+1. Create a file called `custom_crontab` in the PHP folder of your choice (eg. `php/84/custom_crontab`).
 1. Add your scheduled commands into `custom_crontab`
-1. Rebuild that PHP image (eg. for PHP 8.3): `docker compose build php83-fpm`
+1. Rebuild that PHP image (eg. for PHP 8.4): `docker compose build php84-fpm`
 1. Use the new image: `docker compose up -d`
 
 Your CRON entries should look something like this:
@@ -88,7 +88,7 @@ You can work around this issue by editing the hosts file inside the PHP containe
 
 Note, we always use the IP address of the `apache` container since it handles all HTTP requests.
 
-1. Exec into the PHP container (the source of the HTTP request): `docker compose exec php83-fpm bash`
+1. Exec into the PHP container (the source of the HTTP request): `docker compose exec php84-fpm bash`
 1. Find the IP address of the `apache` container: `ping -c 1 apache | awk -F '[()]' '{print $2}' | head -n 1`
 1. Edit the hosts file: `nano /etc/hosts`
 1. Append to the end `192.168.103.100   wp.pub.localhost` (adjust the destination hostname to suit)
@@ -113,7 +113,7 @@ We are using the [official PHP Docker images](https://hub.docker.com/_/php) and 
 Here's how you could install the "sockets" extension:
 
 ```bash
-devin 83
+devin 84
 sudo -E docker-php-ext-install sockets
 exit
 docker-compose restart
@@ -122,7 +122,7 @@ docker-compose restart
 Or here is how you can install a PECL extension:
 
 ```bash
-devin 83
+devin 84
 sudo -E pecl install -f swoole-5.1.3
 sudo -E docker-php-ext-enable swoole
 exit
@@ -193,11 +193,11 @@ session.save_path = "tcp://valkey:6379"
 
 ## How do I change the default version of PHP?
 
-The default version of PHP in Docker Dev is typically the latest stable version.
+The default version of PHP is typically the latest stable version.
 
 But perhaps you want to use PHP 7.4 for all URLs which do not specify a PHP version (like `<folder>.localhost` and `<folder>.pub.localhost`).
 
-1. Ensure the PHP 7.4 image (`opt/php74.yml`) is added to the `COMPOSE_FILE` list in `.env`
+1. Ensure the PHP 7.4 image is added to the `COMPOSE_FILE` list in `.env` (ie. `opt/php74.yml`)
 1. Cut the `ServerAlias *.pub.*` line from `apache/sites/pub.localhost/php<LATEST_VERSION>.conf`
 1. Paste into `apache/sites/pub.localhost/php74.conf` (after the first `ServerAlias ..` line)
 1. Cut the `ServerAlias *.*` line from `apache/sites/localhost/php<LATEST_VERSION>.conf`
