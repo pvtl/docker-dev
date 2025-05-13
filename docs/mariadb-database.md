@@ -27,6 +27,24 @@ All database data is stored on your host machine (not inside the docker containe
 > Warning: It is very easy to break your database if you touch any files in there. We recommend keeping SQL dumps of anything important.
 
 
+## Export SQL dumps of databases or tables
+
+We find it more convenient to use a GUI database application to export tables or full databases (like Table Plus), but if you wish, you can dump them from the command line like this:
+
+```bash
+# Run from the root folder of "docker-dev"
+docker exec -i mysql mariadb-dump -u root -p DB_NAME > DB_NAME.dump.sql
+```
+
+The command will prompt you for the root password (ie. `dbroot`).
+
+If you wish to only export specific tables, list them after the database name like so:
+
+```bash
+docker exec -i mysql mariadb-dump -u root -p DB_NAME TABLE_A TABLE_B TABLE_C > DB_NAME.dump.sql
+```
+
+
 ## Database is corrupt
 
 Prevention is always better than cure. We recommend keeping backups of anything important.
@@ -44,6 +62,8 @@ You can start from scratch by wiping the `mysql/data/` folder:
 1. Recreate the `mysql/data/` folder
 1. Start all containers: `docker compose up -d`
 
+The database's first boot will take longer than usual (ie. 30 seconds).
+
 
 ## Changing the root password
 
@@ -54,7 +74,7 @@ If you have previously used MariaDB then simply changing `MYSQL_ROOT_PASSWORD` i
 1. Log into MariaDB using the old password: `mysql -u root -p`
 1. Execute the following:
 
-```mysql
+```sql
 use mysql;
 update user set authentication_string=password('YOUR_NEW_PASSWORD_HERE') where user='root';
 flush privileges;
