@@ -131,22 +131,18 @@ docker-compose restart
 
 > Your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
 
-
-## Installing PHP extensions :: Imagick
-
-Here's how you could install the "Imagick" extension:
+Some extensions (like ImageMagick) depend on operating system packages.
 
 ```bash
 devin 84
+sudo apt-get update
 sudo apt-get install libmagickwand-dev imagemagick
-    check path with: 
-    whereis convert
-    should return something like : convert: /usr/bin/convert
 sudo -E pecl install imagick -- --with-imagick=/usr/bin/convert
 exit
 docker-compose restart
 ```
 
+If you're ever unsure which path ImageMagick has been installed into, run `whereis convert`. It should return something like `convert: /usr/bin/convert`.
 
 
 ## Connecting to Microsoft SQL Server
