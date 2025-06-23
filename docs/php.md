@@ -132,6 +132,23 @@ docker-compose restart
 > Your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
 
 
+## Installing PHP extensions :: Imagick
+
+Here's how you could install the "Imagick" extension:
+
+```bash
+devin 84
+sudo apt-get install libmagickwand-dev imagemagick
+    check path with: 
+    whereis convert
+    should return something like : convert: /usr/bin/convert
+sudo -E pecl install imagick -- --with-imagick=/usr/bin/convert
+exit
+docker-compose restart
+```
+
+
+
 ## Connecting to Microsoft SQL Server
 
 The Docker Dev containers currently use Debian 11 (Bullseye) under the hood. These instructions are specific to that version of Debian.
