@@ -59,9 +59,9 @@ Each image supports both `linux/amd64` and `linux/arm64` platforms.
 
 To add a new PHP version (e.g., PHP 9.0):
 
-1. Create the Dockerfile: `php/src/90/Dockerfile`
+1. Create the Dockerfile: `php/src/90/Dockerfile` (note: folder uses non-dotted version)
 2. Update the matrix in `build-php-images.yml`:
    ```yaml
-   php-version: ['81', '82', '83', '84', '85', '90']
+   php-version: ['8.1', '8.2', '8.3', '8.4', '8.5', '9.0']
    ```
 3. Manually trigger the GitHub Action
