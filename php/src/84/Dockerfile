@@ -40,7 +40,11 @@ RUN apt update && apt install -y --no-install-recommends \
 COPY --from=ghcr.io/php/pie:bin /pie /usr/bin/pie
 
 # PHP Extensions
-RUN pie install php-memcached/php-memcached phpredis/phpredis xdebug/xdebug pecl/pcov \
+RUN pie install php-memcached/php-memcached \
+  && pie install phpredis/phpredis \
+  && pie install xdebug/xdebug \
+  && pie install pecl/pcov \
+  && pie install pecl/mcrypt \
   && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli opcache pdo_mysql soap xsl zip \
   && docker-php-ext-enable memcached redis xdebug pcov \
   && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLED \

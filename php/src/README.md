@@ -63,15 +63,13 @@ docker build -t wearepvtl/php-fpm-8.4:latest -f 84/Dockerfile .
 
 #### (optional) Test the locally built image
 
-You can then test this image by updating your local Docker Compose or Dockerfile to use the locally built image:
-
 ```bash
-docker exec -it wearepvtl/php-fpm-8.4:latest zsh
+docker run --rm -it wearepvtl/php-fpm-8.4:latest zsh
 ```
 
 #### Integration Testing
 
-To use your new PHP image to render real websites with Apache:
+To use your new PHP image to render real websites (with Apache):
 
 ```bash
 # Navigate to the root directory (not php/src)
