@@ -119,10 +119,19 @@ exit
 docker-compose restart
 ```
 
-Or here is how you can install a PECL extension:
+Or here is how you can install a PIE extension (for PHP 8.1+):
 
 ```bash
 devin 84
+sudo -E pie install swoole/swoole
+exit
+docker-compose restart
+```
+
+For older PHP versions (8.0 and below), you can still use PECL:
+
+```bash
+devin 80
 sudo -E pecl install -f swoole-5.1.3
 sudo -E docker-php-ext-enable swoole
 exit
@@ -137,7 +146,7 @@ Some extensions (like ImageMagick) depend on operating system packages.
 devin 84
 sudo apt-get update
 sudo apt-get install libmagickwand-dev imagemagick
-sudo -E pecl install imagick -- --with-imagick=/usr/bin/convert
+sudo -E pie install imagick/imagick
 exit
 docker-compose restart
 ```
@@ -162,7 +171,14 @@ curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gp
   && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql18 mssql-tools18
 ```
 
-### Step 3: Install PECL extensions
+### Step 3: Install PIE/PECL extensions
+
+For PHP 8.1+:
+```bash
+pie install microsoft/sqlsrv microsoft/pdo_sqlsrv
+```
+
+For PHP 8.0 and below:
 ```bash
 pecl install sqlsrv pdo_sqlsrv
 ```

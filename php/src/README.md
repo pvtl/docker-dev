@@ -31,6 +31,7 @@ We use the [official PHP images](https://hub.docker.com/_/php) and add:
     - Xdebug
     - PCOV
     - Blackfire
+- PIE (PHP 8.1+) / PECL (PHP 8.0 and below) for extension management
 - Composer
 - GD Library
 - Mailpit
