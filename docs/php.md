@@ -147,7 +147,7 @@ If you're ever unsure which path ImageMagick has been installed into, run `where
 
 ## Connecting to Microsoft SQL Server
 
-The Docker Dev containers currently use Debian 11 (Bullseye) under the hood. These instructions are specific to that version of Debian.
+Our modern PHP images use Debian 13 (Trixie) under the hood. These instructions are specific to that version of Debian.
 
 ### Step 1: Switch to the root user
 ```bash

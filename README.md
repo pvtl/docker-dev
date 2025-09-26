@@ -181,13 +181,13 @@ devin() {
 
 For those who use Windows or macOS and prefer desktop apps, most of these actions can be done in Docker Desktop. Read on if you prefer using the CLI.
 
-Docker must be running and these commands must be run while inside the Docker Dev folder (eg. `cd ~/Projects/docker-dev`).
+Docker must be running and these commands must be run inside the project root folder (ie. same folder this README is in).
 
 | Command | Description |
 |---|---|
 | `docker compose start` | Start all containers |
 | `docker compose stop`  | Stop all containers (keeps any config changes you've made to the containers) |
-| `docker compose up -d --build --no-cache` | Recreate all containers from scratch |
+| `docker compose up -d --build` | Recreate all containers from scratch |
 | `docker compose down --remove-orphans`  | Tear down all containers (MySQL data and project folders are kept) |
 | `docker compose exec php84-fpm zsh`  | Open a zsh terminal in the PHP 8.4 container |
 | `docker compose logs php84-fpm` | View all logs for PHP-FPM 8.4 |

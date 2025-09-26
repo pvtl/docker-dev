@@ -44,7 +44,49 @@ We use the [official PHP images](https://hub.docker.com/_/php) and add:
 
 Each PHP version has it's own dockerfile (eg. `php/src/84/Dockerfile` for PHP 8.4).
 
-### Step 2: Distribute to Docker Hub
+### Step 2: Test locally (optional)
+
+Before pushing to Docker Hub, you can build and test the images locally. This will help give confidence the Docker build process works as expected.
+
+#### Build a single PHP version locally
+
+For example, to build PHP 8.4 locally:
+
+```bash
+# Navigate to the php/src directory
+cd php/src
+
+# Build the image with the same tag structure as the GitHub workflow
+docker build -t wearepvtl/php-fpm-8.4:latest -f 84/Dockerfile .
+```
+
+#### (optional) Test the locally built image
+
+You can then test this image by updating your local Docker Compose or Dockerfile to use the locally built image:
+
+```bash
+docker exec -it wearepvtl/php-fpm-8.4:latest zsh
+```
+
+#### Integration Testing
+
+To use your new PHP image to render real websites with Apache:
+
+```bash
+# Navigate to the root directory (not php/src)
+cd ../../
+
+# Rebuild your Docker environment based on those new images
+# Note we are not using the "--pull" flag - that would use the images from Docker Hub, not our local ones
+docker compose down --remove-orphans
+docker compose up -d --build
+
+# Test them
+devin84
+php -v
+```
+
+### Step 3: Distribute to Docker Hub
 
 We now use GitHub Actions to automatically build and push multi-platform PHP Docker images to Docker Hub. The workflow:
 
@@ -62,7 +104,7 @@ To trigger a new build:
 
 For detailed setup instructions, configuration, and troubleshooting, see the [GitHub Actions Workflow README](../../.github/workflows/README.md).
 
-### Step 3: Make use of the new image
+### Step 4: Make use of the new image
 
 Once the images have landed in Docker Hub you'll be able to build/run a fresh version of your LDE (see instructions in the main README).
 
