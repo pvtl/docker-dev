@@ -12,7 +12,7 @@ See the `/php` and `/php/src` folders for more details.
 ## How do I use a specific version?
 If you're happy with the default version of PHP 8.4 then you simply:
 
-- Use `https://<folder>.localhost` in your browser
+- Use `https://<folder>.test` in your browser
 - Use `devin 84` to jump into the 8.4 container and run PHP commands (eg. composer, artisan)
 
 There are two extra steps if you want a different version of PHP. Let's assume you want PHP 7.4:
@@ -21,7 +21,7 @@ There are two extra steps if you want a different version of PHP. Let's assume y
   - eg. `COMPOSE_FILE=docker-compose.yml:opt/php74.yml`
 1. Update your Docker containers: `docker compose up -d --remove-orphans`
 
-Now use `https://<folder>.php74.localhost` in your browser or `devin 74` in your terminal.
+Now use `https://<folder>.php74.test` in your browser or `devin 74` in your terminal.
 
 You can enable as many versions of PHP as you like, but note that starting or updating the containers will take a little longer.
 
@@ -71,7 +71,7 @@ We have 2 options for this.
 
 We have a (wildcard) DNS redirect setup at `*.lde.pvtl.io` which points to the apache container's IP address. This is for convenience, so that our docker container can use that hostname to find the IP. Simply adjust your BrowserSync config to use this hostname:
 
-1. BrowserSync config: Instead of using the hostname `<folder>.pub.localhost`, use `<folder>.pub.lde.pvtl.io`
+1. BrowserSync config: Instead of using the hostname `<folder>.pub.test`, use `<folder>.pub.lde.pvtl.io`
 1. (optional) .env: Adjust your site's hostname (usually in `.env`) to use the same `.lde.pvtl.io` alternative
     - Primarily relevant in Wordpress sites, because Wordpress will redirect to `WP_HOME`
 
@@ -82,16 +82,16 @@ Follow the instructions in the section below (HTTP requests from one LDE site to
 
 ## HTTP requests from one LDE site to another
 
-By default, you cannot send cURL, Wget or other HTTP requests from one site in your LDE to another (or itself). The PHP containers (where the HTTP requests are sent from) don't know which IP to use for `https://<folder>.localhost`.
+**Good news!** As of our latest update, HTTP requests between sites work automatically thanks to our DNS configuration.
 
-You can work around this issue by editing the hosts file inside the PHP container which is sending the request, and manually tell it the IP to use.
+PHP containers are configured to use an internal DNS server that resolves `*.test` domains to the Apache container's IP address. This means:
 
-Note, we always use the IP address of the `apache` container since it handles all HTTP requests.
+- ✅ WordPress cron jobs work automatically
+- ✅ Laravel queue callbacks work
+- ✅ One site can make API calls to another site
+- ✅ Self-referencing HTTP requests work
 
-1. Exec into the PHP container (the source of the HTTP request): `docker compose exec php84-fpm bash`
-1. Find the IP address of the `apache` container: `ping -c 1 apache | awk -F '[()]' '{print $2}' | head -n 1`
-1. Edit the hosts file: `nano /etc/hosts`
-1. Append to the end `192.168.103.100   wp.pub.localhost` (adjust the destination hostname to suit)
+**No manual configuration needed!** Just ensure your OS is configured to use our DNS server (see [DNS Setup Guide](dns-setup.md)).
 
 
 ## Customising PHP (.ini)
@@ -224,12 +224,12 @@ session.save_path = "tcp://valkey:6379"
 
 The default version of PHP is typically the latest stable version.
 
-But perhaps you want to use PHP 7.4 for all URLs which do not specify a PHP version (like `<folder>.localhost` and `<folder>.pub.localhost`).
+But perhaps you want to use PHP 7.4 for all URLs which do not specify a PHP version (like `<folder>.test` and `<folder>.pub.test`).
 
 1. Ensure the PHP 7.4 image is added to the `COMPOSE_FILE` list in `.env` (ie. `opt/php74.yml`)
-1. Cut the `ServerAlias *.pub.*` line from `apache/sites/pub.localhost/php<LATEST_VERSION>.conf`
-1. Paste into `apache/sites/pub.localhost/php74.conf` (after the first `ServerAlias ..` line)
-1. Cut the `ServerAlias *.*` line from `apache/sites/localhost/php<LATEST_VERSION>.conf`
-1. Paste into `apache/sites/localhost/php74.conf` (after the first `ServerAlias ..` line)
+1. Cut the `ServerAlias *.pub.*` line from `apache/sites/pub.test/php<LATEST_VERSION>.conf`
+1. Paste into `apache/sites/pub.test/php74.conf` (after the first `ServerAlias ..` line)
+1. Cut the `ServerAlias *.*` line from `apache/sites/test/php<LATEST_VERSION>.conf`
+1. Paste into `apache/sites/test/php74.conf` (after the first `ServerAlias ..` line)
 1. Rebuild Apache `docker compose build apache`
 1. Bring it back up `docker compose up -d --remove-orphans`

@@ -12,6 +12,8 @@ services:
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
+    dns:
+      - 192.168.103.3  # dnsmasq-internal (resolves .test to Apache IP)
     networks:
       lde-network:
     user: ${CUSTOM_UID}:${CUSTOM_GID}

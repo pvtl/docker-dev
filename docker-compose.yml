@@ -6,6 +6,20 @@ networks:
         - subnet: 192.168.103.0/24
 
 services:
+  # DNS (for PHP containers) ---------------------------------
+  dnsmasq:
+    container_name: dnsmasq
+    hostname: dnsmasq
+    image: dockurr/dnsmasq
+    restart: ${DOCKER_RESTART}
+    volumes:
+      - ./dns/dnsmasq.conf:/etc/dnsmasq.conf:ro
+    cap_add:
+      - NET_ADMIN
+    networks:
+      lde-network:
+        ipv4_address: 192.168.103.2
+
   # Apache ---------------------------------------------------
   apache:
     container_name: apache
@@ -75,6 +89,8 @@ services:
     restart: ${DOCKER_RESTART}
     volumes:
       - ${DOCUMENTROOT}:/var/www/html:delegated
+    dns:
+      - 192.168.103.2  # dnsmasq (resolves .test to Apache IP)
     networks:
       lde-network:
     user: ${CUSTOM_UID}:${CUSTOM_GID}

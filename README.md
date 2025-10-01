@@ -20,7 +20,7 @@ __An everyday local development environment for PHP Developers.__ At [Pivotal Ag
 
 ## Intro 👋
 
-This is a set of Docker images to spin up a LAMP stack (Linux, Apache, MySQL and PHP) for developing locally. It's perfect for local development because you can very simply add new sites to specified folder and they're magically accessible as a subdomain of your chosen hostname (eg. `~/Projects/example` maps to `http://example.localhost/`).
+This is a set of Docker images to spin up a LAMP stack (Linux, Apache, MySQL and PHP) for developing locally. It's perfect for local development because you can very simply add new sites to specified folder and they're magically accessible as a subdomain of your chosen hostname (eg. `~/Projects/example` maps to `http://example.test/`).
 
 It includes all the required dependencies for everyday PHP development with common tools like Laravel, Wordpress and Magento (1 & 2). Specifically:
 
@@ -62,19 +62,19 @@ It's assumed that all of your projects are stored as folders in `~/Projects/`. Y
 
 Here is the the simplest form of domain mapping:
 
-- `https://<folder>.localhost` will use the latest version of PHP and load the code from `~/Projects/<folder>/`
+- `https://<folder>.test` will use the latest version of PHP and load the code from `~/Projects/<folder>/`
 
 Please note that PHP is upgraded yearly. If you want to use a specific version of PHP, you can specify it in the URL:
 
-* `https://<folder>.php84.localhost` will use PHP 8.4
+* `https://<folder>.php84.test` will use PHP 8.4
 
 Or, if you want the code loaded from the "public" folder:
 
-* `https://<folder>.pub.localhost` will use latest version of PHP and load the code from `~/Projects/<folder>/public/`
+* `https://<folder>.pub.test` will use latest version of PHP and load the code from `~/Projects/<folder>/public/`
 
 Lastly, you can combine the two:
 
-* `https://<folder>.php84.pub.localhost` will use PHP 8.4 and load the code from `~/Projects/<folder>/public/`
+* `https://<folder>.php84.pub.test` will use PHP 8.4 and load the code from `~/Projects/<folder>/public/`
 
 Some frameworks use a different public folder name (eg. [Wordpress Bedrock](https://roots.io/bedrock/) uses "web"). In these instances we recommend adding a symlink to the public folder:
 
@@ -111,9 +111,9 @@ For ease of use we recommend you set up the [Daily Shortcuts](https://github.com
 
 Confirm your Docker Dev environment is working correctly using a simple PHP Info file.
 
-1. Create the folder and file: `~/Projects/test/index.php`
+1. Create the folder and file: `~/Projects/phpinfo/index.php`
 1. Edit the file and paste `<?php phpinfo();`
-1. In your browser, open https://test.localhost. You should see the PHP Info page.
+1. In your browser, open https://phpinfo.test. You should see the PHP Info page.
 
 
 ## Updating 🔄

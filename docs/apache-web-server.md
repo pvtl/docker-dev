@@ -3,17 +3,11 @@
 We use the official [Apache](https://hub.docker.com/_/httpd) image and apply some light customisations on top (ie. enabling modules).
 
 
-## `<folder>.localhost` is not working
+## `<folder>.test` is not working
 
-Double-check your Docker Dev containers are running.
+Double-check your Docker Dev containers are running and that you've completed the [DNS Setup](dns-setup.md) for your operating system.
 
-Most browsers (eg. Google Chrome, Microsoft Edge) will automatically detect the .localhost TLD and connect to your local web server. However, if you are receiving an error it could be because your browser is not doing this.
-
-We recommend manually adding those domains to your [hosts file](docs/general-faq.md#How-can-I-edit-my-hosts-file). eg:
-
-```bash
-127.0.0.1   mysite.php84.pub.localhost
-```
+The `.test` TLD requires a one-time DNS configuration on your local machine. Follow the [DNS Setup Guide](dns-setup.md) for your specific operating system (macOS, Linux, or Windows).
 
 
 ## How do I use HTTPS/SSL for my local containers?
@@ -30,7 +24,7 @@ You can set up your Docker Dev environment to handle requests for the real/prod 
 
 Obviously this is only useful for testing OAuth on your local device. It is not suitable for receiving webhooks or sharing the project with others.
 
-1. Browse the `apache/sites/localhost/` or `apache/sites/pub.localhost/` folders and choose a config that matches your needs the best (eg. PHP version, "public" folder)
+1. Browse the `apache/sites/test/` or `apache/sites/pub.test/` folders and choose a config that matches your needs the best (eg. PHP version, "public" folder)
 2. Copy that config file and save it to `apache/sites/acme-corp.conf`.
     - NOTE: The folder location and `.conf` file extension is important, but the name itself can be whatever you want.
 4. Edit your new config:
