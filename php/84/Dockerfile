@@ -30,6 +30,13 @@ RUN echo "alias artisan='php artisan'" >> /home/${CUSTOM_USER_NAME}/.zshrc \
   && echo "alias magento='php bin/magento'" >> /home/${CUSTOM_USER_NAME}/.zshrc \
   && echo "alias debug='sudo /usr/local/bin/change_debug_tool.sh'" >> /home/${CUSTOM_USER_NAME}/.zshrc
 
+# Copy NVM from root to custom user and configure it
+RUN cp -r /root/.nvm /home/${CUSTOM_USER_NAME}/.nvm \
+  && chown -R ${CUSTOM_USER_NAME}:${CUSTOM_USER_NAME} /home/${CUSTOM_USER_NAME}/.nvm \
+  && echo 'export NVM_DIR="$HOME/.nvm"' >> /home/${CUSTOM_USER_NAME}/.zshrc \
+  && echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> /home/${CUSTOM_USER_NAME}/.zshrc \
+  && echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> /home/${CUSTOM_USER_NAME}/.zshrc
+
 # Run the user specified commands
 ARG EXTRA_CMDS="echo 'None to run'"
 RUN eval $EXTRA_CMDS
