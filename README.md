@@ -43,7 +43,7 @@ It includes all the required dependencies for everyday PHP development with comm
 
 - PHP 5.6, all 7.x and all 8.x
 - Memcached 1.x
-- Valkey 8.x (the open source fork of Redis)
+- Valkey 9.x (the open source fork of Redis)
 - Meilisearch 1.x
 - Typesense 29.0
 - [Blackfire (Agent)](https://blackfire.io/) (latest)
