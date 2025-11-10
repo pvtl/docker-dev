@@ -37,7 +37,7 @@ It includes all the required dependencies for everyday PHP development with comm
 - Mailpit
 - MariaDB 11.8 LTS
 
-<p><i>* Available in latest PHP container</i></p>
+<p><i>* Only available in latest PHP container</i></p>
 
 **Optional Services**
 
