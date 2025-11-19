@@ -169,7 +169,7 @@ sudo su
 
 ### Step 2: Install dependencies
 
-> Note: Trixie ships with the new 2025 version of Micorsoft's signing key, but we intentionally downgrade it to use the old Bookworm (12.x) repo. We can clean this up when packages for Trixie become available.
+> Note: Trixie ships with the new 2025 version of Microsoft's signing key, but we intentionally downgrade it to use the old Bookworm (12.x) repo. We can clean this up when packages for Trixie become available.
 
 ```bash
 curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg \
