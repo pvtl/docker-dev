@@ -156,34 +156,35 @@ If you're ever unsure which path ImageMagick has been installed into, run `where
 
 ## Connecting to Microsoft SQL Server
 
-Our modern PHP images use Debian 13 (Trixie) under the hood. These instructions are specific to that version of Debian.
+You will need to install the PHP extensions for Microsoft SQL Server before attempting to connect.
 
-### Step 1: Switch to the root user
+Your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
+
+> Note: Uses Debian Bookworm (12.x) repo even though we're running Debian Trixie (13.x). We're waiting for Microsoft to publish the required packages for Trixie. It's a little weird, but it works.
+
+### Step 1: Switch to root
 ```bash
 sudo su
 ```
 
-### Step 2: Install dependencies from the Microsoft APT repository
+### Step 2: Install dependencies
+
+> Note: Trixie ships with the new 2025 version of Micorsoft's signing key, but we intentionally downgrade it to use the old Bookworm (12.x) repo. We can clean this up when packages for Trixie become available.
+
 ```bash
-curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc \
-  && curl https://packages.microsoft.com/config/debian/11/prod.list | tee /etc/apt/sources.list.d/mssql-release.list \
+curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg \
+  && curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list \
   && apt update \
   && ACCEPT_EULA=Y apt-get install -y unixodbc-dev msodbcsql18 mssql-tools18
 ```
 
-### Step 3: Install PIE/PECL extensions
+### Step 3: Install extensions
 
-For PHP 8.1+:
-```bash
-pie install microsoft/sqlsrv microsoft/pdo_sqlsrv
-```
-
-For PHP 8.0 and below:
 ```bash
 pecl install sqlsrv pdo_sqlsrv
 ```
 
-### Step 4: Exit the root user
+### Step 4: Exit root
 ```bash
 exit
 ```
@@ -193,12 +194,10 @@ exit
 sudo -E docker-php-ext-enable sqlsrv pdo_sqlsrv
 ```
 
-### Step 6: Confirm the extensions are installed
+### Step 6: Test
 ```bash
 php -m | grep sqlsrv
 ```
-
-> Your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
 
 
 ## Using Valkey as a session handler
