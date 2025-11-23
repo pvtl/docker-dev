@@ -10,5 +10,6 @@ services:
       - ./data/meilisearch:/meili_data
     environment:
       MEILI_MASTER_KEY: meilisearch_admin_key
+      MEILI_EXPERIMENTAL_DUMPLESS_UPGRADE: true
     networks:
       lde-network:
