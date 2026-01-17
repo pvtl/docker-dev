@@ -90,9 +90,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee
   && rm -rf /var/lib/apt/lists/*
 
 # Wordpress CLI
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-  && chmod +x wp-cli.phar \
-  && mv wp-cli.phar /usr/local/bin/wp
+COPY --from=wordpress:cli /usr/local/bin/wp /usr/local/bin/wp
 
 # Update site's directory permissions
 RUN chown -R www-data /var/www/
