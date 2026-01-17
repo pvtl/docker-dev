@@ -68,9 +68,7 @@ RUN chmod +x /usr/local/bin/change_debug_tool.sh \
   && /usr/local/bin/change_debug_tool.sh --disable-all
 
 # Composer
-RUN curl --silent --show-error https://getcomposer.org/installer | php \
-  && mv composer.phar /usr/local/bin/composer \
-  && composer clear-cache
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Mailpit
 # (so we can use it's "sendmail" compatible binary)
