@@ -3,7 +3,7 @@ services:
     container_name: typesense
     hostname: typesense
     restart: ${DOCKER_RESTART}
-    image: typesense/typesense:29.0
+    image: typesense/typesense:30.1
     ports:
       - 8108:8108
     volumes:

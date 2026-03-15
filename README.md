@@ -45,7 +45,7 @@ It includes all the required dependencies for everyday PHP development with comm
 - Memcached 1.x
 - Valkey 9.x (the open source fork of Redis)
 - Meilisearch 1.x
-- Typesense 29.0
+- Typesense 30.1
 - [Blackfire (Agent)](https://blackfire.io/) (latest)
 
 These optional services (eg. PHP 7.4) can be enabled by adding them to the `COMPOSE_FILE` list in `.env`. See the `.env` file for examples. Make sure you run `docker compose up -d --remove-orphans` after making changes to the `.env` file.
