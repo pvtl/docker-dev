@@ -69,9 +69,7 @@ RUN chmod +x /usr/local/bin/change_debug_tool.sh \
   && /usr/local/bin/change_debug_tool.sh --disable-all
 
 # Composer
-RUN curl --silent --show-error https://getcomposer.org/installer | php \
-  && mv composer.phar /usr/local/bin/composer \
-  && composer clear-cache
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Mailpit
 # (so we can use it's "sendmail" compatible binary)
@@ -93,9 +91,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee
   && rm -rf /var/lib/apt/lists/*
 
 # Wordpress CLI
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-  && chmod +x wp-cli.phar \
-  && mv wp-cli.phar /usr/local/bin/wp
+COPY --from=wordpress:cli /usr/local/bin/wp /usr/local/bin/wp
 
 # Update site's directory permissions
 RUN chown -R www-data /var/www/
