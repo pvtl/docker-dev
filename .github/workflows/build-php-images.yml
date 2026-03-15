@@ -16,6 +16,7 @@ on:
 env:
   REGISTRY: docker.io
   REGISTRY_ORG: wearepvtl
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
@@ -65,7 +66,7 @@ jobs:
 
       - name: Build and push by digest
         id: build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: php/src
           file: php/src/${{ env.PHP_VERSION_WITHOUT_DOT }}/Dockerfile
