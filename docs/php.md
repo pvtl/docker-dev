@@ -4,16 +4,16 @@ We use the [official PHP Docker images](https://hub.docker.com/_/php) and add a 
 
 
 ## Which versions are available?
-We offer 5.6, all 7.x and all 8.x. The default version is PHP 8.4.
+We offer 5.6, all 7.x and all 8.x. The default version is PHP 8.5.
 
 See the `/php` and `/php/src` folders for more details.
 
 
 ## How do I use a specific version?
-If you're happy with the default version of PHP 8.4 then you simply:
+If you're happy with the default version of PHP 8.5 then you simply:
 
 - Use `https://<folder>.localhost` in your browser
-- Use `devin 84` to jump into the 8.4 container and run PHP commands (eg. composer, artisan)
+- Use `devin 85` to jump into the 8.5 container and run PHP commands (eg. composer, artisan)
 
 There are two extra steps if you want a different version of PHP. Let's assume you want PHP 7.4:
 
@@ -47,9 +47,9 @@ If you want to install your own tools then see "How can I customise my container
 
 Each version of PHP can have it's own scheduled CRON jobs.
 
-1. Create a file called `custom_crontab` in the PHP folder of your choice (eg. `php/84/custom_crontab`).
+1. Create a file called `custom_crontab` in the PHP folder of your choice (eg. `php/85/custom_crontab`).
 1. Add your scheduled commands into `custom_crontab`
-1. Rebuild that PHP image (eg. for PHP 8.4): `docker compose build php84-fpm`
+1. Rebuild that PHP image (eg. for PHP 8.5): `docker compose build php85-fpm`
 1. Use the new image: `docker compose up -d`
 
 Your CRON entries should look something like this:
@@ -88,7 +88,7 @@ You can work around this issue by editing the hosts file inside the PHP containe
 
 Note, we always use the IP address of the `apache` container since it handles all HTTP requests.
 
-1. Exec into the PHP container (the source of the HTTP request): `docker compose exec php84-fpm bash`
+1. Exec into the PHP container (the source of the HTTP request): `docker compose exec php85-fpm bash`
 1. Find the IP address of the `apache` container: `ping -c 1 apache | awk -F '[()]' '{print $2}' | head -n 1`
 1. Edit the hosts file: `nano /etc/hosts`
 1. Append to the end `192.168.103.100   wp.pub.localhost` (adjust the destination hostname to suit)
@@ -113,7 +113,7 @@ We are using the [official PHP Docker images](https://hub.docker.com/_/php) and 
 Here's how you could install the "sockets" extension:
 
 ```bash
-devin 84
+devin 85
 sudo -E docker-php-ext-install sockets
 exit
 docker-compose restart
@@ -122,7 +122,7 @@ docker-compose restart
 Or here is how you can install a PIE extension (for PHP 8.1+):
 
 ```bash
-devin 84
+devin 85
 sudo -E pie install swoole/swoole
 exit
 docker-compose restart
@@ -143,7 +143,7 @@ docker-compose restart
 Some extensions (like ImageMagick) depend on operating system packages.
 
 ```bash
-devin 84
+devin 85
 sudo apt-get update
 sudo apt-get install libmagickwand-dev imagemagick
 sudo -E pie install imagick/imagick

@@ -58,13 +58,13 @@ services:
     networks:
       lde-network:
 
-  # PHP 8.4 ---------------------------------------------------
-  php84-fpm:
-    container_name: php84
-    hostname: php84
+  # PHP 8.5 ---------------------------------------------------
+  php85-fpm:
+    container_name: php85
+    hostname: php85
     build:
       context: ./php
-      dockerfile: ./84/Dockerfile
+      dockerfile: ./85/Dockerfile
       args:
         - CUSTOM_USER_NAME=${CUSTOM_USER_NAME}
         - CUSTOM_UID=${CUSTOM_UID}

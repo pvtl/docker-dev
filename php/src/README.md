@@ -43,7 +43,7 @@ We use the [official PHP images](https://hub.docker.com/_/php) and add:
 
 ### Step 1: Edit the dockerfile
 
-Each PHP version has it's own dockerfile (eg. `php/src/84/Dockerfile` for PHP 8.4).
+Each PHP version has it's own dockerfile (eg. `php/src/85/Dockerfile` for PHP 8.5).
 
 ### Step 2: Test locally (optional)
 
@@ -51,20 +51,20 @@ Before pushing to Docker Hub, you can build and test the images locally. This wi
 
 #### Build a single PHP version locally
 
-For example, to build PHP 8.4 locally:
+For example, to build PHP 8.5 locally:
 
 ```bash
 # Navigate to the php/src directory
 cd php/src
 
 # Build the image with the same tag structure as the GitHub workflow
-docker build -t wearepvtl/php-fpm-8.4:latest -f 84/Dockerfile .
+docker build -t wearepvtl/php-fpm-8.5:latest -f 85/Dockerfile .
 ```
 
 #### (optional) Test the locally built image
 
 ```bash
-docker run --rm -it wearepvtl/php-fpm-8.4:latest zsh
+docker run --rm -it wearepvtl/php-fpm-8.5:latest zsh
 ```
 
 #### Integration Testing
@@ -81,7 +81,7 @@ docker compose down --remove-orphans
 docker compose up -d --build
 
 # Test them
-devin84
+devin85
 php -v
 ```
 

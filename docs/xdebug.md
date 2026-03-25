@@ -20,7 +20,7 @@ Exec into the desired PHP container, run "debug --enable xdebug", then restart t
 
 ```
 # Choose the PHP version you want
-devin 84
+devin 85
 debug --enable xdebug
 exit
 docker-compose restart
@@ -32,7 +32,7 @@ Same as above, but run "debug --disable-all":
 
 ```
 # Choose the PHP version you want
-devin 84
+devin 85
 debug --disable-all
 exit
 docker-compose restart
