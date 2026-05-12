@@ -43,7 +43,7 @@ COPY --from=ghcr.io/php/pie:bin /pie /usr/bin/pie
 # PHP Extensions
 RUN pie install php-memcached/php-memcached \
   && pie install phpredis/phpredis \
-#  && pie install xdebug/xdebug \
+  && pie install xdebug/xdebug \
   && pie install pecl/pcov \
   && pie install pecl/mcrypt \
   && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli pdo_mysql soap xsl zip \
