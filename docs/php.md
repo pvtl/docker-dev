@@ -5,9 +5,9 @@ We use the [official PHP Docker images](https://hub.docker.com/_/php) and add a 
 
 ## Installation
 
-PHP 8.5 is a **default** service and is **always enabled and cannot be disabled**.
+PHP 8.5 is the **default** service and is included in the base `docker-compose.yml` configuration.
 
-Other PHP versions (5.6, all 7.x and all 8.x) are **optional** and are **not installed or enabled by default**. To enable an additional version, add its corresponding YAML file to the `COMPOSE_FILE` list in the `.env` file. For example, to enable PHP 7.4 on Unix systems:
+Other PHP versions are **optional** and are **not installed or enabled by default**. To enable an additional version, add its corresponding YAML file to the `COMPOSE_FILE` list in `.env`. For example, to enable PHP 7.4 for a legacy project on Unix systems (including WSL; use semicolons instead of colons on non-WSL Windows):
 
 ```bash
 COMPOSE_FILE=docker-compose.yml:opt/php74.yml
@@ -17,7 +17,7 @@ After updating the `.env` file, run `docker compose up -d --remove-orphans` to s
 
 
 ## Which versions are available?
-We offer 5.6, all 7.x and all 8.x. The default version is PHP 8.5.
+We provide PHP 5.6, 7.0–7.4, and 8.0–8.6. PHP 8.5 is the default stable version. PHP 8.6 is a prerelease (currently built from Beta 3) and can be enabled for testing by adding `opt/php86.yml` to `COMPOSE_FILE`.
 
 See the `/php` and `/php/src` folders for more details.
 
@@ -128,7 +128,7 @@ Here's how you could install the "sockets" extension:
 devin 85
 sudo -E docker-php-ext-install sockets
 exit
-docker-compose restart
+docker compose restart
 ```
 
 Or here is how you can install a PIE extension (for PHP 8.1+):
@@ -137,17 +137,17 @@ Or here is how you can install a PIE extension (for PHP 8.1+):
 devin 85
 sudo -E pie install swoole/swoole
 exit
-docker-compose restart
+docker compose restart
 ```
 
-For older PHP versions (8.0 and below), you can still use PECL:
+For older PHP versions (8.0 and below), you can still use PECL. Choose an extension release compatible with your PHP version; this example is for PHP 8.0:
 
 ```bash
 devin 80
 sudo -E pecl install -f swoole-5.1.3
 sudo -E docker-php-ext-enable swoole
 exit
-docker-compose restart
+docker compose restart
 ```
 
 > Your extensions will need to be re-installed after you rebuild or upgrade your Docker containers. If you want your changes to persist, consider using the "custom_scripts" feature (see the [General FAQ](general-faq.md#how-can-i-customise-my-containers)).
@@ -160,7 +160,7 @@ sudo apt-get update
 sudo apt-get install libmagickwand-dev imagemagick
 sudo -E pie install imagick/imagick
 exit
-docker-compose restart
+docker compose restart
 ```
 
 If you're ever unsure which path ImageMagick has been installed into, run `whereis convert`. It should return something like `convert: /usr/bin/convert`.
@@ -237,10 +237,6 @@ The default version of PHP is typically the latest stable version.
 
 But perhaps you want to use PHP 7.4 for all URLs which do not specify a PHP version (like `<folder>.localhost` and `<folder>.pub.localhost`).
 
-1. Ensure the PHP 7.4 image is added to the `COMPOSE_FILE` list in `.env` (ie. `opt/php74.yml`)
-1. Cut the `ServerAlias *.pub.*` line from `apache/sites/pub.localhost/php<LATEST_VERSION>.conf`
-1. Paste into `apache/sites/pub.localhost/php74.conf` (after the first `ServerAlias ..` line)
-1. Cut the `ServerAlias *.*` line from `apache/sites/localhost/php<LATEST_VERSION>.conf`
-1. Paste into `apache/sites/localhost/php74.conf` (after the first `ServerAlias ..` line)
-1. Rebuild Apache `docker compose build apache`
-1. Bring it back up `docker compose up -d --remove-orphans`
+1. Add `opt/php74.yml` to the `COMPOSE_FILE` list in `.env` and run `docker compose up -d --remove-orphans`.
+1. In both `apache/sites/localhost/zzz-default.conf` and `apache/sites/pub.localhost/zzz-default.conf`, replace `php85-fpm:9000` with `php74-fpm:9000` in each `SetHandler` directive. Update both the HTTP and HTTPS virtual hosts in each file.
+1. Restart Apache to reload these bind-mounted configuration files: `docker compose restart apache`.

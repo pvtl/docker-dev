@@ -41,14 +41,14 @@ It includes all the required dependencies for everyday PHP development with comm
 **Optional Services**
 
 - PostgreSQL 18.x
-- PHP 5.6, all 7.x and all 8.x
+- PHP 5.6, 7.0–7.4, 8.0–8.4, and 8.6 (prerelease)
 - Memcached 1.x
 - Valkey 9.x (the open source fork of Redis)
 - Meilisearch 1.x
 - Typesense 30.x
 - [Blackfire (Agent)](https://blackfire.io/) (latest)
 
-These optional services (eg. PHP 7.4) can be enabled by adding them to the `COMPOSE_FILE` list in `.env`. See the `.env` file for examples. Make sure you run `docker compose up -d --remove-orphans` after making changes to the `.env` file.
+These optional services (eg. PHP 7.4 for a legacy project) can be enabled by adding them to the `COMPOSE_FILE` list in `.env`. See `.env.example` for examples. PHP 8.6 is a prerelease and is only enabled when you add `opt/php86.yml`; PHP 8.5 remains the default stable version. Make sure you run `docker compose up -d --remove-orphans` after making changes to the `.env` file.
 
 
 ## Prerequisites ⚠️
@@ -64,7 +64,7 @@ It's assumed that all of your projects are stored as folders in `~/Projects/`. Y
 
 Here is the the simplest form of domain mapping:
 
-- `https://<folder>.localhost` will use the latest version of PHP and load the code from `~/Projects/<folder>/`
+- `https://<folder>.localhost` will use the default PHP version (8.5) and load the code from `~/Projects/<folder>/`
 
 Please note that PHP is upgraded yearly. If you want to use a specific version of PHP, you can specify it in the URL:
 
@@ -72,7 +72,7 @@ Please note that PHP is upgraded yearly. If you want to use a specific version o
 
 Or, if you want the code loaded from the "public" folder:
 
-* `https://<folder>.pub.localhost` will use latest version of PHP and load the code from `~/Projects/<folder>/public/`
+* `https://<folder>.pub.localhost` will use the default PHP version (8.5) and load the code from `~/Projects/<folder>/public/`
 
 Lastly, you can combine the two:
 
