@@ -8,7 +8,7 @@ This repository includes a GitHub Actions workflow (`build-php-images.yml`) that
 
 - **Multi-platform builds**: Supports both AMD64 (Intel) and ARM64 (Apple Silicon) architectures
 - **Distributed builds**: Uses matrix strategy to build images across multiple runners in parallel
-- **Multiple PHP versions**: Currently builds PHP 8.2, 8.3, 8.4, and 8.5
+- **Multiple PHP versions**: Currently builds PHP 8.2, 8.3, 8.4, 8.5, and 8.6
 - **Manual trigger**: Run on demand via workflow dispatch
 
 ### Setup Requirements
@@ -29,7 +29,7 @@ When you run it, you can optionally specify a custom tag. This defaults to `late
 ### Workflow Process
 
 1. **Build Job**:
-   - Creates a matrix of 8 build combinations (4 PHP versions × 2 platforms)
+   - Creates a matrix of 10 build combinations (5 PHP versions × 2 platforms)
    - Each combination builds and pushes a platform-specific image by digest
    - Uploads build digests as temporary artifacts (retained for 1 day)
 
@@ -40,7 +40,7 @@ When you run it, you can optionally specify a custom tag. This defaults to `late
 
 ### Generated Images
 
-The workflow creates 3-5 modern PHP src images. eg. `wearepvtl/php-fpm-8.4:latest`
+The workflow creates PHP src images, eg. `wearepvtl/php-fpm-8.6:latest`
 
 Each image supports both `linux/amd64` and `linux/arm64` platforms.
 
@@ -56,8 +56,8 @@ Each image supports both `linux/amd64` and `linux/arm64` platforms.
 To add a new PHP version (e.g., PHP 9.0):
 
 1. Create the Dockerfile: `php/src/90/Dockerfile` (note: folder uses non-dotted version)
-2. Update the matrix in `build-php-images.yml`:
+2. Add the version to both matrices in `build-php-images.yml`:
    ```yaml
-   php-version: ['8.2', '8.3', '8.4', '8.5', '9.0']
+   php-version: ['8.2', '8.3', '8.4', '8.5', '8.6', '9.0']
    ```
 3. Manually trigger the GitHub Action

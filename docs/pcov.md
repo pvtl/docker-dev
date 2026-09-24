@@ -2,7 +2,9 @@
 
 PCOV is a lightweight PHP extension for code coverage analysis.
 
-We only support PHP 8.1+ for PCOV. The extension is disabled by default.
+We support PHP 8.1–8.5 for PCOV. PHP 8.6 support is coming soon.
+
+The extension is disabled by default.
 
 
 ## How it works
