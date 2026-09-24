@@ -18,6 +18,7 @@ RUN apt update && apt install -y --no-install-recommends \
     libjpeg62-turbo-dev \
     libmemcached-dev \
     libpng-dev \
+    libpq-dev \
     libssl-dev \
     libwebp-dev \
     libxml2-dev \
@@ -44,7 +45,7 @@ RUN pie install php-memcached/php-memcached \
   && pie install xdebug/xdebug \
   && pie install pecl/pcov \
   && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
-  && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli pdo_mysql soap xsl zip gd \
+  && docker-php-ext-install -j$(nproc) bcmath calendar exif intl mysqli pdo_mysql pdo_pgsql soap xsl zip gd \
   && docker-php-ext-enable memcached redis xdebug pcov \
   && mv /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini.DISABLED
 

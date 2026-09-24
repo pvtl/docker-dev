@@ -12,6 +12,7 @@ opt/custom/*
 # Persistent Data
 mysql/data/*
 data/meilisearch/*
+data/postgres/*
 data/typesense/*
 
 # PHP

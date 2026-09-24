@@ -40,6 +40,7 @@ It includes all the required dependencies for everyday PHP development with comm
 
 **Optional Services**
 
+- PostgreSQL 18.x
 - PHP 5.6, all 7.x and all 8.x
 - Memcached 1.x
 - Valkey 9.x (the open source fork of Redis)
@@ -204,6 +205,7 @@ Docker must be running and these commands must be run inside the project root fo
     - [Blackfire PHP Profiler](docs/blackfire-php-profiler.md)
     - [Xdebug](docs/xdebug.md)
 - [MariaDB / MySQL Database](docs/mariadb-database.md)
+- [PostgreSQL Database](docs/postgresql-database.md)
 - [Mailpit (Email Testing)](docs/mailpit-smtp.md)
 - [Node.js](docs/nodejs.md)
 - [Valkey / Redis](docs/valkey.md)

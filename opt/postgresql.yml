@@ -1,0 +1,17 @@
+services:
+  postgres:
+    container_name: postgres
+    hostname: postgres
+    restart: ${DOCKER_RESTART}
+    image: pgvector/pgvector:pg18
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql
+      - ./opt/postgresql/initdb/10-pgvector.sql:/docker-entrypoint-initdb.d/10-pgvector.sql:ro
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_DB: template1
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dbroot}
+    networks:
+      lde-network:
