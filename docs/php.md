@@ -17,7 +17,7 @@ After updating the `.env` file, run `docker compose up -d --remove-orphans` to s
 
 
 ## Which versions are available?
-We provide PHP 5.6, 7.0–7.4, and 8.0–8.6. PHP 8.5 is the default stable version. PHP 8.6 is a prerelease (currently built from Beta 3) and can be enabled for testing by adding `opt/php86.yml` to `COMPOSE_FILE`.
+We provide PHP 5.6, 7.x, and 8.x. PHP 8.5 is the default stable version.
 
 See the `/php` and `/php/src` folders for more details.
 

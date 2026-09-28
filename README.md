@@ -41,7 +41,7 @@ It includes all the required dependencies for everyday PHP development with comm
 **Optional Services**
 
 - PostgreSQL 18.x
-- PHP 5.6, 7.0–7.4, 8.0–8.4, and 8.6 (prerelease)
+- PHP 5.6, 7.x, 8.x, and 8.6 (prerelease)
 - Memcached 1.x
 - Valkey 9.x (the open source fork of Redis)
 - Meilisearch 1.x
