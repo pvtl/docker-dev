@@ -11,5 +11,6 @@ services:
     environment:
       MEILI_MASTER_KEY: meilisearch_admin_key
       MEILI_EXPERIMENTAL_DUMPLESS_UPGRADE: true
+      MEILI_UPGRADE_DB: true
     networks:
       lde-network:
