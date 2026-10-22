@@ -1,4 +1,4 @@
-FROM php:8.6.0RC2-fpm-trixie
+FROM php:8.6.0RC4-fpm-trixie
 
 LABEL maintainer.name="Pivotal Agency" \
       maintainer.email="tech@pvtl.io"
